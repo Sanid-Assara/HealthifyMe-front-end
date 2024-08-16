@@ -32,36 +32,58 @@ export default function Navbar() {
                 tabIndex={0}
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-64 p-2 shadow text-neutral"
               >
-                <li className="text-lg font-bold">Home</li>
-                <li className="text-lg font-bold">Recipes</li>
-                <li className="text-lg font-bold">Workouts</li>
-                <li className="text-lg font-bold">Community</li>
+                <NavLink to="/">
+                  <li className="text-lg font-bold">Home</li>
+                </NavLink>
+                <NavLink to="/recipes/explore">
+                  <li className="text-lg font-bold">Recipes</li>
+                </NavLink>
+                <NavLink to="/workout/explore">
+                  <li className="text-lg font-bold">Workouts</li>
+                </NavLink>
+                <NavLink to="/community">
+                  <li className="text-lg font-bold">Community</li>
+                </NavLink>
               </ul>
             </div>
-            <img src={logo} alt="Logo HealthifyMe" width="60px" />
-            <p className="text-3xl font-light pl-4 hidden lg:flex">
-              HealthifyMe
-            </p>
+            <NavLink to="/">
+              <img src={logo} alt="Logo HealthifyMe" width="60px" />
+              <p className="text-3xl font-light pl-4 hidden lg:flex">
+                HealthifyMe
+              </p>
+            </NavLink>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu gap-8 menu-horizontal px-1">
-              <li className="text-lg font-bold">Home</li>
-              <li className="text-lg font-bold">Recipes</li>
-              <li className="text-lg font-bold">Workouts</li>
-              <li className="text-lg font-bold">Community</li>
+              <NavLink to="/">
+                <li className="text-lg font-bold">Home</li>
+              </NavLink>
+              <NavLink to="/recipes/explore">
+                <li className="text-lg font-bold">Recipes</li>
+              </NavLink>
+              <NavLink to="/workout/explore">
+                <li className="text-lg font-bold">Workouts</li>
+              </NavLink>
+              <NavLink to="/community">
+                <li className="text-lg font-bold">Community</li>
+              </NavLink>
             </ul>
           </div>
           {/* Navbar end when user still not register or login*/}
           <div className="navbar-end gap-6">
-            <button className="btn btn-outline btn-secondary rounded-full">
-              Signup
-            </button>
-            <button className="btn btn-active btn-secondary rounded-full">
-              Login
-            </button>
+            <NavLink to="/signup">
+              <button className="btn btn-outline btn-secondary rounded-full">
+                Signup
+              </button>
+            </NavLink>
+            <NavLink to="/login">
+              <button className="btn btn-active btn-secondary rounded-full">
+                Login
+              </button>
+            </NavLink>
           </div>
           {/* Navbar end when user is Login */}
-          <div className="navbar-end gap-6">
+          <div className="navbar-end gap-2">
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
@@ -70,7 +92,7 @@ export default function Navbar() {
               >
                 <div className="w-10 rounded-full">
                   <img
-                    alt="Tailwind CSS Navbar component"
+                    alt="User avatar"
                     src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                   />
                 </div>
@@ -80,13 +102,13 @@ export default function Navbar() {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow text-neutral"
               >
                 <li>
-                  <a>Profile</a>
+                  <NavLink to="/dashboard">Profile</NavLink>
                 </li>
                 <li>
-                  <a>Settings</a>
+                  <NavLink to="/settings">Settings</NavLink>
                 </li>
                 <li>
-                  <a>Logout</a>
+                  <NavLink to="/">Logout</NavLink>
                 </li>
               </ul>
             </div>

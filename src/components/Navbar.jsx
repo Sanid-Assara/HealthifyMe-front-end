@@ -46,7 +46,7 @@ export default function Navbar() {
                 </NavLink>
               </ul>
             </div>
-            <NavLink to="/">
+            <NavLink to="/" className="flex items-center justify-center">
               <img src={logo} alt="Logo HealthifyMe" width="60px" />
               <p className="text-3xl font-light pl-4 hidden lg:flex">
                 HealthifyMe

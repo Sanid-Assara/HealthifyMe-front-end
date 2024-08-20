@@ -1,6 +1,7 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 export default function Login() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -86,7 +87,7 @@ export default function Login() {
               </label>
               <div className="text-sm">
                 <a
-                  href="/forgot-password"
+                  onClick={() => navigate("/forgot-password")}
                   className="font-semibold text-blue-400 hover:text-blue-300 hover:underline"
                 >
                   Forgot password?
@@ -124,7 +125,7 @@ export default function Login() {
         <p className="mt-10 text-center text-sm text-gray-600">
           Not a member?{" "}
           <a
-            href="/signup"
+            onClick={() => navigate("/signup")}
             className="font-semibold leading-6 hover:underline "
           >
             Signup

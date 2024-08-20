@@ -1,18 +1,18 @@
 const mockPeople = [
   {
-    name: "Amarbayar Bold",
+    name: "Erika Mora",
     role: "Front-End Developer",
     imageUrl:
-      "https://plus.unsplash.com/premium_photo-1664536392896-cd1743f9c02c?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://yt3.googleusercontent.com/UT-tdd_GnnVlmuU6StMV0SRXfJdHEYi4LOigD6KSUZdH4T1drdMiefaQiePi4VCh6I_Ox7Jfqbg=s900-c-k-c0x00ffffff-no-rj",
     xUrl: "#",
     linkedinUrl: "#",
     bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. At laudantium quasi in. Lorem ipsum dolor sit amet consectetur adipisicing elit. At laudantium quasi in.",
   }, // More people...
   {
-    name: "Amarbayar Bold",
+    name: "Sanid Assara",
     role: "Front-End Developer",
     imageUrl:
-      "https://plus.unsplash.com/premium_photo-1664536392896-cd1743f9c02c?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://yt3.googleusercontent.com/UT-tdd_GnnVlmuU6StMV0SRXfJdHEYi4LOigD6KSUZdH4T1drdMiefaQiePi4VCh6I_Ox7Jfqbg=s900-c-k-c0x00ffffff-no-rj",
     xUrl: "#",
     linkedinUrl: "#",
     bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. At laudantium quasi in. Lorem ipsum dolor sit amet consectetur adipisicing elit. At laudantium quasi in.",
@@ -21,16 +21,16 @@ const mockPeople = [
     name: "Amarbayar Bold",
     role: "Front-End Developer",
     imageUrl:
-      "https://plus.unsplash.com/premium_photo-1664536392896-cd1743f9c02c?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://yt3.googleusercontent.com/UT-tdd_GnnVlmuU6StMV0SRXfJdHEYi4LOigD6KSUZdH4T1drdMiefaQiePi4VCh6I_Ox7Jfqbg=s900-c-k-c0x00ffffff-no-rj",
     xUrl: "#",
     linkedinUrl: "#",
     bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. At laudantium quasi in. Lorem ipsum dolor sit amet consectetur adipisicing elit. At laudantium quasi in.",
   },
   {
-    name: "Amarbayar Bold",
+    name: "John Doe",
     role: "Front-End Developer",
     imageUrl:
-      "https://plus.unsplash.com/premium_photo-1664536392896-cd1743f9c02c?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://yt3.googleusercontent.com/UT-tdd_GnnVlmuU6StMV0SRXfJdHEYi4LOigD6KSUZdH4T1drdMiefaQiePi4VCh6I_Ox7Jfqbg=s900-c-k-c0x00ffffff-no-rj",
     xUrl: "#",
     linkedinUrl: "#",
     bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. At laudantium quasi in.",

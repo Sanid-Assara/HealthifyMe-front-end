@@ -19,6 +19,7 @@ import Signup from "./pages/Signup";
 import Success from "./pages/Success";
 import UserDashboard from "./pages/UserDashboard";
 import WorkoutExploration from "./pages/WorkoutExploration";
+import NutriAnalysis from "./pages/NutritionAnalysis";
 
 function App() {
   const router = createBrowserRouter(
@@ -36,6 +37,7 @@ function App() {
         <Route path="/success" element={<Success />} />
         <Route path="/dashboard" element={<UserDashboard />} />
         <Route path="/workout/explore" element={<WorkoutExploration />} />
+        <Route path="/nutri-analysis" element={<NutriAnalysis />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     )

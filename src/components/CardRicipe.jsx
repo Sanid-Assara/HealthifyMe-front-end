@@ -5,7 +5,16 @@ export default function CardRecipe({ recipe }) {
         className="mb-4 bg-base-100 shadow-md relative rounded-lg"
         key={recipe.uri}
       >
-        <img src={recipe.image} alt={recipe.label} className="rounded-t-lg" />
+        <div className="flex justify-center relative overflow-hidden group cursor-pointer rounded-lg">
+          <img
+            src={recipe.image}
+            alt={recipe.label}
+            className="w-full h-full object-cover"
+          />
+          <div className="bg-neutral text-base-100 font-bold opacity-70 absolute bottom-0 left-0 right-0 text-center content-center h-full translate-y-full transition group-hover:translate-y-0">
+            See recipe
+          </div>
+        </div>
         <div className="p-4 pb-8">
           <p className="font-bold text-xl text-primary">{recipe.label}</p>
           <div className="capitalize absolute top-2 right-2">

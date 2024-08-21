@@ -73,13 +73,13 @@ export default function NutriAnalysis() {
     )
     .map((item) => (
       <div key={item.id} className="mb-4 relative rounded-lg">
-        <div className="flex justify-center relative overflow-hidden group cursor-pointer border border-gray-300 rounded-lg">
+        <div className="flex justify-center relative overflow-hidden group cursor-pointer rounded-lg">
           <img
             src={item.url}
             alt={item.name}
             className="w-full h-full object-cover"
           />
-          <div className="bg-secondary text-neutral absolute bottom-0 left-0 right-0 text-center py-2 translate-y-full transition group-hover:translate-y-0">
+          <div className="bg-secondary text-neutral font-bold opacity-70 absolute bottom-0 left-0 right-0 text-center content-center h-full translate-y-full transition group-hover:translate-y-0">
             See recipe
           </div>
         </div>

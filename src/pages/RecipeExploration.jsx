@@ -69,7 +69,7 @@ export default function RecipeExploration() {
                   Search
                 </button>
               </label>
-              <div className="form-control">
+              {/* <div className="form-control">
                 <label className="cursor-pointer label mx-4">
                   Advance options
                   <input
@@ -77,7 +77,7 @@ export default function RecipeExploration() {
                     className="checkbox checkbox-secondary ml-2"
                   />
                 </label>
-              </div>
+              </div> */}
             </form>
           </div>
           {recipes.length > 0 ? (

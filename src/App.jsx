@@ -17,7 +17,7 @@ import RecipeExploration from "./pages/RecipeExploration";
 import Settings from "./pages/Settings";
 import Signup from "./pages/Signup";
 import Success from "./pages/Success";
-import UserDashboard from "./pages/UserDashboard";
+import Profile from "./pages/Profile";
 import WorkoutExploration from "./pages/WorkoutExploration";
 import NutriAnalysis from "./pages/NutritionAnalysis";
 
@@ -35,7 +35,7 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/success" element={<Success />} />
-        <Route path="/dashboard" element={<UserDashboard />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/workout/explore" element={<WorkoutExploration />} />
         <Route path="/nutri-analysis" element={<NutriAnalysis />} />
         <Route path="*" element={<NotFound />} />

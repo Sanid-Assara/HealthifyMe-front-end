@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 export default function Login() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -22,8 +23,8 @@ export default function Login() {
     if (!form.password) {
       tempErrors.password = "Password is required!";
       isValid = false;
-    } else if (form.password.length < 6) {
-      tempErrors.password = "Password must be at least 6 characters";
+    } else if (form.password.length < 8) {
+      tempErrors.password = "Password must be at least 8 characters";
       isValid = false;
     }
 
@@ -35,19 +36,45 @@ export default function Login() {
     setForm((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     //validate
     if (!validateForm()) return;
     try {
       setLoading(true);
-      //API here
+
+      // API call to login
+      const response = await axios.post(
+        "https://healthifyme-api.onrender.com/API/users/login",
+        {
+          email: form.email,
+          password: form.password,
+        },
+        {
+          withCredentials: true, // To ensure cookies (like JWT) are stored
+        }
+      );
+
+      console.log(response.data);
+
+      // Assuming response contains a message and token
+      if (response.data.token) {
+        // Store the token in localStorage or cookies (depends on your requirement)
+        localStorage.setItem("token", response.data.token);
+
+        // Redirect user after successful login
+        navigate("/profile");
+      } else {
+        setErrors({ form: "Login failed, please try again." });
+      }
     } catch (err) {
       console.error("Login failed", err);
+      setErrors({ form: "Invalid email or password." });
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
@@ -107,6 +134,9 @@ export default function Login() {
               />
               {errors.password && (
                 <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+              )}
+              {errors.form && (
+                <p className="text-red-500 text-sm mt-1">{errors.form}</p>
               )}
             </div>
           </div>

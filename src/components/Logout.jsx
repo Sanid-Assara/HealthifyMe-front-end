@@ -10,7 +10,10 @@ export default function Logout() {
       await axios.post(
         "https://healthifyme-api.onrender.com/API/users/logout",
         {},
-        { withCredentials: true }
+        {
+          withCredentials: true,
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
       );
 
       localStorage.removeItem("token");

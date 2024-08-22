@@ -6,7 +6,7 @@ export const SearchContext = createContext();
 const SearchProvider = ({ children }) => {
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("Vegan");
+  const [query, setQuery] = useState("easy");
   const [loading, setLoading] = useState(true);
 
   const baseUrl = "https://api.edamam.com/api/recipes/v2";

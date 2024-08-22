@@ -1,35 +1,68 @@
-import { useState, useContext } from "react";
-import Search from "../components/Search";
-import CardRecipe from "../components/CardRicipe";
-import SkeletonCard from "../components/SkeletonCard";
-import { SearchContext } from "../context/SearchProvider";
+// import { useContext, useState } from "react";
+// import { SearchContext } from "../context/SearchProvider";
 
 export default function NutriAnalysis() {
-  const { recipes, query } = useContext(SearchContext);
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="container m-auto px-10 lg:px-0">
         <h1 className="text-4xl font-bold text-primary text-center pt-16">
           Nutrition Analysis
         </h1>
-        <Search />
-        {recipes.length > 0 ? (
-          <>
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-              {recipes.map((r) => (
-                <CardRecipe key={r.recipe.uri} recipe={r.recipe} />
-              ))}
-            </div>
-            <div className="join flex justify-between lg:justify-evenly py-10">
-              <button className="join-item btn btn-secondary w-28">
-                « Prev
-              </button>
-              <button className="join-item btn btn-secondary w-28">
-                Next »
-              </button>
-            </div>
-          </>
-        ) : (
+        <div className="py-12">
+          <form className="flex justify-center gap-x-6">
+            <label className="input input-bordered flex items-center gap-2">
+              <input
+                type="text"
+                id="search"
+                className="grow"
+                value=""
+                placeholder="Ingredient"
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                className="h-4 w-4 opacity-70"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </label>
+
+            <label className="input input-bordered flex items-center w-28 ">
+              <input
+                type="text"
+                id="amount"
+                className="grow"
+                placeholder="amount"
+              />
+            </label>
+            <select className="select select-secondary w-36 max-w-xs" id="unit">
+              <option disabled selected>
+                Select a unit
+              </option>
+              <option value="g">Gram</option>
+              <option value="kg">Kilogramm</option>
+              <option value="oz">Onza</option>
+              <option value="cup">Cup</option>
+              <option value="whole">Piece</option>
+              <option value="ml">milliliter</option>
+            </select>
+            <button className="btn btn-secondary" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+        {/* {recipes.length > 0 ? ( */}
+        <>
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <p>Nutrition value of a product</p>
+          </div>
+        </>
+        {/* ) : (
           <>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               <SkeletonCard />
@@ -38,7 +71,7 @@ export default function NutriAnalysis() {
               <SkeletonCard />
             </div>
           </>
-        )}
+        )} */}
       </div>
     </div>
   );

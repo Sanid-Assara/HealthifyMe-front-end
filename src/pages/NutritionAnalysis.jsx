@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Search from "../components/Search";
 import CardRecipe from "../components/CardRicipe";
 import SkeletonCard from "../components/SkeletonCard";
+import { SearchContext } from "../context/SearchProvider";
 
-export default function NutriAnalysis(recipes) {
+export default function NutriAnalysis() {
+  const { recipes, query } = useContext(SearchContext);
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="container m-auto px-10 lg:px-0">

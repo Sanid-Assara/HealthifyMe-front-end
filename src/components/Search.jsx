@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { SearchContext } from "../context/SearchProvider";
 
-export default function Search({ search, updateSearch, handleSearch }) {
+export default function Search() {
+  const { search, updateSearch, handleSearch } = useContext(SearchContext);
+
   const dietOptions = [
     { value: "", text: "Select a diet" },
     { value: "vegetarian", text: "Vegetarian" },
@@ -10,20 +13,38 @@ export default function Search({ search, updateSearch, handleSearch }) {
     { value: "low-carb", text: "Low-Carb" },
     { value: "low-fat", text: "Low-Fat" },
     { value: "low-sodium", text: "Low-Sodium" },
-    { value: "high-fiber", text: "High-Fiber" },
     { value: "low-sugar", text: "Low-Sugar" },
     { value: "alcohol-free", text: "Alcohol-Free" },
     { value: "balanced", text: "Balanced" },
     { value: "immunity", text: "Immunity" },
   ];
 
-  const allergiesOptions = [];
-
   const [selected, setSelected] = useState(dietOptions[0].value);
 
-  const handleChange = (e) => {
+  const allergieOptions = [
+    { value: "", text: "Allergies" },
+    { value: "gluten", text: "Gluten" },
+    { value: "eggs", text: "Eggs" },
+    { value: "soy", text: "Soy" },
+    { value: "wheat", text: "Wheat" },
+    { value: "fish", text: "fish" },
+    { value: "shellfish", text: "Shellfish" },
+    { value: "nuts", text: "Nuts" },
+    { value: "peanuts", text: "Peanuts" },
+  ];
+
+  const [selectedAllergie, setSelectedAllergie] = useState(
+    allergieOptions[0].value
+  );
+
+  const handleDiet = (e) => {
     console.log(e.target.value);
     setSelected(e.target.value);
+  };
+
+  const handleAllergie = (e) => {
+    console.log(e.target.value);
+    setSelectedAllergie(e.target.value);
   };
 
   console.log(search);
@@ -60,55 +81,26 @@ export default function Search({ search, updateSearch, handleSearch }) {
             className="select select-secondary w-40 max-w-xs"
             id="diet"
             value={selected}
-            onChange={handleChange}
+            onChange={handleDiet}
           >
             {dietOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.text}
               </option>
             ))}
-            {/* <option disabled selected>
-              Select Diet
-            </option>
-            <option value="Vegetarian">Vegetarian </option>
-            <option value="Vegan">Vegan </option>
-            <option value="High-Fiber">High-Fiber</option>
-            <option value="High-Protein">High-Protein</option>
-            <option value="Low-Carb">Low-Carb</option>
-            <option value="Low-Fat">Low-Fat </option>
-            <option value="Low-Sodium">Low-Sodium </option>
-            <option value="Low-Sugar">Low-Sugar</option>
-            <option value="Alcohol-Free">Alcohol-Free </option>
-            <option value="Balanced">Balanced</option>
-            <option value="Immunity">Immunity</option> */}
           </select>
           <select
             className="select select-secondary w-40 max-w-xs"
             id="allergies"
+            value={selectedAllergie}
+            onChange={handleAllergie}
           >
-            <option disabled selected>
-              Allergies
-            </option>
-
-            <option>Gluten </option>
-            <option>Eggs </option>
-            <option>Soy </option>
-            <option>Wheat </option>
-            <option>Fish </option>
-            <option>Shellfish </option>
-            <option>Tree </option>
-            <option>Nuts </option>
-            <option>Peanuts</option>
+            {allergieOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.text}
+              </option>
+            ))}
           </select>
-          {/* <div className="form-control">
-            <label className="cursor-pointer label mx-4">
-              Advance options
-              <input
-                type="checkbox"
-                className="checkbox checkbox-secondary ml-2"
-              />
-            </label>
-          </div> */}
         </form>
       </div>
     </>

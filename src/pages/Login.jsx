@@ -126,7 +126,7 @@ export default function Login() {
           Not a member?{" "}
           <a
             onClick={() => navigate("/signup")}
-            className="font-semibold leading-6 hover:underline "
+            className="font-semibold leading-6 hover:underline cursor-pointer"
           >
             Signup
           </a>

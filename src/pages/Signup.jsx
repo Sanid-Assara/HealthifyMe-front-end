@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 export default function Signup() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
     firstName: "",
@@ -25,10 +29,10 @@ export default function Signup() {
       isValid = false;
     }
     //Lastname validation
-    if (!form.lastName) {
-      tempErrors.email = "Last name is required!";
-      isValid = false;
-    }
+    // if (!form.lastName) {
+    //   tempErrors.email = "Last name is required!";
+    //   isValid = false;
+    // }
     // Password validation
     if (!form.password) {
       tempErrors.password = "Password is required!";
@@ -63,7 +67,17 @@ export default function Signup() {
     }
     try {
       setLoading(true);
-      //API here
+      const response = await axios.post(
+        "https://healthifyme-api.onrender.com/API/users",
+        {
+          firstname: form.firstName,
+          lastname: form.lastName,
+          email: form.email,
+          password: form.password,
+        }
+      );
+      console.log("Account created successfully:", response.data);
+      navigate("/login");
     } catch (err) {
       console.error("Account creation failed", err);
     } finally {

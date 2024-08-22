@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo-HealthifyMe.jpg";
+import Logout from "./Logout";
 
 export default function Navbar() {
   return (
@@ -102,13 +103,13 @@ export default function Navbar() {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow text-neutral"
               >
                 <li>
-                  <NavLink to="/dashboard">Profile</NavLink>
+                  <NavLink to="/profile">Profile</NavLink>
                 </li>
                 <li>
                   <NavLink to="/settings">Settings</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/">Logout</NavLink>
+                  <Logout />
                 </li>
               </ul>
             </div>

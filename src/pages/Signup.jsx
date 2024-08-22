@@ -214,10 +214,19 @@ export default function Signup() {
               }`}
               disabled={loading || !form.email || !form.password}
             >
-              {loading ? "Loading..." : "Create account"}
+              {loading ? "Signing up..." : "Create Account"}
             </button>
           </div>
         </form>
+        <p className="mt-10 text-center text-sm text-gray-600">
+          Already a member?{" "}
+          <a
+            onClick={() => navigate("/login")}
+            className="font-semibold leading-6 hover:underline cursor-pointer"
+          >
+            Login
+          </a>
+        </p>
       </div>
     </div>
   );

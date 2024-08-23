@@ -52,10 +52,11 @@ export default function Search() {
     <>
       <div className="py-12">
         <form onSubmit={handleSearch} className="flex justify-center gap-x-6">
-          <label className="input input-bordered select-secondary flex items-center gap-2 pr-0">
+          <label className="input input-bordered select-secondary flex items-center gap-2">
             <input
               type="text"
               id="search"
+              required
               value={search}
               className="grow"
               placeholder="Search recipes..."
@@ -73,9 +74,6 @@ export default function Search() {
                 clipRule="evenodd"
               />
             </svg>
-            <button className="btn btn-secondary" type="submit">
-              Search
-            </button>
           </label>
           <select
             className="select select-secondary w-40 max-w-xs"
@@ -101,6 +99,10 @@ export default function Search() {
               </option>
             ))}
           </select>
+
+          <button className="btn btn-secondary" type="submit">
+            Search
+          </button>
         </form>
       </div>
     </>

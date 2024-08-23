@@ -1,5 +1,4 @@
 // import { useContext, useState } from "react";
-// import { SearchContext } from "../context/SearchProvider";
 
 export default function NutriAnalysis() {
   return (

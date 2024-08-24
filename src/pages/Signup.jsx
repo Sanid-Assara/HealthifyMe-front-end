@@ -37,8 +37,8 @@ export default function Signup() {
     if (!form.password) {
       tempErrors.password = "Password is required!";
       isValid = false;
-    } else if (form.password.length < 6) {
-      tempErrors.password = "Password must be at least 6 characters";
+    } else if (form.password.length < 8) {
+      tempErrors.password = "Password must be at least 8 characters";
       isValid = false;
     }
     // Confirm password validation

@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import MainLayout from "./layout/MainLayout";
+import ProtectedLayout from "./layout/ProtectedLayout";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import AddRecipe from "./pages/AddRecipe";
@@ -35,7 +36,9 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/success" element={<Success />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/" element={<ProtectedLayout />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
         <Route path="/workout/explore" element={<WorkoutExploration />} />
         <Route path="/nutri-analysis" element={<NutriAnalysis />} />
         <Route path="*" element={<NotFound />} />

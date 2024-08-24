@@ -8,7 +8,7 @@ export default function Logout() {
   const handleLogout = useCallback(async () => {
     try {
       await axios.post(
-        "https://healthifyme-api.onrender.com/API/users/logout",
+        "http://localhost:8080/API/users/logout",
         {},
         {
           withCredentials: true,
@@ -21,6 +21,7 @@ export default function Logout() {
       navigate("/login");
     } catch (err) {
       console.error("Logout failed", err);
+      localStorage.removeItem("token");
       navigate("/");
     }
   }, [navigate]);

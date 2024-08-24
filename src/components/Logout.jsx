@@ -21,6 +21,7 @@ export default function Logout() {
       navigate("/login");
     } catch (err) {
       console.error("Logout failed", err);
+      localStorage.removeItem("token");
       navigate("/");
     }
   }, [navigate]);

@@ -70,6 +70,7 @@ export default function Login() {
     } catch (err) {
       console.error("Login failed", err);
       setErrors({ form: "Invalid email or password." });
+      localStorage.removeItem("token");
     } finally {
       setLoading(false);
     }

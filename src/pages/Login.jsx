@@ -45,7 +45,7 @@ export default function Login() {
 
       // API call to login
       const response = await axios.post(
-        "http://localhost:8080/API/users/login",
+        "https://healthifyme-api.onrender.com/API/users/login",
         {
           email: form.email,
           password: form.password,

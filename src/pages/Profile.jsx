@@ -6,7 +6,7 @@ export default function Profile() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/API/users/profile ", {
+      .get("https://healthifyme-api.onrender.com/API/users/profile ", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -14,7 +14,9 @@ export default function Profile() {
       .then((res) => {
         console.log(res.data.userId);
         axios
-          .get(`http://localhost:8080/API/users/${res.data.userId}`)
+          .get(
+            `https://healthifyme-api.onrender.com/API/users/${res.data.userId}`
+          )
           .then((res) => {
             console.log(res.data);
             setUser(res.data);

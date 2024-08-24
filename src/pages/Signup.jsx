@@ -67,12 +67,15 @@ export default function Signup() {
     }
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:8080/API/users", {
-        firstname: form.firstName,
-        lastname: form.lastName,
-        email: form.email,
-        password: form.password,
-      });
+      const response = await axios.post(
+        "https://healthifyme-api.onrender.com/API/users",
+        {
+          firstname: form.firstName,
+          lastname: form.lastName,
+          email: form.email,
+          password: form.password,
+        }
+      );
       console.log("Account created successfully:", response.data);
       navigate("/login");
     } catch (err) {

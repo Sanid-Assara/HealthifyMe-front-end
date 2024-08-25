@@ -43,7 +43,6 @@ export default function Profile() {
         </h1>
         <br />
       </div>
-      savedRecipes
     </>
   );
 }

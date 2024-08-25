@@ -1,12 +1,29 @@
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Logout from "./Logout";
 
 export default function UserAccess() {
-  const isAuthenticated = localStorage.getItem("token");
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem("token")
+  );
+
+  useEffect(() => {
+    const handleAuthChange = () => {
+      console.log("Auth status changed:", !!localStorage.getItem("token"));
+      setIsAuthenticated(!!localStorage.getItem("token"));
+    };
+
+    // Listen for the custom authChanged event
+    window.addEventListener("authChanged", handleAuthChange);
+
+    return () => {
+      window.removeEventListener("authChanged", handleAuthChange);
+    };
+  }, []);
+
   return (
     <>
       {isAuthenticated ? (
-        /* Navbar end when user is Login */
         <div className="navbar-end gap-2">
           <div className="dropdown dropdown-end">
             <div
@@ -38,7 +55,6 @@ export default function UserAccess() {
           </div>
         </div>
       ) : (
-        /* Navbar end when user still not register or login*/
         <div className="navbar-end gap-6">
           <NavLink to="/signup">
             <button className="btn btn-outline btn-secondary rounded-full">

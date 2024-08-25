@@ -18,10 +18,17 @@ export default function Logout() {
 
       localStorage.removeItem("token");
 
+      // Dispatch a custom event to notify other components about the logout
+      window.dispatchEvent(new Event("authChanged"));
+
       navigate("/login");
     } catch (err) {
       console.error("Logout failed", err);
       localStorage.removeItem("token");
+
+      // Dispatch a custom event to notify other components about the logout
+      window.dispatchEvent(new Event("authChanged"));
+
       navigate("/");
     }
   }, [navigate]);

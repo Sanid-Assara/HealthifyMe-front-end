@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 export default function Login() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -14,7 +15,7 @@ export default function Login() {
     let tempErrors = {};
     let isValid = true;
 
-    //Email validation
+    // Email validation
     if (!form.email) {
       tempErrors.email = "Email is required!";
       isValid = false;
@@ -31,6 +32,7 @@ export default function Login() {
     setErrors(tempErrors);
     return isValid;
   };
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setForm((prev) => ({ ...prev, [id]: value }));
@@ -38,7 +40,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //validate
+    // Validate form
     if (!validateForm()) return;
     try {
       setLoading(true);
@@ -61,6 +63,9 @@ export default function Login() {
       if (response.data.token) {
         // Store the token in localStorage or cookies (depends on your requirement)
         localStorage.setItem("token", response.data.token);
+
+        // Dispatch the custom event
+        window.dispatchEvent(new Event("authChanged"));
 
         // Redirect user after successful login
         navigate("/profile");
@@ -109,7 +114,7 @@ export default function Login() {
             <div className="flex items-center justify-between">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="email"
+                htmlFor="password"
               >
                 Password
               </label>

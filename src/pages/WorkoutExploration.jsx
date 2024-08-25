@@ -8,28 +8,28 @@ export default function WorkoutExploration() {
 
   const workouts = [
     {
-      title: "Title 1",
+      title: "Warm Up Exercises Before Workout 1",
       image:
-        "https://images.unsplash.com/photo-1607962837359-5e7e89f86776?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      videoUrl: "https://www.youtube.com/watch?v=wIynl3at0Rs",
+        "https://plus.unsplash.com/premium_photo-1723683629048-c3f2682cecdd?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      videoUrl: "https://www.youtube.com/watch?v=9UYVecB2_08",
     },
     {
-      title: "Title 2",
+      title: "Warm Up Exercises Before Workout 2",
       image:
-        "https://images.unsplash.com/photo-1607962837359-5e7e89f86776?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      videoUrl: "https://www.youtube.com/watch?v=wIynl3at0Rs",
+        "https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?q=80&w=3125&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      videoUrl: "https://www.youtube.com/watch?v=dLFZnoMwLiA",
     },
     {
-      title: "Title 3",
+      title: "At Home Workout (No Equipment)",
       image:
-        "https://images.unsplash.com/photo-1607962837359-5e7e89f86776?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      videoUrl: "https://www.youtube.com/watch?v=wIynl3at0Rs",
+        "https://images.unsplash.com/photo-1640622304964-3e2c2c0cd7cd?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      videoUrl: "https://www.youtube.com/watch?v=BGXGdUj93BM",
     },
     {
-      title: "Title 4",
+      title: "Workout in the Nature, Motivational Video",
       image:
-        "https://images.unsplash.com/photo-1607962837359-5e7e89f86776?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      videoUrl: "https://www.youtube.com/watch?v=wIynl3at0Rs",
+        "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=2202&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      videoUrl: "https://www.youtube.com/watch?v=YVq5BHtZp00",
     },
   ];
   const openModal = (videoUrl) => {
@@ -79,6 +79,7 @@ export default function WorkoutExploration() {
         <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl text-center mb-4">
           Workout tips & Advice
         </h2>
+
         {<WorkoutTips />}
       </div>
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ReactPlayer from "react-player/youtube";
 import WorkoutCard from "../components/WorkoutCard";
+import WorkoutTips from "../components/WorkoutTips";
 export default function WorkoutExploration() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentVideoUrl, setCurrentVideoUrl] = useState("");
@@ -76,15 +77,9 @@ export default function WorkoutExploration() {
       {/* Workout tips */}
       <div className="m-auto container mt-20 mb-16">
         <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl text-center mb-4">
-          Workout tips & advace
+          Workout tips & Advice
         </h2>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sunt, a rem
-          porro ipsa perferendis nam placeat veniam eaque rerum atque, harum
-          soluta accusantium, nesciunt iure fuga autem illo numquam ut quisquam
-          iste nisi aperiam amet corrupti. Autem ab exercitationem saepe dolorum
-          distinctio, ex voluptas alias numquam enim! Velit.
-        </p>
+        {<WorkoutTips />}
       </div>
 
       {/* Video Modal */}

@@ -27,19 +27,20 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
-        <Route path="/recipes/add" element={<AddRecipe />} />
         <Route path="/community" element={<Community />} />
-        <Route path="/recipes/edit/:id" element={<EditRecipe />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/recipes/details/:id" element={<RecipeDetail />} />
         <Route path="/recipes/explore" element={<RecipeExploration />} />
-        <Route path="/settings" element={<Settings />} />
+        <Route path="/workout/explore" element={<WorkoutExploration />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/success" element={<Success />} />
         <Route path="/" element={<ProtectedLayout />}>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/recipes/add" element={<AddRecipe />} />
+          <Route path="/recipes/edit/:id" element={<EditRecipe />} />
+          <Route path="/recipes/details/:id" element={<RecipeDetail />} />
         </Route>
-        <Route path="/workout/explore" element={<WorkoutExploration />} />
+
         <Route path="/nutri-analysis" element={<NutriAnalysis />} />
         <Route path="*" element={<NotFound />} />
       </Route>

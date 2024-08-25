@@ -23,7 +23,7 @@ export default function WorkoutExploration() {
       title: "At Home Workout (No Equipment)",
       image:
         "https://images.unsplash.com/photo-1640622304964-3e2c2c0cd7cd?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      videoUrl: "https://www.youtube.com/watch?v=BGXGdUj93BM",
+      videoUrl: "https://www.youtube.com/watch?v=vnBXaCsoEPU",
     },
     {
       title: "Workout in the Nature, Motivational Video",

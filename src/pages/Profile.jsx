@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import SavedRecipes from "../components/SavedRecipes";
+import CreatedRecipes from "../components/CreatedRecipes";
 
 export default function Profile() {
   const [user, setUser] = useState([]);
@@ -13,13 +13,13 @@ export default function Profile() {
         },
       })
       .then((res) => {
-        console.log(res.data.userId);
         axios
           .get(
             `https://healthifyme-api.onrender.com/API/users/${res.data.userId}`
           )
           .then((res) => {
             console.log(res.data);
+
             setUser(res.data);
           })
           .catch((err) => {
@@ -35,7 +35,7 @@ export default function Profile() {
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-        <SavedRecipes />
+        <CreatedRecipes />
       </div>
     </>
   );

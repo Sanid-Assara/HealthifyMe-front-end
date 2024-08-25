@@ -3,11 +3,13 @@ const WorkoutTips = () => {
   const [tips] = useState([
     {
       title: "Warm up",
-      description: "Always start with a warm-up to avoid injuries.",
+      description:
+        "Always start with a warm-up to avoid injuries. Warming up before any physical activity is crucial to prepare your body and mind for exercise, reduce the risk of injury, and enhance performance.",
     },
     {
       title: "Focus on Form",
-      description: "Good form is crucial to avoid injury",
+      description:
+        "Good form is crucial to avoid injury. Focusing on proper form is essential for preventing injuries and maximizing the effectiveness of your workouts.",
     },
   ]);
   return (

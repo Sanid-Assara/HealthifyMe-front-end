@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import SavedRecipes from "../components/SavedRecipes";
 
 export default function Profile() {
   const [user, setUser] = useState([]);
@@ -34,14 +35,7 @@ export default function Profile() {
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-        <h1 className="text-4xl font-bold text-red-600">Email: {user.email}</h1>
-        <h1 className="text-4xl font-bold text-red-600">
-          Name: {user.firstname}
-        </h1>
-        <h1 className="text-4xl font-bold text-red-600">
-          Saved Recipes : {user.savedRecipes}
-        </h1>
-        <br />
+        <SavedRecipes />
       </div>
     </>
   );

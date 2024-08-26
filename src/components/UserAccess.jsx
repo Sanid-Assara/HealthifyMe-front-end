@@ -69,8 +69,11 @@ export default function UserAccess() {
             >
               <div className="w-10 rounded-full">
                 <img
-                  alt={user.firstname || "User avatar"}
-                  src={user.profilePicture || avatarImage}
+                  alt={user.firstname}
+                  src={user.profilePicture}
+                  onError={(e) => {
+                    e.target.src = `${avatarImage}`;
+                  }}
                 />
               </div>
             </div>

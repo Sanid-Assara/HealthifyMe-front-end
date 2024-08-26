@@ -21,6 +21,7 @@ import Success from "./pages/Success";
 import Profile from "./pages/Profile";
 import WorkoutExploration from "./pages/WorkoutExploration";
 import NutriAnalysis from "./pages/NutritionAnalysis";
+import AddFood from "./pages/AddFood";
 
 function App() {
   const router = createBrowserRouter(
@@ -37,6 +38,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/recipes/add" element={<AddRecipe />} />
+          <Route path="/foods/add" element={<AddFood />} />
           <Route path="/recipes/edit/:id" element={<EditRecipe />} />
           <Route path="/recipes/details/:id" element={<RecipeDetail />} />
         </Route>

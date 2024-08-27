@@ -104,6 +104,12 @@ const SearchProvider = ({ children }) => {
   useEffect(() => {
     if (query) {
       apiCall(`${baseUrl}&q=${query}`);
+    } else if (selectedDiet) {
+      apiCall(`${baseUrl}&q=${query}&diet=${selectedDiet}`);
+    } else if (selectedHealth) {
+      apiCall(
+        `${baseUrl}&q=${query}&diet=${selectedDiet}&health=${selectedHealth}`
+      );
     } else {
       apiCall(`${baseUrl}`);
     }
@@ -114,6 +120,8 @@ const SearchProvider = ({ children }) => {
       value={{
         search,
         query,
+        selectedDiet,
+        selectedHealth,
         setQuery,
         recipes,
         updateSearch,

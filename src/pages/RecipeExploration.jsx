@@ -5,7 +5,7 @@ import SkeletonCard from "../components/SkeletonCard";
 import { SearchContext } from "../context/SearchProvider";
 
 export default function RecipeExploration() {
-  const { recipes } = useContext(SearchContext);
+  const { recipes, query } = useContext(SearchContext);
   return (
     <>
       <div className="min-h-screen bg-gray-100">
@@ -14,6 +14,9 @@ export default function RecipeExploration() {
             Recipe Exploration
           </h1>
           <Search />
+          <p className="text-center text-xl mb-10">
+            Your results for recipes with <b>{query}</b>
+          </p>
           {recipes.length > 0 ? (
             <>
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">

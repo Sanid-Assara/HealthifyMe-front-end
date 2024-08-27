@@ -3,7 +3,7 @@ const mockPeople = [
     name: "Erika Mora",
     role: "Front-End Developer",
     imageUrl:
-      "https://yt3.googleusercontent.com/UT-tdd_GnnVlmuU6StMV0SRXfJdHEYi4LOigD6KSUZdH4T1drdMiefaQiePi4VCh6I_Ox7Jfqbg=s900-c-k-c0x00ffffff-no-rj",
+      "https://images.unsplash.com/photo-1679343550998-107ca3786edd?q=80&w=2950&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     xUrl: "#",
     linkedinUrl: "#",
     bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. At laudantium quasi in. Lorem ipsum dolor sit amet consectetur adipisicing elit. At laudantium quasi in.",
@@ -12,7 +12,7 @@ const mockPeople = [
     name: "Sanid Assara",
     role: "Front-End Developer",
     imageUrl:
-      "https://yt3.googleusercontent.com/UT-tdd_GnnVlmuU6StMV0SRXfJdHEYi4LOigD6KSUZdH4T1drdMiefaQiePi4VCh6I_Ox7Jfqbg=s900-c-k-c0x00ffffff-no-rj",
+      "https://images.unsplash.com/photo-1679343550998-107ca3786edd?q=80&w=2950&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     xUrl: "#",
     linkedinUrl: "#",
     bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. At laudantium quasi in. Lorem ipsum dolor sit amet consectetur adipisicing elit. At laudantium quasi in.",
@@ -21,7 +21,7 @@ const mockPeople = [
     name: "Amarbayar Bold",
     role: "Front-End Developer",
     imageUrl:
-      "https://yt3.googleusercontent.com/UT-tdd_GnnVlmuU6StMV0SRXfJdHEYi4LOigD6KSUZdH4T1drdMiefaQiePi4VCh6I_Ox7Jfqbg=s900-c-k-c0x00ffffff-no-rj",
+      "https://images.unsplash.com/photo-1679343550998-107ca3786edd?q=80&w=2950&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     xUrl: "#",
     linkedinUrl: "#",
     bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. At laudantium quasi in. Lorem ipsum dolor sit amet consectetur adipisicing elit. At laudantium quasi in.",
@@ -30,7 +30,7 @@ const mockPeople = [
     name: "John Doe",
     role: "Front-End Developer",
     imageUrl:
-      "https://yt3.googleusercontent.com/UT-tdd_GnnVlmuU6StMV0SRXfJdHEYi4LOigD6KSUZdH4T1drdMiefaQiePi4VCh6I_Ox7Jfqbg=s900-c-k-c0x00ffffff-no-rj",
+      "https://images.unsplash.com/photo-1679343550998-107ca3786edd?q=80&w=2950&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     xUrl: "#",
     linkedinUrl: "#",
     bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. At laudantium quasi in.",
@@ -176,14 +176,16 @@ export default function Community() {
       </div>
       <div className="m-auto container mt-20 mb-16">
         <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl text-center mb-4">
-          Short statement about the company and its brief history explained
+          About Us and Our Mission
         </h2>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sunt, a rem
-          porro ipsa perferendis nam placeat veniam eaque rerum atque, harum
-          soluta accusantium, nesciunt iure fuga autem illo numquam ut quisquam
-          iste nisi aperiam amet corrupti. Autem ab exercitationem saepe dolorum
-          distinctio, ex voluptas alias numquam enim! Velit.
+        <p className="mt-8 max-w-6xl text-xl text-gray-600 mx-auto">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati
+          quisquam totam culpa ab assumenda, labore libero quaerat eius rem
+          provident earum repellat, nemo ut magnam id commodi a quae?
+          Repudiandae accusantium temporibus accusamus autem dolor minima,
+          laudantium quae! Iste dolor error voluptas necessitatibus, neque
+          architecto cumque. Magnam soluta, quibusdam tempore a quo harum
+          molestiae hic, sed enim qui ipsa nihil illum totam, dolor eius.
         </p>
       </div>
     </>

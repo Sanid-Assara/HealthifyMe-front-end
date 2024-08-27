@@ -5,7 +5,7 @@ import SkeletonCard from "../components/SkeletonCard";
 import { SearchContext } from "../context/SearchProvider";
 
 export default function RecipeExploration() {
-  const { recipes, query } = useContext(SearchContext);
+  const { recipes, query, nextPage } = useContext(SearchContext);
   return (
     <>
       <div className="min-h-screen bg-gray-100">
@@ -28,6 +28,7 @@ export default function RecipeExploration() {
                 <button className="join-item btn btn-secondary w-28">
                   « Prev
                 </button>
+
                 <button className="join-item btn btn-secondary w-28">
                   Next »
                 </button>

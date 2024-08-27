@@ -3,7 +3,7 @@ import axios from "axios";
 import {
   SearchContext,
   dietOptions,
-  allergieOptions,
+  healthOptions,
 } from "../context/SearchProvider";
 
 export default function Search() {
@@ -12,55 +12,12 @@ export default function Search() {
     updateSearch,
     handleSearch,
     selectedDiet,
-    selectedAllergie,
+    selectedHealth,
     handleDiet,
-    handleAllergie,
+    handleHealth,
   } = useContext(SearchContext);
 
-  // const dietOptions = [
-  //   { value: "", text: "Select a diet" },
-  //   { value: "vegetarian", text: "Vegetarian" },
-  //   { value: "vegan", text: "Vegan" },
-  //   { value: "high-fiber", text: "High-Fiber" },
-  //   { value: "high-protein", text: "High-Protein" },
-  //   { value: "low-carb", text: "Low-Carb" },
-  //   { value: "low-fat", text: "Low-Fat" },
-  //   { value: "low-sodium", text: "Low-Sodium" },
-  //   { value: "low-sugar", text: "Low-Sugar" },
-  //   { value: "alcohol-free", text: "Alcohol-Free" },
-  //   { value: "balanced", text: "Balanced" },
-  //   { value: "immunity", text: "Immunity" },
-  // ];
-
-  // const [selected, setSelected] = useState(dietOptions[0].value);
-
-  // const allergieOptions = [
-  //   { value: "", text: "Allergies" },
-  //   { value: "gluten", text: "Gluten" },
-  //   { value: "eggs", text: "Eggs" },
-  //   { value: "soy", text: "Soy" },
-  //   { value: "wheat", text: "Wheat" },
-  //   { value: "fish", text: "fish" },
-  //   { value: "shellfish", text: "Shellfish" },
-  //   { value: "nuts", text: "Nuts" },
-  //   { value: "peanuts", text: "Peanuts" },
-  // ];
-
-  // const [selectedAllergie, setSelectedAllergie] = useState(
-  //   allergieOptions[0].value
-  // );
-
-  // const handleDiet = (e) => {
-  //   console.log(e.target.value);
-  //   setSelected(e.target.value);
-  // };
-
-  // const handleAllergie = (e) => {
-  //   console.log(e.target.value);
-  //   setSelectedAllergie(e.target.value);
-  // };
-
-  console.log(search, selectedDiet, selectedAllergie);
+  console.log(search, selectedDiet, selectedHealth);
   return (
     <>
       <div className="py-12">
@@ -103,10 +60,10 @@ export default function Search() {
           <select
             className="select select-secondary w-40 max-w-xs"
             id="allergies"
-            value={selectedAllergie}
-            onChange={handleAllergie}
+            value={selectedHealth}
+            onChange={handleHealth}
           >
-            {allergieOptions.map((option) => (
+            {healthOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.text}
               </option>

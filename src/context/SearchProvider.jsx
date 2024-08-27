@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 
 export const SearchContext = createContext();
 
@@ -15,7 +16,7 @@ export const dietOptions = [
   { value: "immunity", text: "Immunity" },
 ];
 
-export const allergieOptions = [
+export const healthOptions = [
   { value: "", text: "Health" },
   { value: "alcohol-free", text: "Alcohol Free" },
   { value: "celery-free", text: "Celery Free" },
@@ -47,17 +48,23 @@ const SearchProvider = ({ children }) => {
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("easy");
+  const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [selectedDiet, setSelectedDiet] = useState(dietOptions[0].value);
-  const [selectedAllergie, setSelectedAllergie] = useState(
-    allergieOptions[0].value
-  );
-  const [nextPage, setNextPage] = useState();
+  const [selectedHealth, setSelectedHealth] = useState(healthOptions[0].value);
+  const [nextPage, setNextPage] = useState(true);
+  const [PrevPage, setPrevPage] = useState(false);
 
-  const baseUrl = "https://api.edamam.com/api/recipes/v2";
+  const baseUrl =
+    `https://api.edamam.com/api/recipes/v2?type=public&app_id=` +
+    import.meta.env.VITE_APP_ID +
+    "&app_key=" +
+    import.meta.env.VITE_APP_KEY;
 
-  // https://api.edamam.com/api/recipes/v2?type=public&q=fish&app_id=73c6a329&app_key=d4bab8f8937b171382e737fcbab42fa0&diet=low-carb&health=eggs-free
+  console.log(baseUrl);
+
   // https://api.edamam.com/api/recipes/v2?type=public&q=fish&app_id=73c6a329&app_key=d4bab8f8937b171382e737fcbab42fa0&diet=high-protein&health=egg-free
+  // https://api.edamam.com/api/recipes/v2?q=fish&app_key=d4bab8f8937b171382e737fcbab42fa0&_cont=CHcVQBtNNQphDmgVQntAEX4BYUtxBwcARWRGAGUWYlVyBAcCUXlSBWASN1B0VgIAS2QTUjATMgYnA1YPFzATBDFCalIgVwcVLnlSVSBMPkd5BgNK&health=egg-free&diet=high-protein&type=public&app_id=73c6a329
 
   const updateSearch = (e) => {
     setSearch(e.target.value);
@@ -74,29 +81,32 @@ const SearchProvider = ({ children }) => {
     setSelectedDiet(e.target.value);
   };
 
-  const handleAllergie = (e) => {
+  const handleHealth = (e) => {
     console.log(e.target.value);
-    setSelectedAllergie(e.target.value);
+    setSelectedHealth(e.target.value);
   };
 
-  useEffect(() => {
+  // `${baseUrl}&q=${query}`
+  // &diet=${selectedDiet}&health=${selectedHealth}
+  const apiCall = (url) => {
+    console.log(url);
     axios
-      .get(
-        `${baseUrl}?type=public&q=${query}&app_id=${
-          import.meta.env.VITE_APP_ID
-        }&app_key=${
-          import.meta.env.VITE_APP_KEY
-        }&diet=${selectedDiet}&health=${selectedAllergie}`
-        // &diet=${selectedDiet}&health=${selectedAllergie}
-      )
+      .get(url)
       .then((res) => {
         setRecipes(res.data.hits);
-        // console.log(res.data);
       })
       .catch((err) => console.log(err))
       .finally(() => {
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    if (query) {
+      apiCall(`${baseUrl}&q=${query}`);
+    } else {
+      apiCall(`${baseUrl}`);
+    }
   }, [query]);
 
   return (
@@ -108,12 +118,12 @@ const SearchProvider = ({ children }) => {
         recipes,
         updateSearch,
         handleSearch,
-
         loading,
         selectedDiet,
-        selectedAllergie,
+        selectedHealth,
         handleDiet,
-        handleAllergie,
+        handleHealth,
+        nextPage,
       }}
     >
       {children}

@@ -19,6 +19,7 @@ export default function AddRecipe() {
     addedBy: "",
     sharedWithCommunity: false,
   });
+  const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
 
@@ -48,6 +49,26 @@ export default function AddRecipe() {
         [name]: value,
       }));
     }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!newRecipe.name.trim()) newErrors.name = "Recipe name is required.";
+    if (!newRecipe.description.trim())
+      newErrors.description = "Description is required.";
+    if (!newRecipe.imageUrl.trim()) newErrors.imageUrl = "Image is required.";
+    if (!newRecipe.calories || isNaN(newRecipe.calories))
+      newErrors.calories = "Calories information is required.";
+    if (!newRecipe.protein || isNaN(newRecipe.protein))
+      newErrors.protein = "Protein information is required.";
+    if (!newRecipe.carbs || isNaN(newRecipe.carbs))
+      newErrors.carbs = "Carbs information is required.";
+    if (!newRecipe.fat || isNaN(newRecipe.fat))
+      newErrors.fat = "Fat information is required.";
+    if (!newRecipe.dietaryTags || !newRecipe.dietaryTags.length === 0)
+      newErrors.dietaryTags = "Dietary information is required.";
+
+    return newErrors;
   };
 
   const handleIngredientChange = (index, e) => {
@@ -105,10 +126,16 @@ export default function AddRecipe() {
 
   const handleCreate = (e) => {
     e.preventDefault();
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
     axios
       .post(`https://healthifyme-api.onrender.com/API/recipes/`, newRecipe)
       .then((res) => {
         console.log(res.data);
+        setErrors({});
         navigate(`/recipes/details/${res.data._id}`);
       })
       .catch((err) => {
@@ -117,7 +144,8 @@ export default function AddRecipe() {
   };
 
   return (
-    <div className="flex justify-center m-auto min-h-screen py-10 max-w-lg items-center">
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-6">Add Recipe</h1>
       <form
         onSubmit={handleCreate}
         className="flex flex-col flex-1 bg-white px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight"
@@ -127,17 +155,20 @@ export default function AddRecipe() {
             className="block text-gray-700 text-xl font-bold mb-2"
             htmlFor="name"
           >
-            Name
+            Recipe Name
           </label>
           <input
-            required
             type="text"
             id="name"
             name="name"
             value={newRecipe.name}
             onChange={handleChange}
-            className="shadow text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter recipe name"
+            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
+          {errors.name && (
+            <p className="text-red-500 mt-1 text-sm">{errors.name}</p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -147,13 +178,16 @@ export default function AddRecipe() {
             Description
           </label>
           <textarea
-            required
             id="description"
             name="description"
             value={newRecipe.description}
             onChange={handleChange}
-            className="shadow text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter description"
+            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
+          {errors.description && (
+            <p className="text-red-500 mt-1 text-sm">{errors.description}</p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -163,14 +197,17 @@ export default function AddRecipe() {
             Cover Photo
           </label>
           <input
-            required
             type="url"
             id="imageUrl"
             name="imageUrl"
             value={newRecipe.imageUrl}
             onChange={handleChange}
-            className="shadow text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Add image url"
+            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
+          {errors.imageUrl && (
+            <p className="text-red-500 mt-1 text-sm">{errors.imageUrl}</p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -180,14 +217,17 @@ export default function AddRecipe() {
             Calories
           </label>
           <input
-            required
             type="number"
             id="calories"
             name="calories"
             value={newRecipe.nutritionalInfo.calories}
             onChange={handleChange}
-            className="shadow text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter recipe name"
+            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
+          {errors.calories && (
+            <p className="text-red-500 mt-1 text-sm">{errors.calories}</p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -197,14 +237,17 @@ export default function AddRecipe() {
             Protein (g)
           </label>
           <input
-            required
             type="number"
             id="protein"
             name="protein"
             value={newRecipe.nutritionalInfo.protein}
             onChange={handleChange}
-            className="shadow text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter recipe name"
+            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
+          {errors.protein && (
+            <p className="text-red-500 mt-1 text-sm">{errors.protein}</p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -214,14 +257,17 @@ export default function AddRecipe() {
             Carbs (g)
           </label>
           <input
-            required
             type="number"
             id="carbs"
             name="carbs"
             value={newRecipe.nutritionalInfo.carbs}
             onChange={handleChange}
-            className="shadow text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter recipe name"
+            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
+          {errors.carbs && (
+            <p className="text-red-500 mt-1 text-sm">{errors.carbs}</p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -231,14 +277,17 @@ export default function AddRecipe() {
             Fat (g)
           </label>
           <input
-            required
             type="number"
             id="fat"
             name="fat"
             value={newRecipe.nutritionalInfo.fat}
             onChange={handleChange}
-            className="shadow text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter recipe name"
+            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
+          {errors.fat && (
+            <p className="text-red-500 mt-1 text-sm">{errors.fat}</p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -248,14 +297,17 @@ export default function AddRecipe() {
             Dietary Tags
           </label>
           <input
-            required
             type="text"
             id="dietaryTags"
             name="dietaryTags"
             value={newRecipe.dietaryTags.join(", ")}
             onChange={handleChange}
-            className="shadow text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Add dietary tags"
+            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
+          {errors.dietaryTags && (
+            <p className="text-red-500 mt-1 text-sm">{errors.dietaryTags}</p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -265,14 +317,17 @@ export default function AddRecipe() {
             Added By (User ID)
           </label>
           <input
-            required
             type="text"
             id="addedBy"
             name="addedBy"
             value={newRecipe.addedBy}
             onChange={handleChange}
-            className="shadow text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter user ID or name"
+            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
+          {errors.addedBy && (
+            <p className="text-red-500 mt-1 text-sm">{errors.addedBy}</p>
+          )}
         </div>
 
         <div className="mb-4">
@@ -287,7 +342,7 @@ export default function AddRecipe() {
             name="sharedWithCommunity"
             value={newRecipe.sharedWithCommunity.toString()}
             onChange={handleChange}
-            className="shadow text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           >
             <option value="true">Yes</option>
             <option value="false">No</option>
@@ -306,7 +361,7 @@ export default function AddRecipe() {
                 placeholder="Food Item ID"
                 value={ingredient.foodItem}
                 onChange={(e) => handleIngredientChange(index, e)}
-                className="shadow text-lg appearance-none border rounded w-1/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
               />
               <input
                 type="number"
@@ -314,7 +369,7 @@ export default function AddRecipe() {
                 placeholder="Quantity"
                 value={ingredient.quantity}
                 onChange={(e) => handleIngredientChange(index, e)}
-                className="shadow text-lg appearance-none border rounded w-1/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
               />
               <input
                 type="text"
@@ -322,7 +377,7 @@ export default function AddRecipe() {
                 placeholder="Unit"
                 value={ingredient.unit}
                 onChange={(e) => handleIngredientChange(index, e)}
-                className="shadow text-lg appearance-none border rounded w-1/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
               />
               <button
                 type="button"
@@ -351,7 +406,7 @@ export default function AddRecipe() {
                 placeholder={`Step ${index + 1}`}
                 value={step}
                 onChange={(e) => handleStepChange(index, e)}
-                className="shadow text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
+                className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
               />
               <button
                 type="button"
@@ -378,7 +433,7 @@ export default function AddRecipe() {
             Create
           </button>
           <Link to="/profile" className="flex-1">
-            <button className="font-bold btn btn-error w-full text-xl">
+            <button className="font-bold btn bg-red-700 text-white w-full text-xl hover:bg-red-800">
               Cancel
             </button>
           </Link>

@@ -77,7 +77,7 @@ export default function WorkoutExploration() {
       {/* Workout tips */}
       <div className="m-auto container mt-20 mb-16">
         <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl text-center mb-4">
-          Workout tips & Advice
+          Workout Tips & Advice
         </h2>
 
         {<WorkoutTips />}

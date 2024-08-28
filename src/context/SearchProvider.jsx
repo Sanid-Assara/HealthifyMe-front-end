@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
 
 export const SearchContext = createContext();
 
@@ -48,7 +47,6 @@ const SearchProvider = ({ children }) => {
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("easy");
-  const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [selectedDiet, setSelectedDiet] = useState(dietOptions[0].value);
   const [selectedHealth, setSelectedHealth] = useState(healthOptions[0].value);
@@ -60,8 +58,6 @@ const SearchProvider = ({ children }) => {
     import.meta.env.VITE_APP_ID +
     "&app_key=" +
     import.meta.env.VITE_APP_KEY;
-
-  console.log(baseUrl);
 
   // https://api.edamam.com/api/recipes/v2?type=public&q=fish&app_id=73c6a329&app_key=d4bab8f8937b171382e737fcbab42fa0&diet=high-protein&health=egg-free
   // https://api.edamam.com/api/recipes/v2?q=fish&app_key=d4bab8f8937b171382e737fcbab42fa0&_cont=CHcVQBtNNQphDmgVQntAEX4BYUtxBwcARWRGAGUWYlVyBAcCUXlSBWASN1B0VgIAS2QTUjATMgYnA1YPFzATBDFCalIgVwcVLnlSVSBMPkd5BgNK&health=egg-free&diet=high-protein&type=public&app_id=73c6a329
@@ -77,23 +73,20 @@ const SearchProvider = ({ children }) => {
   };
 
   const handleDiet = (e) => {
-    console.log(e.target.value);
     setSelectedDiet(e.target.value);
   };
 
   const handleHealth = (e) => {
-    console.log(e.target.value);
     setSelectedHealth(e.target.value);
   };
 
-  // `${baseUrl}&q=${query}`
-  // &diet=${selectedDiet}&health=${selectedHealth}
   const apiCall = (url) => {
     console.log(url);
     axios
       .get(url)
       .then((res) => {
         setRecipes(res.data.hits);
+        setNextPage(res.data._links.next.href);
       })
       .catch((err) => console.log(err))
       .finally(() => {
@@ -102,16 +95,14 @@ const SearchProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (query) {
-      apiCall(`${baseUrl}&q=${query}`);
-    } else if (selectedDiet) {
+    if (selectedDiet) {
       apiCall(`${baseUrl}&q=${query}&diet=${selectedDiet}`);
     } else if (selectedHealth) {
       apiCall(
         `${baseUrl}&q=${query}&diet=${selectedDiet}&health=${selectedHealth}`
       );
     } else {
-      apiCall(`${baseUrl}`);
+      apiCall(`${baseUrl}&q=${query}`);
     }
   }, [query]);
 
@@ -119,6 +110,7 @@ const SearchProvider = ({ children }) => {
     <SearchContext.Provider
       value={{
         search,
+        setSearch,
         query,
         selectedDiet,
         selectedHealth,

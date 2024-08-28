@@ -202,7 +202,7 @@ export default function AddRecipe() {
             name="imageUrl"
             value={newRecipe.imageUrl}
             onChange={handleChange}
-            placeholder="Upload image"
+            placeholder="Add image url"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
           {errors.imageUrl && (
@@ -302,7 +302,7 @@ export default function AddRecipe() {
             name="dietaryTags"
             value={newRecipe.dietaryTags.join(", ")}
             onChange={handleChange}
-            placeholder="Enter recipe name"
+            placeholder="Add dietary tags"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
           {errors.dietaryTags && (
@@ -322,7 +322,7 @@ export default function AddRecipe() {
             name="addedBy"
             value={newRecipe.addedBy}
             onChange={handleChange}
-            placeholder="Enter recipe name"
+            placeholder="Enter user ID or name"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
           {errors.addedBy && (

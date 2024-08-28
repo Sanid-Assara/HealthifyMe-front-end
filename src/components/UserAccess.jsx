@@ -106,7 +106,7 @@ export default function UserAccess() {
               Login
             </button>
           </NavLink>
-          <NavLink to="/login">
+          {/* <NavLink to="/login">
             <div className="dropdown">
               <div className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
@@ -114,7 +114,7 @@ export default function UserAccess() {
                 </div>
               </div>
             </div>
-          </NavLink>
+          </NavLink> */}
         </div>
       )}
     </>

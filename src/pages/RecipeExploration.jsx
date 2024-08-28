@@ -3,9 +3,11 @@ import Search from "../components/Search";
 import CardRecipe from "../components/CardRicipe";
 import SkeletonCard from "../components/SkeletonCard";
 import { SearchContext } from "../context/SearchProvider";
+import { Link } from "react-router-dom";
 
 export default function RecipeExploration() {
-  const { recipes } = useContext(SearchContext);
+  const { recipes, query, selectedDiet, selectedHealth, nextPage } =
+    useContext(SearchContext);
   return (
     <>
       <div className="min-h-screen bg-gray-100">
@@ -14,6 +16,12 @@ export default function RecipeExploration() {
             Recipe Exploration
           </h1>
           <Search />
+          <p className="text-center text-xl mb-10">
+            Your results for recipes with{" "}
+            <b>
+              {query} {selectedDiet} {selectedHealth}
+            </b>
+          </p>
           {recipes.length > 0 ? (
             <>
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -21,12 +29,9 @@ export default function RecipeExploration() {
                   <CardRecipe key={r.recipe.uri} recipe={r.recipe} />
                 ))}
               </div>
-              <div className="join flex justify-between lg:justify-evenly py-10">
-                <button className="join-item btn btn-secondary w-28">
-                  « Prev
-                </button>
-                <button className="join-item btn btn-secondary w-28">
-                  Next »
+              <div className="join flex justify-center lg:justify-evenly py-10">
+                <button className="join-item btn btn-secondary w-36">
+                  More
                 </button>
               </div>
             </>
@@ -45,14 +50,3 @@ export default function RecipeExploration() {
     </>
   );
 }
-
-// (
-//   <div className="mb-4" key={r.recipe.uri}>
-//     <img src={r.recipe.image} alt="" />
-//     <p className="font-bold text-xl">{r.recipe.label}</p>
-//     <p>{r.recipe.cuisineType}</p>
-//     <p>{r.recipe.dietLabels}</p>
-
-//     <button>See more</button>
-//   </div>
-// )

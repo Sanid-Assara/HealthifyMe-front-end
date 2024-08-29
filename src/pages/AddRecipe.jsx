@@ -19,7 +19,6 @@ export default function AddRecipe() {
     addedBy: "",
     sharedWithCommunity: false,
   });
-  const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
 
@@ -49,26 +48,6 @@ export default function AddRecipe() {
         [name]: value,
       }));
     }
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    if (!newRecipe.name.trim()) newErrors.name = "Recipe name is required.";
-    if (!newRecipe.description.trim())
-      newErrors.description = "Description is required.";
-    if (!newRecipe.imageUrl.trim()) newErrors.imageUrl = "Image is required.";
-    if (!newRecipe.calories || isNaN(newRecipe.calories))
-      newErrors.calories = "Calories information is required.";
-    if (!newRecipe.protein || isNaN(newRecipe.protein))
-      newErrors.protein = "Protein information is required.";
-    if (!newRecipe.carbs || isNaN(newRecipe.carbs))
-      newErrors.carbs = "Carbs information is required.";
-    if (!newRecipe.fat || isNaN(newRecipe.fat))
-      newErrors.fat = "Fat information is required.";
-    if (!newRecipe.dietaryTags || !newRecipe.dietaryTags.length === 0)
-      newErrors.dietaryTags = "Dietary information is required.";
-
-    return newErrors;
   };
 
   const handleIngredientChange = (index, e) => {
@@ -126,16 +105,27 @@ export default function AddRecipe() {
 
   const handleCreate = (e) => {
     e.preventDefault();
-    const formErrors = validateForm();
-    if (Object.keys(formErrors).length > 0) {
-      setErrors(formErrors);
-      return;
-    }
+
     axios
-      .post(`https://healthifyme-api.onrender.com/API/recipes/`, newRecipe)
+      .get("https://healthifyme-api.onrender.com/API/users/profile", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data.userId);
+
+        newRecipe.addedBy = res.data.userId;
+        console.log(newRecipe);
+
+        return axios.post(
+          "https://healthifyme-api.onrender.com/API/recipes/",
+          newRecipe
+        );
+      })
       .then((res) => {
         console.log(res.data);
-        setErrors({});
+
         navigate(`/recipes/details/${res.data._id}`);
       })
       .catch((err) => {
@@ -166,9 +156,6 @@ export default function AddRecipe() {
             placeholder="Enter recipe name"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-          {errors.name && (
-            <p className="text-red-500 mt-1 text-sm">{errors.name}</p>
-          )}
         </div>
         <div className="mb-4">
           <label
@@ -185,9 +172,6 @@ export default function AddRecipe() {
             placeholder="Enter description"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-          {errors.description && (
-            <p className="text-red-500 mt-1 text-sm">{errors.description}</p>
-          )}
         </div>
         <div className="mb-4">
           <label
@@ -205,9 +189,6 @@ export default function AddRecipe() {
             placeholder="Add image url"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-          {errors.imageUrl && (
-            <p className="text-red-500 mt-1 text-sm">{errors.imageUrl}</p>
-          )}
         </div>
         <div className="mb-4">
           <label
@@ -225,9 +206,6 @@ export default function AddRecipe() {
             placeholder="Enter recipe name"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-          {errors.calories && (
-            <p className="text-red-500 mt-1 text-sm">{errors.calories}</p>
-          )}
         </div>
         <div className="mb-4">
           <label
@@ -245,9 +223,6 @@ export default function AddRecipe() {
             placeholder="Enter recipe name"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-          {errors.protein && (
-            <p className="text-red-500 mt-1 text-sm">{errors.protein}</p>
-          )}
         </div>
         <div className="mb-4">
           <label
@@ -265,9 +240,6 @@ export default function AddRecipe() {
             placeholder="Enter recipe name"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-          {errors.carbs && (
-            <p className="text-red-500 mt-1 text-sm">{errors.carbs}</p>
-          )}
         </div>
         <div className="mb-4">
           <label
@@ -285,9 +257,6 @@ export default function AddRecipe() {
             placeholder="Enter recipe name"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-          {errors.fat && (
-            <p className="text-red-500 mt-1 text-sm">{errors.fat}</p>
-          )}
         </div>
         <div className="mb-4">
           <label
@@ -305,29 +274,6 @@ export default function AddRecipe() {
             placeholder="Add dietary tags"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-          {errors.dietaryTags && (
-            <p className="text-red-500 mt-1 text-sm">{errors.dietaryTags}</p>
-          )}
-        </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-xl font-bold mb-2"
-            htmlFor="addedBy"
-          >
-            Added By (User ID)
-          </label>
-          <input
-            type="text"
-            id="addedBy"
-            name="addedBy"
-            value={newRecipe.addedBy}
-            onChange={handleChange}
-            placeholder="Enter user ID or name"
-            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
-          />
-          {errors.addedBy && (
-            <p className="text-red-500 mt-1 text-sm">{errors.addedBy}</p>
-          )}
         </div>
 
         <div className="mb-4">

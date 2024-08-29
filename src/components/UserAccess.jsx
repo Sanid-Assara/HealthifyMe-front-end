@@ -24,7 +24,7 @@ export default function UserAccess() {
             `https://healthifyme-api.onrender.com/API/users/${res.data.userId}`
           )
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             setUser(res.data);
           })
           .catch((err) => {

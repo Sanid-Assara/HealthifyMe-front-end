@@ -22,6 +22,7 @@ import Profile from "./pages/Profile";
 import WorkoutExploration from "./pages/WorkoutExploration";
 import NutriAnalysis from "./pages/NutritionAnalysis";
 import AddFood from "./pages/AddFood";
+import RecipeDetailEdamam from "./pages/RecipeDetailEdamam";
 
 function App() {
   const router = createBrowserRouter(
@@ -30,6 +31,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/community" element={<Community />} />
         <Route path="/recipes/explore" element={<RecipeExploration />} />
+        <Route path="/recipes/:id" element={<RecipeDetailEdamam />} />
         <Route path="/workout/explore" element={<WorkoutExploration />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />

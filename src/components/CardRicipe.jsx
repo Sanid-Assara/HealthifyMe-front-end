@@ -1,4 +1,7 @@
+import { Link } from "react-router-dom";
+
 export default function CardRecipe({ recipe }) {
+  const id = recipe.uri.substr(recipe.uri.length - 32);
   return (
     <>
       <div
@@ -11,9 +14,11 @@ export default function CardRecipe({ recipe }) {
             alt={recipe.label}
             className="w-full h-full object-cover"
           />
-          <div className="bg-neutral text-base-100 font-bold opacity-70 absolute bottom-0 left-0 right-0 text-center content-center h-full translate-y-full transition group-hover:translate-y-0">
-            See recipe
-          </div>
+          <Link to={`/recipes/${id}`}>
+            <div className="bg-neutral text-base-100 font-bold opacity-70 absolute bottom-0 left-0 right-0 text-center content-center h-full translate-y-full transition group-hover:translate-y-0">
+              See recipe
+            </div>
+          </Link>
         </div>
         <div className="p-4 pb-8">
           <p className="font-bold text-xl text-primary">{recipe.label}</p>
@@ -23,6 +28,7 @@ export default function CardRecipe({ recipe }) {
             </div>
             <div className="badge badge-accent">{recipe.healthLabels[1]}</div>
           </div>
+
           <div className="card-actions justify-between">
             <p>{recipe.ingredientLines.length} Ingredients</p>
             <p className="font-bold">{Math.round(recipe.calories)} calories</p>

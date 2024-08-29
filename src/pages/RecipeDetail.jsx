@@ -46,9 +46,6 @@ export default function RecipeDetail() {
         <div className="p-4 pb-8">
           <p className="font-bold text-xl text-primary">{recipe.name}</p>
           <p className="text-lg text-secondary">{recipe.description}</p>
-          <p className="font-bold text-xl text-primary">
-            Created by: {recipe.addedBy?.firstname || "Unknown"}
-          </p>
 
           <div className="capitalize absolute top-2 right-2">
             <div className="badge badge-secondary">
@@ -83,16 +80,6 @@ export default function RecipeDetail() {
               <li key={index}>{step}</li>
             ))}
           </ol>
-
-          <div className="mt-4">
-            <p className="text-sm text-gray-500">
-              Shared with the community:{" "}
-              {recipe.sharedWithCommunity ? "Yes" : "No"}
-            </p>
-            <p className="text-sm text-gray-500">
-              Added on: {new Date(recipe.createdAt).toLocaleDateString()}
-            </p>
-          </div>
         </div>
 
         <div className="p-4 flex space-x-4">

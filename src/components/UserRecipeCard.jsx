@@ -25,9 +25,7 @@ export default function CardRecipe({ recipe }) {
         </div>
         <div className="p-4 pb-8">
           <p className="font-bold text-xl text-primary">{recipe.name}</p>
-          <p className="font-bold text-xl text-primary">
-            Created by: {recipe.addedBy.firstname}
-          </p>
+
           <div className="capitalize absolute top-2 right-2">
             <div className="badge badge-secondary">
               {recipe.dietaryTags[0] ?? "Other"}

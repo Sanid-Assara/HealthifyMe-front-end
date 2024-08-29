@@ -17,7 +17,6 @@ export default function AddRecipe() {
     },
     dietaryTags: [],
     addedBy: "",
-    sharedWithCommunity: false,
   });
 
   const navigate = useNavigate();
@@ -36,11 +35,6 @@ export default function AddRecipe() {
       setNewRecipe((prevRecipe) => ({
         ...prevRecipe,
         dietaryTags: value.split(",").map((tag) => tag.trim()),
-      }));
-    } else if (name === "sharedWithCommunity") {
-      setNewRecipe((prevRecipe) => ({
-        ...prevRecipe,
-        sharedWithCommunity: value === "true",
       }));
     } else {
       setNewRecipe((prevRecipe) => ({
@@ -274,25 +268,6 @@ export default function AddRecipe() {
             placeholder="Add dietary tags"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-        </div>
-
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-xl font-bold mb-2"
-            htmlFor="sharedWithCommunity"
-          >
-            Shared with Community
-          </label>
-          <select
-            id="sharedWithCommunity"
-            name="sharedWithCommunity"
-            value={newRecipe.sharedWithCommunity.toString()}
-            onChange={handleChange}
-            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
-          >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
         </div>
 
         <div className="mb-4">

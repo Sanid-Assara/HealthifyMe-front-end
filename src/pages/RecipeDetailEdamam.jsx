@@ -119,7 +119,9 @@ export default function RecipeDetailEdamam() {
               </h2>
               <hr className="border-4 my-4" />
               <div className="flex justify-between items-center mb-6">
-                <p className="font-bold text-xl">Daily value: %</p>
+                <p className="font-bold text-xl">
+                  Daily value: {Math.round(recipe.calories) / 20} %
+                </p>
                 <p className="font-bold text-3xl">
                   Calories {Math.round(recipe.calories)}
                 </p>
@@ -294,6 +296,9 @@ export default function RecipeDetailEdamam() {
                     </tr>
                   </tbody>
                 </table>
+                <p className="text-sm font-light">
+                  * Percent Daily Values are based on a 2000 calorie diet
+                </p>
               </div>
             </div>
           </div>

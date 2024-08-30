@@ -35,7 +35,7 @@ export default function RecipeDetail() {
   } = recipe;
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-6">
       <div className="mb-4 bg-base-100 shadow-md relative rounded-lg mt-8">
         <div className="flex justify-center relative overflow-hidden group cursor-pointer rounded-lg max-w-2xl">
           <img
@@ -54,17 +54,11 @@ export default function RecipeDetail() {
         </div>
 
         <div className="p-4 pb-8">
-
           <p className="font-bold text-xl text-primary">{recipe.name}</p>
           <p className="text-lg text-[#FF9002]">{recipe.description}</p>
           <p className="font-bold text-xl text-primary">
             Created by: {recipe.addedBy?.firstname || "Unknown"}
           </p>
-
-          <p className="font-bold text-xl text-primary">{name}</p>
-          <p className="text-lg text-secondary">{description}</p>
-
-
           <div className="capitalize absolute top-2 right-2">
             <div className="badge badge-secondary">
               {dietaryTags[0] ?? "Other"}

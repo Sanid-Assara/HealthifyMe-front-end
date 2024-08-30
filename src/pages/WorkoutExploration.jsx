@@ -31,6 +31,30 @@ export default function WorkoutExploration() {
         "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=2202&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       videoUrl: "https://www.youtube.com/watch?v=YVq5BHtZp00",
     },
+    {
+      title: "Gentle Yoga For Beginners",
+      image:
+        "https://images.unsplash.com/photo-1447452001602-7090c7ab2db3?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      videoUrl: "https://www.youtube.com/watch?v=B4kNiCWTl7M",
+    },
+    {
+      title: "Morning Full Body Stretch",
+      image:
+        "https://plus.unsplash.com/premium_photo-1663036956659-ec3b5b6fc710?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      videoUrl: "https://www.youtube.com/watch?v=ehXOS9mMrcU",
+    },
+    {
+      title: "Intense Cardio (No Equipment)",
+      image:
+        "https://plus.unsplash.com/premium_photo-1664537980998-a75f424e2b1b?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      videoUrl: "https://www.youtube.com/watch?v=J212vz33gU4",
+    },
+    {
+      title: "After Workout Stretch Exercises",
+      image:
+        "https://images.unsplash.com/photo-1517130038641-a774d04afb3c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      videoUrl: "https://www.youtube.com/watch?v=llNpwgxRSGs",
+    },
   ];
   const openModal = (videoUrl) => {
     setCurrentVideoUrl(videoUrl);

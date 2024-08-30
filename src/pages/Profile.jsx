@@ -20,7 +20,7 @@ export default function Profile() {
             `https://healthifyme-api.onrender.com/API/users/${res.data.userId}`
           )
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
 
             setUser(res.data);
           })

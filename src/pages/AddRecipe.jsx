@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
@@ -6,7 +6,7 @@ export default function AddRecipe() {
   const [newRecipe, setNewRecipe] = useState({
     name: "",
     description: "",
-    ingredients: [],
+    ingredients: [{ ingredientItem: "", quantity: "", unit: "" }], //
     steps: [],
     imageUrl: "",
     nutritionalInfo: {
@@ -17,11 +17,43 @@ export default function AddRecipe() {
     },
     dietaryTags: [],
     addedBy: "",
-    sharedWithCommunity: false,
   });
-  const [errors, setErrors] = useState({});
-
+  const [ingredientsList, setIngredientsList] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showUnitDropdown, setShowUnitDropdown] = useState(false);
   const navigate = useNavigate();
+
+  const unitOptions = [
+    "Grams",
+    "Ounces",
+    "Cups",
+    "Tablespoons",
+    "Teaspoons",
+    "Liters",
+    "Milliliters",
+    "Pinch",
+    "Pieces",
+    "Slices",
+    "Cloves",
+    "Bunches",
+  ];
+
+  useEffect(() => {
+    // Fetch the ingredients from the API when the component mounts
+    axios
+      .get(`https://healthifyme-api.onrender.com/API/ingredients/`)
+      .then((res) => {
+        // Extract the ids and names
+        const idsAndNames = res.data.map((item) => ({
+          id: item._id,
+          name: item.name,
+        }));
+        setIngredientsList(idsAndNames);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,11 +70,6 @@ export default function AddRecipe() {
         ...prevRecipe,
         dietaryTags: value.split(",").map((tag) => tag.trim()),
       }));
-    } else if (name === "sharedWithCommunity") {
-      setNewRecipe((prevRecipe) => ({
-        ...prevRecipe,
-        sharedWithCommunity: value === "true",
-      }));
     } else {
       setNewRecipe((prevRecipe) => ({
         ...prevRecipe,
@@ -51,37 +78,11 @@ export default function AddRecipe() {
     }
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-    if (!newRecipe.name.trim()) newErrors.name = "Recipe name is required.";
-    if (!newRecipe.description.trim())
-      newErrors.description = "Description is required.";
-    if (!newRecipe.imageUrl.trim()) newErrors.imageUrl = "Image is required.";
-    if (!newRecipe.calories || isNaN(newRecipe.calories))
-      newErrors.calories = "Calories information is required.";
-    if (!newRecipe.protein || isNaN(newRecipe.protein))
-      newErrors.protein = "Protein information is required.";
-    if (!newRecipe.carbs || isNaN(newRecipe.carbs))
-      newErrors.carbs = "Carbs information is required.";
-    if (!newRecipe.fat || isNaN(newRecipe.fat))
-      newErrors.fat = "Fat information is required.";
-    if (!newRecipe.dietaryTags || !newRecipe.dietaryTags.length === 0)
-      newErrors.dietaryTags = "Dietary information is required.";
-
-    return newErrors;
-  };
-
-  const handleIngredientChange = (index, e) => {
-    const { name, value } = e.target;
-    const updatedIngredients = [...newRecipe.ingredients];
-    updatedIngredients[index] = {
-      ...updatedIngredients[index],
-      [name]: value,
-    };
-    setNewRecipe((prevRecipe) => ({
-      ...prevRecipe,
-      ingredients: updatedIngredients,
-    }));
+  const handleIngredientChange = (index, event) => {
+    const { name, value } = event.target;
+    const ingredients = [...newRecipe.ingredients];
+    ingredients[index][name] = value;
+    setNewRecipe({ ...newRecipe, ingredients });
   };
 
   const handleStepChange = (index, e) => {
@@ -94,20 +95,33 @@ export default function AddRecipe() {
   };
 
   const addIngredient = () => {
-    setNewRecipe((prevRecipe) => ({
-      ...prevRecipe,
+    setNewRecipe({
+      ...newRecipe,
       ingredients: [
-        ...prevRecipe.ingredients,
-        { foodItem: "", quantity: "", unit: "" },
+        ...newRecipe.ingredients,
+        { ingredientItem: "", quantity: "", unit: "" },
       ],
-    }));
+    });
   };
 
   const removeIngredient = (index) => {
-    setNewRecipe((prevRecipe) => ({
-      ...prevRecipe,
-      ingredients: prevRecipe.ingredients.filter((_, i) => i !== index),
-    }));
+    const ingredients = [...newRecipe.ingredients];
+    ingredients.splice(index, 1);
+    setNewRecipe({ ...newRecipe, ingredients });
+  };
+
+  const handleIngredientSelect = (index, ingredient) => {
+    const ingredients = [...newRecipe.ingredients];
+    ingredients[index].ingredientItem = ingredient.id; // Store ingredient ID
+    setNewRecipe({ ...newRecipe, ingredients });
+    setShowDropdown(false); // Hide dropdown after selection
+  };
+
+  const handleUnitSelect = (index, unit) => {
+    const ingredients = [...newRecipe.ingredients];
+    ingredients[index].unit = unit; // Set unit to the selected unit option
+    setNewRecipe({ ...newRecipe, ingredients });
+    setShowUnitDropdown(false); // Hide dropdown after selection
   };
 
   const addStep = () => {
@@ -126,16 +140,27 @@ export default function AddRecipe() {
 
   const handleCreate = (e) => {
     e.preventDefault();
-    const formErrors = validateForm();
-    if (Object.keys(formErrors).length > 0) {
-      setErrors(formErrors);
-      return;
-    }
+
     axios
-      .post(`https://healthifyme-api.onrender.com/API/recipes/`, newRecipe)
+      .get("https://healthifyme-api.onrender.com/API/users/profile", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data.userId);
+
+        newRecipe.addedBy = res.data.userId;
+        console.log(newRecipe);
+
+        return axios.post(
+          "https://healthifyme-api.onrender.com/API/recipes/",
+          newRecipe
+        );
+      })
       .then((res) => {
         console.log(res.data);
-        setErrors({});
+
         navigate(`/recipes/details/${res.data._id}`);
       })
       .catch((err) => {
@@ -166,9 +191,6 @@ export default function AddRecipe() {
             placeholder="Enter recipe name"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-          {errors.name && (
-            <p className="text-red-500 mt-1 text-sm">{errors.name}</p>
-          )}
         </div>
         <div className="mb-4">
           <label
@@ -185,9 +207,6 @@ export default function AddRecipe() {
             placeholder="Enter description"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-          {errors.description && (
-            <p className="text-red-500 mt-1 text-sm">{errors.description}</p>
-          )}
         </div>
         <div className="mb-4">
           <label
@@ -205,9 +224,6 @@ export default function AddRecipe() {
             placeholder="Add image url"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-          {errors.imageUrl && (
-            <p className="text-red-500 mt-1 text-sm">{errors.imageUrl}</p>
-          )}
         </div>
         <div className="mb-4">
           <label
@@ -225,9 +241,6 @@ export default function AddRecipe() {
             placeholder="Enter recipe name"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-          {errors.calories && (
-            <p className="text-red-500 mt-1 text-sm">{errors.calories}</p>
-          )}
         </div>
         <div className="mb-4">
           <label
@@ -245,9 +258,6 @@ export default function AddRecipe() {
             placeholder="Enter recipe name"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-          {errors.protein && (
-            <p className="text-red-500 mt-1 text-sm">{errors.protein}</p>
-          )}
         </div>
         <div className="mb-4">
           <label
@@ -265,9 +275,6 @@ export default function AddRecipe() {
             placeholder="Enter recipe name"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-          {errors.carbs && (
-            <p className="text-red-500 mt-1 text-sm">{errors.carbs}</p>
-          )}
         </div>
         <div className="mb-4">
           <label
@@ -285,9 +292,6 @@ export default function AddRecipe() {
             placeholder="Enter recipe name"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-          {errors.fat && (
-            <p className="text-red-500 mt-1 text-sm">{errors.fat}</p>
-          )}
         </div>
         <div className="mb-4">
           <label
@@ -305,48 +309,6 @@ export default function AddRecipe() {
             placeholder="Add dietary tags"
             className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
           />
-          {errors.dietaryTags && (
-            <p className="text-red-500 mt-1 text-sm">{errors.dietaryTags}</p>
-          )}
-        </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-xl font-bold mb-2"
-            htmlFor="addedBy"
-          >
-            Added By (User ID)
-          </label>
-          <input
-            type="text"
-            id="addedBy"
-            name="addedBy"
-            value={newRecipe.addedBy}
-            onChange={handleChange}
-            placeholder="Enter user ID or name"
-            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
-          />
-          {errors.addedBy && (
-            <p className="text-red-500 mt-1 text-sm">{errors.addedBy}</p>
-          )}
-        </div>
-
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-xl font-bold mb-2"
-            htmlFor="sharedWithCommunity"
-          >
-            Shared with Community
-          </label>
-          <select
-            id="sharedWithCommunity"
-            name="sharedWithCommunity"
-            value={newRecipe.sharedWithCommunity.toString()}
-            onChange={handleChange}
-            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
-          >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
         </div>
 
         <div className="mb-4">
@@ -354,15 +316,28 @@ export default function AddRecipe() {
             Ingredients
           </label>
           {newRecipe.ingredients.map((ingredient, index) => (
-            <div key={index} className="flex gap-2 mb-2">
+            <div key={index} className="flex gap-2 mb-2 relative">
               <input
                 type="text"
-                name="foodItem"
-                placeholder="Food Item ID"
-                value={ingredient.foodItem}
+                name="ingredientItem"
+                placeholder="Choose Ingredient"
+                value={
+                  ingredientsList.find(
+                    (item) => item.id === ingredient.ingredientItem
+                  )?.name || ""
+                }
                 onChange={(e) => handleIngredientChange(index, e)}
                 className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
               />
+
+              <button
+                type="button"
+                onClick={() => setShowDropdown(!showDropdown)}
+                className="font-bold btn btn-secondary mt-2"
+              >
+                {showDropdown ? "Close List" : "Choose Ingredient"}
+              </button>
+
               <input
                 type="number"
                 name="quantity"
@@ -371,14 +346,29 @@ export default function AddRecipe() {
                 onChange={(e) => handleIngredientChange(index, e)}
                 className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
               />
-              <input
-                type="text"
-                name="unit"
-                placeholder="Unit"
-                value={ingredient.unit}
-                onChange={(e) => handleIngredientChange(index, e)}
-                className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
-              />
+              <button
+                type="button"
+                onClick={() => setShowUnitDropdown(!showUnitDropdown)}
+                className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset text-left"
+              >
+                {ingredient.unit || "Choose Unit"}
+              </button>
+              {showUnitDropdown && (
+                <div className="absolute bg-white shadow-lg rounded-md mt-2 z-10">
+                  <ul>
+                    {unitOptions.map((unit) => (
+                      <li
+                        key={unit}
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-200"
+                        onClick={() => handleUnitSelect(index, unit)}
+                      >
+                        {unit}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               <button
                 type="button"
                 onClick={() => removeIngredient(index)}
@@ -386,6 +376,24 @@ export default function AddRecipe() {
               >
                 Remove
               </button>
+
+              {showDropdown && (
+                <div className="absolute bg-white shadow-lg rounded-md mt-2 z-10">
+                  <ul>
+                    {ingredientsList.map((ingredientItem) => (
+                      <li
+                        key={ingredientItem.id}
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-200"
+                        onClick={() =>
+                          handleIngredientSelect(index, ingredientItem)
+                        }
+                      >
+                        {ingredientItem.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           ))}
           <button
@@ -396,6 +404,7 @@ export default function AddRecipe() {
             Add Ingredient
           </button>
         </div>
+
         <div className="mb-4">
           <label className="block text-gray-700 text-xl font-bold mb-2">
             Steps

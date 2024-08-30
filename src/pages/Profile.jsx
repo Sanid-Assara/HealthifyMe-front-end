@@ -38,15 +38,16 @@ export default function Profile() {
     <>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
         <div className="flex justify-start items-start gap-4 my-8">
-          <Link to="/recipes/add">
-            <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-              Create Recipe
+          <Link to="/nutri-analysis">
+            <button className="btn btn-accent w-56 text-base-100">
+              Nutrition Analysis
             </button>
           </Link>
+          <Link to="/recipes/add">
+            <button className="btn btn-secondary w-36">Create Recipe</button>
+          </Link>
           <Link to="/foods/add">
-            <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-              Add Food
-            </button>
+            <button className="btn btn-secondary w-36">Add Food</button>
           </Link>
         </div>
         <div>

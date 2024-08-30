@@ -91,7 +91,7 @@ export default function WorkoutExploration() {
           aria-modal="true"
           aria-labelledby="modal-title"
         >
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl relative transform transition-all duration-300 ease-in-out scale-100">
+          <div className="bg-base-100 p-6 rounded-lg shadow-lg w-full max-w-3xl relative transform transition-all duration-300 ease-in-out scale-100">
             <button
               className="text-gray-500 hover:text-gray-800 absolute top-2 right-2 font-bold focus:outline-none"
               onClick={closeModal}

@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <div className="min-h-[80vh] bg-gray-100 py-16">
+      <div className="min-h-[80vh] bg-base-200 py-16">
         <div className="max-w-3xl text-center m-auto">
           <h1 className="text-4xl font-bold text-primary mb-10">
             Be Healthify

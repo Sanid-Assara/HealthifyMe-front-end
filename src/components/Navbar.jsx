@@ -1,12 +1,11 @@
 import { NavLink } from "react-router-dom";
-import logo from "../assets/logo-HealthifyMe.jpg";
-
+import logo from "../assets/logo-HealthifyMe.png";
 import UserAccess from "./UserAccess";
 
 export default function Navbar() {
   return (
     <>
-      <div className="bg-primary text-neutral-content">
+      <div className="bg-primary text-primary-content">
         <div className="navbar container  m-auto py-2">
           <div className="navbar-start">
             <div className="dropdown">
@@ -71,6 +70,7 @@ export default function Navbar() {
               </NavLink>
             </ul>
           </div>
+
           <UserAccess />
         </div>
       </div>

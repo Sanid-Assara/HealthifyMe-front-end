@@ -10,7 +10,7 @@ export default function RecipeExploration() {
     useContext(SearchContext);
   return (
     <>
-      <div className="min-h-screen bg-gray-100">
+      <div className="min-h-screen bg-base-200">
         <div className="container m-auto px-10 lg:px-0">
           <h1 className="text-4xl font-bold text-primary text-center pt-16">
             Recipe Exploration

@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import imageNotFound from "../assets/imageNotFound.png";
+import DeleteRecipe from "./DeleteRecipe";
+import EditRecipe from "./EditRecipe";
 
 export default function CardRecipe({ recipe }) {
   return (
@@ -40,6 +42,10 @@ export default function CardRecipe({ recipe }) {
               {Math.round(recipe.nutritionalInfo.calories)} calories
             </p>
           </div>
+        </div>
+        <div className="flex justify-around p-4">
+          <EditRecipe />
+          <DeleteRecipe />
         </div>
       </div>
     </>

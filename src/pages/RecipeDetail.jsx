@@ -2,7 +2,6 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import DeleteRecipe from "../components/DeleteRecipe";
-import EditRecipe from "../components/EditRecipe";
 import imageNotFound from "../assets/imageNotFound.png";
 
 export default function RecipeDetail() {
@@ -111,7 +110,11 @@ export default function RecipeDetail() {
           </div>
         </div>
         <div className="flex justify-around p-4">
-          <EditRecipe />
+          <Link to={`/recipes/edit/${id}`}>
+            <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+              Edit
+            </button>
+          </Link>
           <DeleteRecipe />
         </div>
       </div>

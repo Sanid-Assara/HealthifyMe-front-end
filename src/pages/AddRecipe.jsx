@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
@@ -6,7 +6,7 @@ export default function AddRecipe() {
   const [newRecipe, setNewRecipe] = useState({
     name: "",
     description: "",
-    ingredients: [{ ingredientItem: "", quantity: "", unit: "" }], //
+    ingredients: [{ ingredientItem: "", quantity: "", unit: "" }],
     steps: [],
     imageUrl: "",
     nutritionalInfo: {
@@ -19,11 +19,7 @@ export default function AddRecipe() {
     addedBy: "",
   });
   const [ingredientsList, setIngredientsList] = useState([]);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [showUnitDropdown, setShowUnitDropdown] = useState(false);
-  const navigate = useNavigate();
-
-  const unitOptions = [
+  const [unitsList] = useState([
     "Grams",
     "Ounces",
     "Cups",
@@ -36,14 +32,17 @@ export default function AddRecipe() {
     "Slices",
     "Cloves",
     "Bunches",
-  ];
+  ]);
+  const [showIngredientDropdown, setShowIngredientDropdown] = useState([]);
+  const [showUnitDropdown, setShowUnitDropdown] = useState([]);
+  const ingredientDropdownRefs = useRef([]);
+  const unitDropdownRefs = useRef([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch the ingredients from the API when the component mounts
     axios
       .get(`https://healthifyme-api.onrender.com/API/ingredients/`)
       .then((res) => {
-        // Extract the ids and names
         const idsAndNames = res.data.map((item) => ({
           id: item._id,
           name: item.name,
@@ -53,6 +52,28 @@ export default function AddRecipe() {
       .catch((err) => {
         console.error(err);
       });
+  }, []);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        ingredientDropdownRefs.current.some(
+          (ref) => ref && ref.contains(event.target)
+        )
+      )
+        return;
+      if (
+        unitDropdownRefs.current.some(
+          (ref) => ref && ref.contains(event.target)
+        )
+      )
+        return;
+      setShowIngredientDropdown((prev) => prev.map(() => false));
+      setShowUnitDropdown((prev) => prev.map(() => false));
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleChange = (e) => {
@@ -102,26 +123,38 @@ export default function AddRecipe() {
         { ingredientItem: "", quantity: "", unit: "" },
       ],
     });
+    setShowIngredientDropdown((prev) => [...prev, false]);
+    setShowUnitDropdown((prev) => [...prev, false]);
   };
 
   const removeIngredient = (index) => {
     const ingredients = [...newRecipe.ingredients];
     ingredients.splice(index, 1);
     setNewRecipe({ ...newRecipe, ingredients });
+    setShowIngredientDropdown((prev) => prev.filter((_, i) => i !== index));
+    setShowUnitDropdown((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleIngredientSelect = (index, ingredient) => {
     const ingredients = [...newRecipe.ingredients];
-    ingredients[index].ingredientItem = ingredient.id; // Store ingredient ID
+    ingredients[index].ingredientItem = ingredient.id;
     setNewRecipe({ ...newRecipe, ingredients });
-    setShowDropdown(false); // Hide dropdown after selection
+    setShowIngredientDropdown((prev) => {
+      const updated = [...prev];
+      updated[index] = false;
+      return updated;
+    });
   };
 
   const handleUnitSelect = (index, unit) => {
     const ingredients = [...newRecipe.ingredients];
-    ingredients[index].unit = unit; // Set unit to the selected unit option
+    ingredients[index].unit = unit;
     setNewRecipe({ ...newRecipe, ingredients });
-    setShowUnitDropdown(false); // Hide dropdown after selection
+    setShowUnitDropdown((prev) => {
+      const updated = [...prev];
+      updated[index] = false;
+      return updated;
+    });
   };
 
   const addStep = () => {
@@ -148,10 +181,7 @@ export default function AddRecipe() {
         },
       })
       .then((res) => {
-        console.log(res.data.userId);
-
         newRecipe.addedBy = res.data.userId;
-        console.log(newRecipe);
 
         return axios.post(
           "https://healthifyme-api.onrender.com/API/recipes/",
@@ -159,8 +189,6 @@ export default function AddRecipe() {
         );
       })
       .then((res) => {
-        console.log(res.data);
-
         navigate(`/recipes/details/${res.data._id}`);
       })
       .catch((err) => {
@@ -189,7 +217,7 @@ export default function AddRecipe() {
             value={newRecipe.name}
             onChange={handleChange}
             placeholder="Enter recipe name"
-            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
+            className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
           />
         </div>
         <div className="mb-4">
@@ -205,7 +233,7 @@ export default function AddRecipe() {
             value={newRecipe.description}
             onChange={handleChange}
             placeholder="Enter description"
-            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
+            className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
           />
         </div>
         <div className="mb-4">
@@ -222,7 +250,7 @@ export default function AddRecipe() {
             value={newRecipe.imageUrl}
             onChange={handleChange}
             placeholder="Add image url"
-            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
+            className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
           />
         </div>
         <div className="mb-4">
@@ -238,8 +266,8 @@ export default function AddRecipe() {
             name="calories"
             value={newRecipe.nutritionalInfo.calories}
             onChange={handleChange}
-            placeholder="Enter recipe name"
-            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
+            placeholder="Enter calories"
+            className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
           />
         </div>
         <div className="mb-4">
@@ -255,8 +283,8 @@ export default function AddRecipe() {
             name="protein"
             value={newRecipe.nutritionalInfo.protein}
             onChange={handleChange}
-            placeholder="Enter recipe name"
-            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
+            placeholder="Enter protein"
+            className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
           />
         </div>
         <div className="mb-4">
@@ -272,8 +300,8 @@ export default function AddRecipe() {
             name="carbs"
             value={newRecipe.nutritionalInfo.carbs}
             onChange={handleChange}
-            placeholder="Enter recipe name"
-            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
+            placeholder="Enter carbs"
+            className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
           />
         </div>
         <div className="mb-4">
@@ -289,122 +317,113 @@ export default function AddRecipe() {
             name="fat"
             value={newRecipe.nutritionalInfo.fat}
             onChange={handleChange}
-            placeholder="Enter recipe name"
-            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
+            placeholder="Enter fat"
+            className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
           />
         </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-xl font-bold mb-2"
-            htmlFor="dietaryTags"
-          >
-            Dietary Tags
-          </label>
-          <input
-            type="text"
-            id="dietaryTags"
-            name="dietaryTags"
-            value={newRecipe.dietaryTags.join(", ")}
-            onChange={handleChange}
-            placeholder="Add dietary tags"
-            className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 text-xl font-bold mb-2">
-            Ingredients
-          </label>
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold mb-4">Ingredients</h2>
           {newRecipe.ingredients.map((ingredient, index) => (
-            <div key={index} className="flex gap-2 mb-2 relative">
-              <input
-                type="text"
-                name="ingredientItem"
-                placeholder="Choose Ingredient"
-                value={
-                  ingredientsList.find(
-                    (item) => item.id === ingredient.ingredientItem
-                  )?.name || ""
-                }
-                onChange={(e) => handleIngredientChange(index, e)}
-                className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
-              />
-
-              <button
-                type="button"
-                onClick={() => setShowDropdown(!showDropdown)}
-                className="font-bold btn btn-secondary mt-2"
+            <div key={index} className="mb-2">
+              <label
+                className="block text-gray-700 text-xl font-bold mb-2"
+                htmlFor={`ingredient-${index}`}
               >
-                {showDropdown ? "Close List" : "Choose Ingredient"}
-              </button>
-
+                Ingredient {index + 1}
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  id={`ingredient-${index}`}
+                  name="ingredientItem"
+                  placeholder="Choose Ingredient"
+                  value={
+                    ingredientsList.find(
+                      (item) => item.id === ingredient.ingredientItem
+                    )?.name || ""
+                  }
+                  onFocus={() => {
+                    const dropdowns = [...showIngredientDropdown];
+                    dropdowns[index] = true;
+                    setShowIngredientDropdown(dropdowns);
+                  }}
+                  readOnly
+                  className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
+                />
+                <div
+                  ref={(ref) => (ingredientDropdownRefs.current[index] = ref)}
+                  className={`absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto ${
+                    showIngredientDropdown[index] ? "block" : "hidden"
+                  }`}
+                >
+                  {ingredientsList.map((item) => (
+                    <li
+                      key={item.id}
+                      onClick={() => handleIngredientSelect(index, item)}
+                      className="cursor-pointer px-4 py-2 hover:bg-gray-200"
+                    >
+                      {item.name}
+                    </li>
+                  ))}
+                </div>
+              </div>
               <input
                 type="number"
                 name="quantity"
                 placeholder="Quantity"
                 value={ingredient.quantity}
                 onChange={(e) => handleIngredientChange(index, e)}
-                className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
+                className={`mt-2 block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
               />
-              <button
-                type="button"
-                onClick={() => setShowUnitDropdown(!showUnitDropdown)}
-                className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset text-left"
-              >
-                {ingredient.unit || "Choose Unit"}
-              </button>
-              {showUnitDropdown && (
-                <div className="absolute bg-white shadow-lg rounded-md mt-2 z-10">
-                  <ul>
-                    {unitOptions.map((unit) => (
-                      <li
-                        key={unit}
-                        className="px-4 py-2 cursor-pointer hover:bg-gray-200"
-                        onClick={() => handleUnitSelect(index, unit)}
-                      >
-                        {unit}
-                      </li>
-                    ))}
-                  </ul>
+              <div className="relative mt-2">
+                <input
+                  type="text"
+                  id={`unit-${index}`}
+                  name="unit"
+                  placeholder="Choose Unit"
+                  value={ingredient.unit}
+                  onFocus={() => {
+                    const dropdowns = [...showUnitDropdown];
+                    dropdowns[index] = true;
+                    setShowUnitDropdown(dropdowns);
+                  }}
+                  readOnly
+                  className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
+                />
+                <div
+                  ref={(ref) => (unitDropdownRefs.current[index] = ref)}
+                  className={`absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto ${
+                    showUnitDropdown[index] ? "block" : "hidden"
+                  }`}
+                >
+                  {unitsList.map((unit, unitIndex) => (
+                    <li
+                      key={unitIndex}
+                      onClick={() => handleUnitSelect(index, unit)}
+                      className="cursor-pointer px-4 py-2 hover:bg-gray-200"
+                    >
+                      {unit}
+                    </li>
+                  ))}
                 </div>
-              )}
-
+              </div>
               <button
                 type="button"
                 onClick={() => removeIngredient(index)}
-                className="text-red-500 font-bold"
+                className="mt-2 text-red-500 hover:underline"
               >
-                Remove
+                Remove Ingredient
               </button>
-
-              {showDropdown && (
-                <div className="absolute bg-white shadow-lg rounded-md mt-2 z-10">
-                  <ul>
-                    {ingredientsList.map((ingredientItem) => (
-                      <li
-                        key={ingredientItem.id}
-                        className="px-4 py-2 cursor-pointer hover:bg-gray-200"
-                        onClick={() =>
-                          handleIngredientSelect(index, ingredientItem)
-                        }
-                      >
-                        {ingredientItem.name}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
             </div>
           ))}
           <button
             type="button"
             onClick={addIngredient}
-            className="font-bold btn btn-secondary mt-2"
+            className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-md"
           >
             Add Ingredient
           </button>
         </div>
-
         <div className="mb-4">
           <label className="block text-gray-700 text-xl font-bold mb-2">
             Steps
@@ -415,7 +434,7 @@ export default function AddRecipe() {
                 placeholder={`Step ${index + 1}`}
                 value={step}
                 onChange={(e) => handleStepChange(index, e)}
-                className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
+                className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
               />
               <button
                 type="button"

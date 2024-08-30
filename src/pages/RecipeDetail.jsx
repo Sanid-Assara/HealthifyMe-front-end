@@ -1,6 +1,8 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import DeleteRecipe from "../components/DeleteRecipe";
+import EditRecipe from "../components/EditRecipe";
 import imageNotFound from "../assets/imageNotFound.png";
 
 export default function RecipeDetail() {
@@ -107,6 +109,10 @@ export default function RecipeDetail() {
             <p className="text-sm font-bold">Fat</p>
             <p>{nutritionalInfo.fat ?? "N/A"}g</p>
           </div>
+        </div>
+        <div className="flex justify-around p-4">
+          <EditRecipe />
+          <DeleteRecipe />
         </div>
       </div>
     </div>

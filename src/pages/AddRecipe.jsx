@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
@@ -6,7 +6,7 @@ export default function AddRecipe() {
   const [newRecipe, setNewRecipe] = useState({
     name: "",
     description: "",
-    ingredients: [],
+    ingredients: [{ ingredientItem: "", quantity: "", unit: "" }], //
     steps: [],
     imageUrl: "",
     nutritionalInfo: {
@@ -18,8 +18,42 @@ export default function AddRecipe() {
     dietaryTags: [],
     addedBy: "",
   });
-
+  const [ingredientsList, setIngredientsList] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showUnitDropdown, setShowUnitDropdown] = useState(false);
   const navigate = useNavigate();
+
+  const unitOptions = [
+    "Grams",
+    "Ounces",
+    "Cups",
+    "Tablespoons",
+    "Teaspoons",
+    "Liters",
+    "Milliliters",
+    "Pinch",
+    "Pieces",
+    "Slices",
+    "Cloves",
+    "Bunches",
+  ];
+
+  useEffect(() => {
+    // Fetch the ingredients from the API when the component mounts
+    axios
+      .get(`https://healthifyme-api.onrender.com/API/ingredients/`)
+      .then((res) => {
+        // Extract the ids and names
+        const idsAndNames = res.data.map((item) => ({
+          id: item._id,
+          name: item.name,
+        }));
+        setIngredientsList(idsAndNames);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,17 +78,11 @@ export default function AddRecipe() {
     }
   };
 
-  const handleIngredientChange = (index, e) => {
-    const { name, value } = e.target;
-    const updatedIngredients = [...newRecipe.ingredients];
-    updatedIngredients[index] = {
-      ...updatedIngredients[index],
-      [name]: value,
-    };
-    setNewRecipe((prevRecipe) => ({
-      ...prevRecipe,
-      ingredients: updatedIngredients,
-    }));
+  const handleIngredientChange = (index, event) => {
+    const { name, value } = event.target;
+    const ingredients = [...newRecipe.ingredients];
+    ingredients[index][name] = value;
+    setNewRecipe({ ...newRecipe, ingredients });
   };
 
   const handleStepChange = (index, e) => {
@@ -67,20 +95,33 @@ export default function AddRecipe() {
   };
 
   const addIngredient = () => {
-    setNewRecipe((prevRecipe) => ({
-      ...prevRecipe,
+    setNewRecipe({
+      ...newRecipe,
       ingredients: [
-        ...prevRecipe.ingredients,
-        { foodItem: "", quantity: "", unit: "" },
+        ...newRecipe.ingredients,
+        { ingredientItem: "", quantity: "", unit: "" },
       ],
-    }));
+    });
   };
 
   const removeIngredient = (index) => {
-    setNewRecipe((prevRecipe) => ({
-      ...prevRecipe,
-      ingredients: prevRecipe.ingredients.filter((_, i) => i !== index),
-    }));
+    const ingredients = [...newRecipe.ingredients];
+    ingredients.splice(index, 1);
+    setNewRecipe({ ...newRecipe, ingredients });
+  };
+
+  const handleIngredientSelect = (index, ingredient) => {
+    const ingredients = [...newRecipe.ingredients];
+    ingredients[index].ingredientItem = ingredient.id; // Store ingredient ID
+    setNewRecipe({ ...newRecipe, ingredients });
+    setShowDropdown(false); // Hide dropdown after selection
+  };
+
+  const handleUnitSelect = (index, unit) => {
+    const ingredients = [...newRecipe.ingredients];
+    ingredients[index].unit = unit; // Set unit to the selected unit option
+    setNewRecipe({ ...newRecipe, ingredients });
+    setShowUnitDropdown(false); // Hide dropdown after selection
   };
 
   const addStep = () => {
@@ -275,15 +316,28 @@ export default function AddRecipe() {
             Ingredients
           </label>
           {newRecipe.ingredients.map((ingredient, index) => (
-            <div key={index} className="flex gap-2 mb-2">
+            <div key={index} className="flex gap-2 mb-2 relative">
               <input
                 type="text"
-                name="foodItem"
-                placeholder="Food Item ID"
-                value={ingredient.foodItem}
+                name="ingredientItem"
+                placeholder="Choose Ingredient"
+                value={
+                  ingredientsList.find(
+                    (item) => item.id === ingredient.ingredientItem
+                  )?.name || ""
+                }
                 onChange={(e) => handleIngredientChange(index, e)}
                 className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
               />
+
+              <button
+                type="button"
+                onClick={() => setShowDropdown(!showDropdown)}
+                className="font-bold btn btn-secondary mt-2"
+              >
+                {showDropdown ? "Close List" : "Choose Ingredient"}
+              </button>
+
               <input
                 type="number"
                 name="quantity"
@@ -292,14 +346,29 @@ export default function AddRecipe() {
                 onChange={(e) => handleIngredientChange(index, e)}
                 className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
               />
-              <input
-                type="text"
-                name="unit"
-                placeholder="Unit"
-                value={ingredient.unit}
-                onChange={(e) => handleIngredientChange(index, e)}
-                className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
-              />
+              <button
+                type="button"
+                onClick={() => setShowUnitDropdown(!showUnitDropdown)}
+                className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset text-left"
+              >
+                {ingredient.unit || "Choose Unit"}
+              </button>
+              {showUnitDropdown && (
+                <div className="absolute bg-white shadow-lg rounded-md mt-2 z-10">
+                  <ul>
+                    {unitOptions.map((unit) => (
+                      <li
+                        key={unit}
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-200"
+                        onClick={() => handleUnitSelect(index, unit)}
+                      >
+                        {unit}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               <button
                 type="button"
                 onClick={() => removeIngredient(index)}
@@ -307,6 +376,24 @@ export default function AddRecipe() {
               >
                 Remove
               </button>
+
+              {showDropdown && (
+                <div className="absolute bg-white shadow-lg rounded-md mt-2 z-10">
+                  <ul>
+                    {ingredientsList.map((ingredientItem) => (
+                      <li
+                        key={ingredientItem.id}
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-200"
+                        onClick={() =>
+                          handleIngredientSelect(index, ingredientItem)
+                        }
+                      >
+                        {ingredientItem.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           ))}
           <button
@@ -317,6 +404,7 @@ export default function AddRecipe() {
             Add Ingredient
           </button>
         </div>
+
         <div className="mb-4">
           <label className="block text-gray-700 text-xl font-bold mb-2">
             Steps

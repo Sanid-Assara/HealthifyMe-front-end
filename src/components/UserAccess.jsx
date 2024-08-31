@@ -5,51 +5,45 @@ import Logout from "./Logout";
 import avatarImage from "../assets/avatar.webp";
 
 export default function UserAccess() {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState({});
   const [isAuthenticated, setIsAuthenticated] = useState(
     !!localStorage.getItem("token")
   );
 
   useEffect(() => {
-    axios
-      .get("https://healthifyme-api.onrender.com/API/users/profile ", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data.userId);
-        axios
-          .get(
-            `https://healthifyme-api.onrender.com/API/users/${res.data.userId}`
-          )
-          .then((res) => {
-            // console.log(res.data);
-            setUser(res.data);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {});
-  }, [isAuthenticated]);
-
-  useEffect(() => {
-    const handleAuthChange = () => {
-      console.log("Auth status changed:", !!localStorage.getItem("token"));
-      setIsAuthenticated(!!localStorage.getItem("token"));
+    const fetchUserData = () => {
+      axios
+        .get("https://healthifyme-api.onrender.com/API/users/profile", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          const userId = res.data.userId;
+          axios
+            .get(`https://healthifyme-api.onrender.com/API/users/${userId}`)
+            .then((res) => {
+              setUser(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
 
-    // Listen for the custom authChanged event
-    window.addEventListener("authChanged", handleAuthChange);
+    // Fetch data on initial load
+    fetchUserData();
+
+    // Listen for the custom authChanged event to re-fetch user data
+    window.addEventListener("authChanged", fetchUserData);
 
     return () => {
-      window.removeEventListener("authChanged", handleAuthChange);
+      window.removeEventListener("authChanged", fetchUserData);
     };
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <>

@@ -1,4 +1,3 @@
-
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -67,8 +66,14 @@ export default function Settings() {
   };
   return (
     <>
+      <div className=" flex flex-col justify-center max-w-screen-md  m-auto min-h-screen   items-center">
+        <h1 className="text-4xl font-bold text-primary text-center p-6">
+          Settings
+        </h1>
 
-      <div className=" flex justify-center max-w-screen-md  m-auto min-h-screen   items-center">
+        <div className="container m-auto px-10 lg:px-0 py-12">
+          <Themes />
+        </div>
         <form
           onSubmit={handleEdit}
           className="flex flex-col flex-1 bg-base-100  px-8 pt-8 pb-14  shadow appearance-none rounded-xl leading-tight"
@@ -185,15 +190,6 @@ export default function Settings() {
             </Link>
           </div>
         </form>
-
-      <div className="min-h-screen bg-base-200">
-        <div className="container m-auto px-10 lg:px-0 py-12">
-          <h1 className="text-4xl font-bold text-primary text-center">
-            Settings
-          </h1>
-          <Themes />
-        </div>
-
       </div>
     </>
   );

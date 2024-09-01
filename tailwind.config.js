@@ -2,7 +2,14 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      spacing: {
+        "arrow-right": "2.5rem", // Space for the arrow
+      },
+      colors: {
+        "arrow-color": "#00FF00", // Customize the arrow color
+      },
+    },
   },
   daisyui: {
     themes: [
@@ -18,7 +25,7 @@ export default {
           info: "#7bd3ea",
           success: "#65b741",
           warning: "#facc15",
-          error: "#ff6868",
+          error: "#C53030",
         },
       },
       "light",
@@ -37,5 +44,27 @@ export default {
       "sunset",
     ],
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require("daisyui"),
+    function ({ addComponents }) {
+      addComponents({
+        ".dropdown-arrow": {
+          position: "relative",
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            top: "50%",
+            right: "0.5rem",
+            transform: "translateY(-50%)",
+            width: 0,
+            height: 0,
+            borderLeft: "0.5rem solid transparent",
+            borderRight: "0.5rem solid transparent",
+            borderTop: "0.5rem solid #000", // Customize this color to match your theme
+            pointerEvents: "none",
+          },
+        },
+      });
+    },
+  ],
 };

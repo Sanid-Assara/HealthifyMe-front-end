@@ -39,7 +39,7 @@ export default function RecipeExploration() {
     <>
       <div className="min-h-screen bg-gray-100">
         <div className="container m-auto px-10 lg:px-0">
-          <h1 className="text-4xl font-bold text-neutral text-center pt-16">
+          <h1 className="text-4xl font-bold text-neutral  text-center pt-16">
             Recipe Exploration
           </h1>
           <div className="flex items-center justify-center gap-6 py-12">

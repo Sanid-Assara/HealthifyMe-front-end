@@ -11,6 +11,8 @@ export default function Settings() {
     password: "",
     profilePicture: "",
   });
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(null);
   const [id, setId] = useState(null);
   const navigate = useNavigate();
 
@@ -45,8 +47,40 @@ export default function Settings() {
     }));
   };
 
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
   const handleEdit = (e) => {
     e.preventDefault();
+
+    axios
+      .put(`https://healthifyme-api.onrender.com/API/users/${id}`, userEdit, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        const event = new Event("authChanged");
+        window.dispatchEvent(event);
+
+        navigate(`/profile`);
+        console.log("Resource updated successfully", res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handlePasswordEdit = (e) => {
+    e.preventDefault();
+
+    if (userEdit.password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    setError(null);
+
     axios
       .put(`https://healthifyme-api.onrender.com/API/users/${id}`, userEdit, {
         headers: {
@@ -80,7 +114,7 @@ export default function Settings() {
         >
           <div className="mb-4">
             <h1 className="text-4xl font-bold mb-4 text-center p-8">
-              Change Profile Picture
+              Change Your Profile Picture
             </h1>
             <label
               className="block text-xl text-base-content  font-bold mb-2"
@@ -96,32 +130,19 @@ export default function Settings() {
               onChange={handleChange}
               className="shadow border-base-300  focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
+            <div className="flex justify-center gap-6 mt-4">
+              <button
+                type="submit"
+                className="font-bold btn btn-primary text-xl w-full flex-1"
+              >
+                Change
+              </button>
+            </div>
           </div>
 
           <div className="mb-4">
             <h1 className="text-4xl font-bold mb-4 text-center p-8">
-              Change Password
-            </h1>
-            <label
-              className="block text-xl text-base-content  font-bold mb-2"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              required
-              type="text"
-              id="password"
-              name="password"
-              value={userEdit.password}
-              onChange={handleChange}
-              className="shadow border-base-300  focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-          </div>
-
-          <div className="mb-4">
-            <h1 className="text-4xl font-bold mb-4 text-center p-8">
-              Change Email
+              Change Your Email
             </h1>
             <label
               className="block text-xl text-base-content font-bold mb-2"
@@ -138,11 +159,66 @@ export default function Settings() {
               onChange={handleChange}
               className="shadow border-base-300 focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
+            <div className="flex justify-center gap-6 mt-4">
+              <button
+                type="submit"
+                className="font-bold btn btn-primary text-xl w-full flex-1"
+              >
+                Change
+              </button>
+            </div>
           </div>
 
           <div className="mb-4">
             <h1 className="text-4xl font-bold mb-4 text-center p-8">
-              Change Name
+              Change Your Password
+            </h1>
+            <label
+              className="block text-xl text-base-content  font-bold mb-2"
+              htmlFor="password"
+            >
+              New Password
+            </label>
+            <input
+              required
+              type="password"
+              id="password"
+              name="password"
+              value={userEdit.password}
+              onChange={handleChange}
+              className="shadow border-base-300  focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+
+            <label
+              className="block text-xl text-base-content  font-bold mb-2"
+              htmlFor="confirm-password"
+            >
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirmPassword"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+              className="shadow border-base-300  focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+
+            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+
+            <div className="flex justify-center gap-6 mt-4">
+              <button
+                onSubmit={handlePasswordEdit}
+                className="font-bold btn btn-primary text-xl w-full flex-1"
+              >
+                Change
+              </button>
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <h1 className="text-4xl font-bold mb-4 text-center p-8">
+              Change Your Name
             </h1>
             <label
               className="block text-xl text-base-content font-bold mb-2"
@@ -174,18 +250,20 @@ export default function Settings() {
               onChange={handleChange}
               className="shadow border-base-300 focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
+            <div className="flex justify-center gap-6 mt-4">
+              <button
+                type="submit"
+                className="font-bold btn btn-primary text-xl w-full flex-1"
+              >
+                Change
+              </button>
+            </div>
           </div>
 
           <div className="flex justify-center gap-6 mt-4">
-            <button
-              type="submit"
-              className="font-bold btn btn-primary text-xl w-full flex-1"
-            >
-              Update
-            </button>
-            <Link to={`/users/${id}`} className="flex-1">
+            <Link to={`/profile`} className="flex">
               <button className="font-bold btn btn-error text-xl w-full ">
-                Cancel
+                Go to your profile
               </button>
             </Link>
           </div>

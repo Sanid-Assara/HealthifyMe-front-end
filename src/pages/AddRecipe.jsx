@@ -197,276 +197,303 @@ export default function AddRecipe() {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">Add Recipe</h1>
-      <form
-        onSubmit={handleCreate}
-        className="flex flex-col flex-1 bg-white px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight"
-      >
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-xl font-bold mb-2"
-            htmlFor="name"
+    <div className="min-h-screen bg-gray-100">
+      <div className="container m-auto px-10 lg:px-0">
+        <h1 className="text-4xl font-bold text-primary text-center pt-16">
+          Recipe Creation
+        </h1>
+        <div className="flex items-center justify-center gap-6 py-12">
+          <form
+            onSubmit={handleCreate}
+            className="flex flex-col flex-1 bg-white px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12"
           >
-            Recipe Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={newRecipe.name}
-            onChange={handleChange}
-            placeholder="Enter recipe name"
-            className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-xl font-bold mb-2"
-            htmlFor="description"
-          >
-            Description
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            value={newRecipe.description}
-            onChange={handleChange}
-            placeholder="Enter description"
-            className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-xl font-bold mb-2"
-            htmlFor="imageUrl"
-          >
-            Cover Photo
-          </label>
-          <input
-            type="url"
-            id="imageUrl"
-            name="imageUrl"
-            value={newRecipe.imageUrl}
-            onChange={handleChange}
-            placeholder="Add image url"
-            className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-xl font-bold mb-2"
-            htmlFor="calories"
-          >
-            Calories
-          </label>
-          <input
-            type="number"
-            id="calories"
-            name="calories"
-            value={newRecipe.nutritionalInfo.calories}
-            onChange={handleChange}
-            placeholder="Enter calories"
-            className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-xl font-bold mb-2"
-            htmlFor="protein"
-          >
-            Protein (g)
-          </label>
-          <input
-            type="number"
-            id="protein"
-            name="protein"
-            value={newRecipe.nutritionalInfo.protein}
-            onChange={handleChange}
-            placeholder="Enter protein"
-            className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-xl font-bold mb-2"
-            htmlFor="carbs"
-          >
-            Carbs (g)
-          </label>
-          <input
-            type="number"
-            id="carbs"
-            name="carbs"
-            value={newRecipe.nutritionalInfo.carbs}
-            onChange={handleChange}
-            placeholder="Enter carbs"
-            className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-xl font-bold mb-2"
-            htmlFor="fat"
-          >
-            Fat (g)
-          </label>
-          <input
-            type="number"
-            id="fat"
-            name="fat"
-            value={newRecipe.nutritionalInfo.fat}
-            onChange={handleChange}
-            placeholder="Enter fat"
-            className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
-          />
-        </div>
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold mb-4">Ingredients</h2>
-          {newRecipe.ingredients.map((ingredient, index) => (
-            <div key={index} className="mb-2">
+            {/* Recipe Name Section */}
+            <div className="mb-4">
               <label
                 className="block text-gray-700 text-xl font-bold mb-2"
-                htmlFor={`ingredient-${index}`}
+                htmlFor="name"
               >
-                Ingredient {index + 1}
+                Recipe Name
               </label>
-              <div className="relative">
-                <input
-                  type="text"
-                  id={`ingredient-${index}`}
-                  name="ingredientItem"
-                  placeholder="Choose Ingredient"
-                  value={
-                    ingredientsList.find(
-                      (item) => item.id === ingredient.ingredientItem
-                    )?.name || ""
-                  }
-                  onFocus={() => {
-                    const dropdowns = [...showIngredientDropdown];
-                    dropdowns[index] = true;
-                    setShowIngredientDropdown(dropdowns);
-                  }}
-                  readOnly
-                  className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
-                />
-                <div
-                  ref={(ref) => (ingredientDropdownRefs.current[index] = ref)}
-                  className={`absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto ${
-                    showIngredientDropdown[index] ? "block" : "hidden"
-                  }`}
-                >
-                  {ingredientsList.map((item) => (
-                    <li
-                      key={item.id}
-                      onClick={() => handleIngredientSelect(index, item)}
-                      className="cursor-pointer px-4 py-2 hover:bg-gray-200"
-                    >
-                      {item.name}
-                    </li>
-                  ))}
-                </div>
-              </div>
               <input
-                type="number"
-                name="quantity"
-                placeholder="Quantity"
-                value={ingredient.quantity}
-                onChange={(e) => handleIngredientChange(index, e)}
-                className={`mt-2 block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
-              />
-              <div className="relative mt-2">
-                <input
-                  type="text"
-                  id={`unit-${index}`}
-                  name="unit"
-                  placeholder="Choose Unit"
-                  value={ingredient.unit}
-                  onFocus={() => {
-                    const dropdowns = [...showUnitDropdown];
-                    dropdowns[index] = true;
-                    setShowUnitDropdown(dropdowns);
-                  }}
-                  readOnly
-                  className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
-                />
-                <div
-                  ref={(ref) => (unitDropdownRefs.current[index] = ref)}
-                  className={`absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto ${
-                    showUnitDropdown[index] ? "block" : "hidden"
-                  }`}
-                >
-                  {unitsList.map((unit, unitIndex) => (
-                    <li
-                      key={unitIndex}
-                      onClick={() => handleUnitSelect(index, unit)}
-                      className="cursor-pointer px-4 py-2 hover:bg-gray-200"
-                    >
-                      {unit}
-                    </li>
-                  ))}
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => removeIngredient(index)}
-                className="mt-2 text-red-500 hover:underline"
-              >
-                Remove Ingredient
-              </button>
-            </div>
-          ))}
-          <button
-            type="button"
-            onClick={addIngredient}
-            className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-md"
-          >
-            Add Ingredient
-          </button>
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-xl font-bold mb-2">
-            Steps
-          </label>
-          {newRecipe.steps.map((step, index) => (
-            <div key={index} className="mb-2">
-              <textarea
-                placeholder={`Step ${index + 1}`}
-                value={step}
-                onChange={(e) => handleStepChange(index, e)}
+                type="text"
+                id="name"
+                name="name"
+                value={newRecipe.name}
+                onChange={handleChange}
+                placeholder="Enter recipe name"
                 className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
               />
+            </div>
+
+            {/* Description Section */}
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-xl font-bold mb-2"
+                htmlFor="description"
+              >
+                Description
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                value={newRecipe.description}
+                onChange={handleChange}
+                placeholder="Enter description"
+                className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
+              />
+            </div>
+
+            {/* Cover Photo Section */}
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-xl font-bold mb-2"
+                htmlFor="imageUrl"
+              >
+                Cover Photo
+              </label>
+              <input
+                type="url"
+                id="imageUrl"
+                name="imageUrl"
+                value={newRecipe.imageUrl}
+                onChange={handleChange}
+                placeholder="Add image url"
+                className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
+              />
+            </div>
+
+            {/* Calories Section */}
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-xl font-bold mb-2"
+                htmlFor="calories"
+              >
+                Calories
+              </label>
+              <input
+                type="number"
+                id="calories"
+                name="calories"
+                value={newRecipe.nutritionalInfo.calories}
+                onChange={handleChange}
+                placeholder="Enter calories"
+                className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
+              />
+            </div>
+
+            {/* Protein Section */}
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-xl font-bold mb-2"
+                htmlFor="protein"
+              >
+                Protein (g)
+              </label>
+              <input
+                type="number"
+                id="protein"
+                name="protein"
+                value={newRecipe.nutritionalInfo.protein}
+                onChange={handleChange}
+                placeholder="Enter protein"
+                className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
+              />
+            </div>
+
+            {/* Carbs Section */}
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-xl font-bold mb-2"
+                htmlFor="carbs"
+              >
+                Carbs (g)
+              </label>
+              <input
+                type="number"
+                id="carbs"
+                name="carbs"
+                value={newRecipe.nutritionalInfo.carbs}
+                onChange={handleChange}
+                placeholder="Enter carbs"
+                className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
+              />
+            </div>
+
+            {/* Fat Section */}
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-xl font-bold mb-2"
+                htmlFor="fat"
+              >
+                Fat (g)
+              </label>
+              <input
+                type="number"
+                id="fat"
+                name="fat"
+                value={newRecipe.nutritionalInfo.fat}
+                onChange={handleChange}
+                placeholder="Enter fat"
+                className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
+              />
+            </div>
+
+            {/* Ingredients Section */}
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold mb-4">Ingredients</h2>
+              {newRecipe.ingredients.map((ingredient, index) => (
+                <div key={index} className="mb-2">
+                  <label
+                    className="block text-gray-700 text-xl font-bold mb-2"
+                    htmlFor={`ingredient-${index}`}
+                  >
+                    Ingredient {index + 1}
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      id={`ingredient-${index}`}
+                      name="ingredientItem"
+                      placeholder="Choose Ingredient"
+                      value={
+                        ingredientsList.find(
+                          (item) => item.id === ingredient.ingredientItem
+                        )?.name || ""
+                      }
+                      onFocus={() => {
+                        const dropdowns = [...showIngredientDropdown];
+                        dropdowns[index] = true;
+                        setShowIngredientDropdown(dropdowns);
+                      }}
+                      readOnly
+                      className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
+                    />
+                    <div
+                      ref={(ref) =>
+                        (ingredientDropdownRefs.current[index] = ref)
+                      }
+                      className={`absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto ${
+                        showIngredientDropdown[index] ? "block" : "hidden"
+                      }`}
+                    >
+                      {ingredientsList.map((item) => (
+                        <li
+                          key={item.id}
+                          onClick={() => handleIngredientSelect(index, item)}
+                          className="cursor-pointer px-4 py-2 hover:bg-gray-200"
+                        >
+                          {item.name}
+                        </li>
+                      ))}
+                    </div>
+                  </div>
+                  <input
+                    type="number"
+                    name="quantity"
+                    placeholder="Quantity"
+                    value={ingredient.quantity}
+                    onChange={(e) => handleIngredientChange(index, e)}
+                    className={`mt-2 block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
+                  />
+                  <div className="relative mt-2">
+                    <input
+                      type="text"
+                      id={`unit-${index}`}
+                      name="unit"
+                      placeholder="Choose Unit"
+                      value={ingredient.unit}
+                      onFocus={() => {
+                        const dropdowns = [...showUnitDropdown];
+                        dropdowns[index] = true;
+                        setShowUnitDropdown(dropdowns);
+                      }}
+                      readOnly
+                      className={`block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset`}
+                    />
+                    <div
+                      ref={(ref) => (unitDropdownRefs.current[index] = ref)}
+                      className={`absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto ${
+                        showUnitDropdown[index] ? "block" : "hidden"
+                      }`}
+                    >
+                      {unitsList.map((unit, unitIndex) => (
+                        <li
+                          key={unitIndex}
+                          onClick={() => handleUnitSelect(index, unit)}
+                          className="cursor-pointer px-4 py-2 hover:bg-gray-200"
+                        >
+                          {unit}
+                        </li>
+                      ))}
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => removeIngredient(index)}
+                    className="mt-2 text-red-500 hover:underline"
+                  >
+                    Remove Ingredient
+                  </button>
+                </div>
+              ))}
               <button
                 type="button"
-                onClick={() => removeStep(index)}
-                className="text-red-500 font-bold"
+                onClick={addIngredient}
+                className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-md"
               >
-                Remove
+                Add Ingredient
               </button>
             </div>
-          ))}
-          <button
-            type="button"
-            onClick={addStep}
-            className="font-bold btn btn-secondary mt-2"
-          >
-            Add Step
-          </button>
+
+            {/* Steps Section */}
+            <div className="mb-4">
+              <label className="block text-gray-700 text-xl font-bold mb-2">
+                Steps
+              </label>
+              {newRecipe.steps.map((step, index) => (
+                <div key={index} className="mb-2">
+                  <textarea
+                    placeholder={`Step ${index + 1}`}
+                    value={step}
+                    onChange={(e) => handleStepChange(index, e)}
+                    className="block w-full rounded-md border-0 bg-black/5 py-3 px-2 text-dark shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeStep(index)}
+                    className="text-red-500 font-bold"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={addStep}
+                className="font-bold btn btn-secondary mt-2"
+              >
+                Add Step
+              </button>
+            </div>
+
+            {/* Create Recipe and Cancel Buttons */}
+            <div className="flex gap-6">
+              <button
+                type="submit"
+                className="font-bold btn btn-primary flex-1 w-full text-xl"
+              >
+                Create Recipe
+              </button>
+              <Link to="/profile" className="flex-1">
+                <button className="font-bold btn bg-red-700 text-white w-full text-xl hover:bg-red-800">
+                  Cancel
+                </button>
+              </Link>
+            </div>
+          </form>
         </div>
-        <div className="flex gap-6">
-          <button
-            type="submit"
-            className="font-bold btn btn-primary flex-1 w-full text-xl"
-          >
-            Create
-          </button>
-          <Link to="/profile" className="flex-1">
-            <button className="font-bold btn bg-red-700 text-white w-full text-xl hover:bg-red-800">
-              Cancel
-            </button>
-          </Link>
-        </div>
-      </form>
+      </div>
     </div>
   );
 }

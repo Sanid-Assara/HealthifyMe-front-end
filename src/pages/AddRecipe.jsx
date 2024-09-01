@@ -537,7 +537,7 @@ export default function AddRecipe() {
               </div>
 
               {/* Create Recipe and Cancel Buttons */}
-              <div className="flex gap-6">
+              <div className="flex justify-end gap-6 mt-8 mb-4">
                 <button
                   type="submit"
                   className="btn btn-primary font-bold w-36"

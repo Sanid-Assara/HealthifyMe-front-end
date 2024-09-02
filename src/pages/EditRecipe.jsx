@@ -390,149 +390,177 @@ export default function RecipeEdit() {
 
             {/* Section 3: Ingredients and Steps */}
             <div className="flex flex-col flex-1 bg-white px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold mb-4">Ingredients</h2>
-                {recipeEdit.ingredients.map((ingredient, index) => (
-                  <div key={index} className="mb-2">
-                    <label
-                      className="block text-primary text-xl font-bold mb-2"
-                      htmlFor={`ingredient-${index}`}
-                    >
-                      Ingredient {index + 1}
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        id={`ingredient-${index}`}
-                        name="ingredientItem"
-                        placeholder="Choose Ingredient"
-                        value={
-                          ingredientsList.find(
-                            (item) => item.id === ingredient.ingredientItem
-                          )?.name || ""
-                        }
-                        onFocus={() => {
-                          const dropdowns = [...showIngredientDropdown];
-                          dropdowns[index] = true;
-                          setShowIngredientDropdown(dropdowns);
-                        }}
-                        readOnly
-                        className="select-secondary w-full rounded-md bg-black/5 py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2"
-                      />
-                      <div
-                        ref={(ref) =>
-                          (ingredientDropdownRefs.current[index] = ref)
-                        }
-                        className={`absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto ${
-                          showIngredientDropdown[index] ? "block" : "hidden"
-                        }`}
+              <div className="flex flex-1 gap-8">
+                {/* Ingredients Section */}
+                <div className="mb-4 basis-1/3 grow">
+                  <h2 className="text-primary text-xl text-center font-bold mb-2">
+                    Ingredients
+                  </h2>
+                  {recipeEdit.ingredients.map((ingredient, index) => (
+                    <div key={index} className="mb-2 flex flex-col gap-4">
+                      <label
+                        className="block text-primary text-lg font-bold flex-1"
+                        htmlFor={`ingredient-${index}`}
                       >
-                        {ingredientsList.map((item) => (
-                          <li
-                            key={item.id}
-                            onClick={() => handleIngredientSelect(index, item)}
-                            className="cursor-pointer px-4 py-2 hover:bg-gray-200"
+                        Ingredient {index + 1}
+                      </label>
+
+                      {/* Choose Ingredient */}
+                      <div className="relative flex-1">
+                        <input
+                          type="text"
+                          id={`ingredient-${index}`}
+                          name="ingredientItem"
+                          placeholder="Choose Ingredient"
+                          value={
+                            ingredientsList.find(
+                              (item) => item.id === ingredient.ingredientItem
+                            )?.name || ""
+                          }
+                          onFocus={() => {
+                            const dropdowns = [...showIngredientDropdown];
+                            dropdowns[index] = true;
+                            setShowIngredientDropdown(dropdowns);
+                          }}
+                          readOnly
+                          className="select select-secondary dropdown-arrow cursor-pointer block w-full rounded-md bg-black/5 py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 pr-8"
+                        />
+                        <div
+                          ref={(ref) =>
+                            (ingredientDropdownRefs.current[index] = ref)
+                          }
+                          className={`absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto ${
+                            showIngredientDropdown[index] ? "block" : "hidden"
+                          }`}
+                        >
+                          {ingredientsList.map((item) => (
+                            <li
+                              key={item.id}
+                              onClick={() =>
+                                handleIngredientSelect(index, item)
+                              }
+                              className="cursor-pointer list-none text-primary px-4 py-2 hover:bg-secondary"
+                            >
+                              {item.name}
+                            </li>
+                          ))}
+                        </div>
+                      </div>
+                      {/* Quantity and Units */}
+                      <div className="flex gap-4 flex-1">
+                        <div className="flex-1">
+                          <input
+                            type="number"
+                            name="quantity"
+                            placeholder="Quantity"
+                            value={ingredient.quantity}
+                            onChange={(e) => handleIngredientChange(index, e)}
+                            className="select-secondary mt-2 block w-full rounded-md bg-black/5 py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2"
+                          />
+                        </div>
+
+                        <div className="relative mt-2 flex-1">
+                          <input
+                            type="text"
+                            id={`unit-${index}`}
+                            name="unit"
+                            placeholder="Choose Unit"
+                            value={ingredient.unit}
+                            onFocus={() => {
+                              const dropdowns = [...showUnitDropdown];
+                              dropdowns[index] = true;
+                              setShowUnitDropdown(dropdowns);
+                            }}
+                            readOnly
+                            className="select select-secondary dropdown-arrow cursor-pointer block w-full rounded-md bg-black/5 py-3 pl-10 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2"
+                          />
+                          <div
+                            ref={(ref) =>
+                              (unitDropdownRefs.current[index] = ref)
+                            }
+                            className={`absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto ${
+                              showUnitDropdown[index] ? "block" : "hidden"
+                            }`}
                           >
-                            {item.name}
-                          </li>
-                        ))}
+                            {unitsList.map((unit, unitIndex) => (
+                              <li
+                                key={unitIndex}
+                                onClick={() => handleUnitSelect(index, unit)}
+                                className="cursor-pointer list-none text-primary px-4 py-2 hover:bg-secondary"
+                              >
+                                {unit}
+                              </li>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Remove Button */}
+                      <button
+                        type="button"
+                        onClick={() => removeIngredient(index)}
+                        className="btn btn-error  font-bold flex-1 text-white mb-4"
+                      >
+                        Remove Ingredient
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={addIngredient}
+                    className="btn btn-secondary text-4xl text-primary  font-bold text-center flex items-center justify-center pb-2 border-2 border-primary  hover:btn-primary hover:text-secondary"
+                  >
+                    +
+                  </button>
+                </div>
+
+                {/* Steps Section */}
+                <div className="mb-4 basis-2/3 grow">
+                  <h2 className="text-primary text-xl text-center font-bold mb-2">
+                    Step by Step
+                  </h2>
+                  {recipeEdit.steps.map((step, index) => (
+                    <div key={index} className="mb-2">
+                      <label
+                        className="block text-primary text-xl font-bold mb-2"
+                        htmlFor={`step-${index}`}
+                      >
+                        Step {index + 1}
+                      </label>
+                      <div className="flex justify-center mt-4 gap-4">
+                        <div className="w-full">
+                          <input
+                            className="select-secondary w-full rounded-md bg-black/5 py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2"
+                            type="text"
+                            id={`step-${index}`}
+                            name="steps"
+                            value={step}
+                            onChange={(e) => handleStepChange(index, e)}
+                            placeholder="Enter step description"
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => removeStep(index)}
+                          className="btn btn-error  font-bold text-white mb-4"
+                        >
+                          Remove
+                        </button>
                       </div>
                     </div>
-                    <input
-                      type="number"
-                      name="quantity"
-                      placeholder="Quantity"
-                      value={ingredient.quantity}
-                      onChange={(e) => handleIngredientChange(index, e)}
-                      className="select-secondary w-full rounded-md bg-black/5 py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2"
-                    />
-                    <div className="relative mt-2">
-                      <input
-                        type="text"
-                        id={`unit-${index}`}
-                        name="unit"
-                        placeholder="Choose Unit"
-                        value={ingredient.unit}
-                        onFocus={() => {
-                          const dropdowns = [...showUnitDropdown];
-                          dropdowns[index] = true;
-                          setShowUnitDropdown(dropdowns);
-                        }}
-                        readOnly
-                        className="select-secondary w-full rounded-md bg-black/5 py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2"
-                      />
-                      <div
-                        ref={(ref) => (unitDropdownRefs.current[index] = ref)}
-                        className={`absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto ${
-                          showUnitDropdown[index] ? "block" : "hidden"
-                        }`}
-                      >
-                        {unitsList.map((unit, unitIndex) => (
-                          <li
-                            key={unitIndex}
-                            onClick={() => handleUnitSelect(index, unit)}
-                            className="cursor-pointer px-4 py-2 hover:bg-gray-200"
-                          >
-                            {unit}
-                          </li>
-                        ))}
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => removeIngredient(index)}
-                      className="btn btn-error  font-bold flex-1 text-white mb-4"
-                    >
-                      Remove Ingredient
-                    </button>
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  onClick={addIngredient}
-                  className="btn btn-secondary text-4xl text-primary  font-bold text-center flex items-center justify-center pb-2 border-2 border-primary  hover:btn-primary hover:text-secondary"
-                >
-                  +
-                </button>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={addStep}
+                    className="btn btn-secondary text-4xl text-primary  font-bold text-center flex items-center justify-center pb-2 border-2 border-primary  hover:btn-primary hover:text-secondary"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
 
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold mb-4">Steps</h2>
-                {recipeEdit.steps.map((step, index) => (
-                  <div key={index} className="mb-2">
-                    <label
-                      className="block text-primary text-xl font-bold mb-2"
-                      htmlFor={`step-${index}`}
-                    >
-                      Step {index + 1}
-                    </label>
-                    <textarea
-                      id={`step-${index}`}
-                      name="steps"
-                      value={step}
-                      onChange={(e) => handleStepChange(index, e)}
-                      placeholder="Enter step description"
-                      className="select-secondary w-full rounded-md bg-black/5 py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => removeStep(index)}
-                      className="btn btn-error  font-bold text-white mb-4"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  onClick={addStep}
-                  className="btn btn-secondary text-4xl text-primary  font-bold text-center flex items-center justify-center pb-2 border-2 border-primary  hover:btn-primary hover:text-secondary"
-                >
-                  +
-                </button>
-              </div>
-
-              <div className="flex items-center justify-between">
+              {/* Create Recipe and Cancel Buttons */}
+              <div className="flex justify-end gap-6 mt-8 mb-4">
                 <button
                   type="submit"
                   className="btn btn-primary font-bold w-36"

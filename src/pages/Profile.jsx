@@ -36,7 +36,7 @@ export default function Profile() {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex flex-col items-center justify-center bg-gray-100">
         <div className="flex justify-start items-start gap-4 my-8">
           <Link to="/nutri-analysis">
             <button className="btn btn-accent w-56 text-base-100">
@@ -50,10 +50,8 @@ export default function Profile() {
             <button className="btn btn-secondary w-36">Add Food</button>
           </Link>
         </div>
-        <div>
-          <CreatedRecipes />
-          <AddedFoods />
-        </div>
+        <CreatedRecipes />
+        <AddedFoods />
       </div>
     </>
   );

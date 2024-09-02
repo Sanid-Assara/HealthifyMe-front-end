@@ -357,6 +357,24 @@ export default function AddRecipe() {
                   />
                 </div>
               </div>
+
+              {/* Dietary Tags */}
+              <div className="mb-4 flex-1">
+                <label
+                  className="block text-primary text-xl font-bold mb-2"
+                  htmlFor="dietaryTags"
+                >
+                  Dietary Tags
+                </label>
+                <input
+                  type="text"
+                  id="dietaryTags"
+                  name="dietaryTags"
+                  onChange={handleChange}
+                  placeholder="Separate tags with commas"
+                  className="select-secondary w-full rounded-md bg-black/5 py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2"
+                />
+              </div>
             </div>
 
             {/* Section 3: Ingredients and Steps */}

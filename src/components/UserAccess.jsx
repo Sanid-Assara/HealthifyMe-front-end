@@ -10,47 +10,54 @@ export default function UserAccess() {
     !!localStorage.getItem("token")
   );
 
-  useEffect(() => {
-    const fetchUserData = () => {
-      axios
-        .get("https://healthifyme-api.onrender.com/API/users/profile", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
-        .then((res) => {
-          const userId = res.data.userId;
-          axios
-            .get(`https://healthifyme-api.onrender.com/API/users/${userId}`)
-            .then((res) => {
-              setUser(res.data);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
+  const fetchUserData = () => {
+    if (!localStorage.getItem("token")) return;
 
-    // Fetch data on initial load
+    axios
+      .get("https://healthifyme-api.onrender.com/API/users/profile", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        const userId = res.data.userId;
+        axios
+          .get(`https://healthifyme-api.onrender.com/API/users/${userId}`)
+          .then((res) => {
+            setUser(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    // Fetch user data initially
     fetchUserData();
 
-    // Listen for the custom authChanged event to re-fetch user data
-    window.addEventListener("authChanged", fetchUserData);
+    const handleAuthChange = () => {
+      setIsAuthenticated(!!localStorage.getItem("token"));
+      fetchUserData();
+    };
+
+    // Listen for the custom authChanged event
+    window.addEventListener("authChanged", handleAuthChange);
 
     return () => {
-      window.removeEventListener("authChanged", fetchUserData);
+      window.removeEventListener("authChanged", handleAuthChange);
     };
-  }, [isAuthenticated]);
+  }, []);
 
   return (
     <>
       {isAuthenticated ? (
-        /* Navbar end when user is Login */
+        /* Navbar end when user is logged in */
         <div className="navbar-end gap-2">
-          <div className=" flex items-center justify-center">
+          <div className="flex items-center justify-center">
             <p className="text-3xl font-light pl-4 hidden lg:flex">
               Hello, {user.firstname}
             </p>
@@ -88,7 +95,7 @@ export default function UserAccess() {
           </div>
         </div>
       ) : (
-        /* Navbar end when user still not register or login*/
+        /* Navbar end when user is not logged in */
         <div className="navbar-end gap-6">
           <NavLink to="/signup">
             <button className="btn btn-outline btn-secondary rounded-full">
@@ -100,15 +107,6 @@ export default function UserAccess() {
               Login
             </button>
           </NavLink>
-          {/* <NavLink to="/login">
-            <div className="dropdown">
-              <div className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full">
-                  <img alt="User avatar" src={avatarImage} />
-                </div>
-              </div>
-            </div>
-          </NavLink> */}
         </div>
       )}
     </>

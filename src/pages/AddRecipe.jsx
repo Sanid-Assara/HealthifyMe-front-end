@@ -248,7 +248,7 @@ export default function AddRecipe() {
                       placeholder="Add image url"
                       className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
                     />
-                    <button className="btn btn-secondary text-primary font-bold ">
+                    <button className="btn btn-secondary text-primary font-bold hover:text-secondary hover:btn-primary border-2 border-primary">
                       Upload
                     </button>
                   </div>
@@ -487,11 +487,9 @@ export default function AddRecipe() {
                   <button
                     type="button"
                     onClick={addIngredient}
-                    className="btn btn-secondary flex items-center justify-center pb-2"
+                    className="btn btn-secondary text-4xl text-primary  font-bold text-center flex items-center justify-center pb-2 border-2 border-primary  hover:btn-primary hover:text-secondary"
                   >
-                    <p className="text-4xl text-primary font-bold text-center">
-                      +
-                    </p>
+                    +
                   </button>
                 </div>
 
@@ -532,11 +530,9 @@ export default function AddRecipe() {
                   <button
                     type="button"
                     onClick={addStep}
-                    className="btn btn-secondary flex items-center justify-center pb-2"
+                    className="btn btn-secondary text-4xl text-primary  font-bold text-center flex items-center justify-center pb-2 border-2 border-primary  hover:btn-primary hover:text-secondary"
                   >
-                    <p className="text-4xl text-primary font-bold text-center">
-                      +
-                    </p>
+                    +
                   </button>
                 </div>
               </div>

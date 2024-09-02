@@ -99,174 +99,187 @@ export default function Settings() {
       });
   };
   return (
-    <>
-      <div className=" flex flex-col justify-center max-w-screen-md  m-auto min-h-screen   items-center">
-        <h1 className="text-4xl font-bold text-primary text-center p-6">
+    <div className="min-h-screen bg-gray-100">
+      <div className=" container m-auto px-10 lg:px-0">
+        <h1 className="text-4xl font-bold text-primary text-center pt-16">
           Settings
         </h1>
+        <div className="flex flex-col items-center justify-center gap-6 py-12">
+          {/*Forms Section*/}
+          <div className="flex-1 w-full">
+            <form onSubmit={handleEdit} className="flex flex-col gap-8">
+              {/*Section 1*/}
+              <div className="flex gap-8">
+                <div className="flex flex-col flex-1 bg-white px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
+                  <h1 className="text-3xl font-bold mb-4 text-center p-8 text-gray-600 ">
+                    Change Your Profile Picture
+                  </h1>
+                  <label
+                    className="block  text-xl font-bold mb-2 text-primary"
+                    htmlFor="profilePicture"
+                  >
+                    Profile Picture
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      id="profilePicture"
+                      name="profilePicture"
+                      placeholder="Update ProfilePicture Photo URL Here!"
+                      onChange={handleChange}
+                      className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                    />
+                    <button className="btn btn-secondary text-primary font-bold hover:text-secondary hover:btn-primary border-2 border-primary">
+                      Upload
+                    </button>
+                  </div>
+                  <div className="flex justify-center gap-6 mt-4">
+                    <button
+                      type="submit"
+                      className="font-bold btn btn-secondary text-primary text-xl w-full flex-1 border-2 border-primary hover:text-secondary hover:btn-primary"
+                    >
+                      Change
+                    </button>
+                  </div>
+                </div>
 
-        <div className="container m-auto px-10 lg:px-0 py-12">
-          <Themes />
+                <div className="flex flex-col flex-1 bg-white px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
+                  <h1 className="text-3xl font-bold mb-4 text-center p-8 text-gray-600 ">
+                    Change Your Name
+                  </h1>
+                  <label
+                    className="block  text-xl font-bold mb-2 text-primary"
+                    htmlFor="firstname"
+                  >
+                    First Name
+                  </label>
+                  <input
+                    type="text"
+                    id="firstname"
+                    name="firstname"
+                    placeholder="Enter New First Name"
+                    onChange={handleChange}
+                    className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                  />
+                  <label
+                    className="block  text-xl font-bold my-2 text-primary"
+                    htmlFor="lastname"
+                  >
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    id="lastname"
+                    name="lastname"
+                    placeholder="Enter New First Name"
+                    onChange={handleChange}
+                    className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                  />
+                  <div className="flex justify-center gap-6 mt-4">
+                    <button
+                      type="submit"
+                      className="font-bold btn btn-secondary text-primary text-xl w-full flex-1 border-2 border-primary hover:text-secondary hover:btn-primary"
+                    >
+                      Change
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/*Section 2*/}
+              <div className="flex gap-8">
+                <div className="flex flex-col flex-1 bg-white px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
+                  <h1 className="text-3xl font-bold mb-4 text-center p-8 text-gray-600 ">
+                    Change Your Email
+                  </h1>
+                  <label
+                    className="block  text-xl font-bold mb-2 text-primary"
+                    htmlFor="email"
+                  >
+                    Email
+                  </label>
+                  <input
+                    type="text"
+                    id="email"
+                    name="email"
+                    placeholder="Enter New Email"
+                    onChange={handleChange}
+                    className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                  />
+                  <div className="flex justify-center gap-6 mt-4">
+                    <button
+                      type="submit"
+                      className="font-bold btn btn-secondary text-primary text-xl w-full flex-1 border-2 border-primary hover:text-secondary hover:btn-primary"
+                    >
+                      Change
+                    </button>
+                  </div>
+                </div>
+                <div className="flex flex-col flex-1 bg-white px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
+                  <form onSubmit={handlePasswordEdit}>
+                    <div className="mb-4 ">
+                      <h1 className="text-3xl font-bold mb-4 text-center p-8 text-gray-600 ">
+                        Change Your Password
+                      </h1>
+                      <label
+                        className="block  text-xl font-bold mb-2 text-primary"
+                        htmlFor="password"
+                      >
+                        New Password
+                      </label>
+                      <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter New Password"
+                        onChange={handleChange}
+                        className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                      />
+
+                      <label
+                        className="block  text-xl font-bold my-2 text-primary"
+                        htmlFor="confirm-password"
+                      >
+                        Confirm Password
+                      </label>
+                      <input
+                        type="password"
+                        id="confirm-password"
+                        name="confirmPassword"
+                        value={confirmPassword}
+                        placeholder="Repeat New Password"
+                        onChange={handleConfirmPasswordChange}
+                        className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                      />
+
+                      {error && (
+                        <p className="text-red-500 text-sm mt-2">{error}</p>
+                      )}
+
+                      <div className="flex justify-center gap-6 mt-4">
+                        <button
+                          type="submit"
+                          className="font-bold btn btn-secondary text-primary text-xl w-full flex-1 border-2 border-primary hover:text-secondary hover:btn-primary"
+                        >
+                          Change
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          {/*Themes Section*/}
+          <div className="flex flex-col flex-1 w-full bg-white px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
+            <h2 className="text-3xl font-bold mb-4 text-center p-8  text-primary">
+              Themes
+            </h2>
+            <Themes />
+          </div>
         </div>
-        <form
-          onSubmit={handleEdit}
-          className="flex flex-col flex-1 bg-base-100  px-8 pt-8 pb-14  shadow appearance-none rounded-xl leading-tight"
-        >
-          <div className="mb-4">
-            <h1 className="text-4xl font-bold mb-4 text-center p-8">
-              Change Your Profile Picture
-            </h1>
-            <label
-              className="block text-xl text-base-content  font-bold mb-2"
-              htmlFor="profilePicture"
-            >
-              Profile Picture
-            </label>
-            <input
-              type="text"
-              id="profilePicture"
-              name="profilePicture"
-              placeholder="Update ProfilePicture Photo URL Here!"
-              onChange={handleChange}
-              className="shadow border-base-300  focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-            <div className="flex justify-center gap-6 mt-4">
-              <button
-                type="submit"
-                className="font-bold btn btn-primary text-xl w-full flex-1"
-              >
-                Change
-              </button>
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <h1 className="text-4xl font-bold mb-4 text-center p-8">
-              Change Your Email
-            </h1>
-            <label
-              className="block text-xl text-base-content font-bold mb-2"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              placeholder="Enter New Email"
-              onChange={handleChange}
-              className="shadow border-base-300 focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-            <div className="flex justify-center gap-6 mt-4">
-              <button
-                type="submit"
-                className="font-bold btn btn-primary text-xl w-full flex-1"
-              >
-                Change
-              </button>
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <h1 className="text-4xl font-bold mb-4 text-center p-8">
-              Change Your Name
-            </h1>
-            <label
-              className="block text-xl text-base-content font-bold mb-2"
-              htmlFor="firstname"
-            >
-              First Name
-            </label>
-            <input
-              type="text"
-              id="firstname"
-              name="firstname"
-              placeholder="Enter New First Name"
-              onChange={handleChange}
-              className="shadow border-base-300 focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-            <label
-              className="block text-xl text-base-content font-bold mb-2"
-              htmlFor="lastname"
-            >
-              Last Name
-            </label>
-            <input
-              type="text"
-              id="lastname"
-              name="lastname"
-              placeholder="Enter New First Name"
-              onChange={handleChange}
-              className="shadow border-base-300 focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-            <div className="flex justify-center gap-6 mt-4">
-              <button
-                type="submit"
-                className="font-bold btn btn-primary text-xl w-full flex-1"
-              >
-                Change
-              </button>
-            </div>
-          </div>
-
-          <div className="flex justify-center gap-6 mt-4">
-            <Link to={`/profile`} className="flex">
-              <button className="font-bold btn btn-error text-xl w-full ">
-                Go to your profile
-              </button>
-            </Link>
-          </div>
-        </form>
-        <form onSubmit={handlePasswordEdit}>
-          <div className="mb-4">
-            <h1 className="text-4xl font-bold mb-4 text-center p-8">
-              Change Your Password
-            </h1>
-            <label
-              className="block text-xl text-base-content  font-bold mb-2"
-              htmlFor="password"
-            >
-              New Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter New Password"
-              onChange={handleChange}
-              className="shadow border-base-300  focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-
-            <label
-              className="block text-xl text-base-content  font-bold mb-2"
-              htmlFor="confirm-password"
-            >
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirm-password"
-              name="confirmPassword"
-              value={confirmPassword}
-              placeholder="Repeat New Password"
-              onChange={handleConfirmPasswordChange}
-              className="shadow border-base-300  focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-
-            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-
-            <div className="flex justify-center gap-6 mt-4">
-              <button
-                type="submit"
-                className="font-bold btn btn-primary text-xl w-full flex-1"
-              >
-                Change
-              </button>
-            </div>
-          </div>
-        </form>
       </div>
-    </>
+    </div>
   );
 }

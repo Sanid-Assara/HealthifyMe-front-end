@@ -60,7 +60,7 @@ export default function Login() {
 
         window.dispatchEvent(new Event("authChanged"));
 
-        navigate("/profile");
+        navigate("/my-recipes");
       } else {
         setErrors({ form: "Login failed, please try again." });
       }

@@ -18,7 +18,7 @@ export default function CardRecipe({ recipe }) {
             className="w-full h-full object-cover"
           />
           <Link to={`/recipes/details/${recipe._id}`}>
-            <div className="bg-neutral text-base-100 font-bold opacity-70 absolute bottom-0 left-0 right-0 text-center content-center h-full translate-y-full transition group-hover:translate-y-0">
+            <div className="bg-neutral text-base-90 text-5xl font-bold opacity-70 absolute bottom-0 left-0 right-0 text-center content-center h-full translate-y-full transition group-hover:translate-y-0">
               See recipe
             </div>
           </Link>

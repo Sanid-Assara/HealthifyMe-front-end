@@ -124,7 +124,6 @@ const SearchProvider = ({ children }) => {
         updateSearch,
         handleSearch,
         loading,
-        selectedDiet,
         selectedHealth,
         handleDiet,
         handleHealth,

@@ -48,7 +48,7 @@ export default function RecipeDetail() {
             className="w-full h-full object-cover"
           />
           <Link to={`/profile`}>
-            <div className="text-5xl bg-neutral text-base-100 font-bold opacity-70 absolute bottom-0 left-0 right-0 text-center content-center h-full translate-y-full transition group-hover:translate-y-0">
+            <div className="text-5xl bg-neutral text-base-90 font-bold opacity-70 absolute bottom-0 left-0 right-0 text-center content-center h-full translate-y-full transition group-hover:translate-y-0">
               Go back
             </div>
           </Link>

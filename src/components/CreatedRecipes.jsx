@@ -37,15 +37,21 @@ export default function CreatedRecipes() {
   }, []);
 
   return (
-    <>
+    <div className="container mx-auto">
       <h1 className="text-4xl font-extrabold">Created Recipes:</h1>
-      <div className="container m-auto min-h-screen py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-8">
-          {recipes.map((recipe) => (
-            <UserRecipeCard key={recipe._id} recipe={recipe} />
-          ))}
-        </div>
+      <div className="container mx-auto">
+        {recipes.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-8 mt-4 mb-4">
+            {recipes.map((recipe) => (
+              <UserRecipeCard key={recipe._id} recipe={recipe} />
+            ))}
+          </div>
+        ) : (
+          <div className="my-4 md:my-8 lg:my-12 xl:my-24 text-2xl text-center">
+            No added recipe
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }

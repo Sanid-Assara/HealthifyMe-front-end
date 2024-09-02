@@ -151,64 +151,16 @@ export default function Settings() {
               Email
             </label>
             <input
-              required
               type="text"
               id="email"
               name="email"
-              value={userEdit.email}
+              placeholder="Enter New Email"
               onChange={handleChange}
               className="shadow border-base-300 focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
             <div className="flex justify-center gap-6 mt-4">
               <button
                 type="submit"
-                className="font-bold btn btn-primary text-xl w-full flex-1"
-              >
-                Change
-              </button>
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <h1 className="text-4xl font-bold mb-4 text-center p-8">
-              Change Your Password
-            </h1>
-            <label
-              className="block text-xl text-base-content  font-bold mb-2"
-              htmlFor="password"
-            >
-              New Password
-            </label>
-            <input
-              required
-              type="password"
-              id="password"
-              name="password"
-              value={userEdit.password}
-              onChange={handleChange}
-              className="shadow border-base-300  focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-
-            <label
-              className="block text-xl text-base-content  font-bold mb-2"
-              htmlFor="confirm-password"
-            >
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirm-password"
-              name="confirmPassword"
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
-              className="shadow border-base-300  focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-
-            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-
-            <div className="flex justify-center gap-6 mt-4">
-              <button
-                onSubmit={handlePasswordEdit}
                 className="font-bold btn btn-primary text-xl w-full flex-1"
               >
                 Change
@@ -227,11 +179,10 @@ export default function Settings() {
               First Name
             </label>
             <input
-              required
               type="text"
               id="firstname"
               name="firstname"
-              value={userEdit.firstname}
+              placeholder="Enter New First Name"
               onChange={handleChange}
               className="shadow border-base-300 focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
@@ -242,11 +193,10 @@ export default function Settings() {
               Last Name
             </label>
             <input
-              required
               type="text"
               id="lastname"
               name="lastname"
-              value={userEdit.lastname}
+              placeholder="Enter New First Name"
               onChange={handleChange}
               className="shadow border-base-300 focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
@@ -266,6 +216,54 @@ export default function Settings() {
                 Go to your profile
               </button>
             </Link>
+          </div>
+        </form>
+        <form onSubmit={handlePasswordEdit}>
+          <div className="mb-4">
+            <h1 className="text-4xl font-bold mb-4 text-center p-8">
+              Change Your Password
+            </h1>
+            <label
+              className="block text-xl text-base-content  font-bold mb-2"
+              htmlFor="password"
+            >
+              New Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter New Password"
+              onChange={handleChange}
+              className="shadow border-base-300  focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+
+            <label
+              className="block text-xl text-base-content  font-bold mb-2"
+              htmlFor="confirm-password"
+            >
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirmPassword"
+              value={confirmPassword}
+              placeholder="Repeat New Password"
+              onChange={handleConfirmPasswordChange}
+              className="shadow border-base-300  focus:ring-2 focus:-ring-accent text-lg appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+
+            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+
+            <div className="flex justify-center gap-6 mt-4">
+              <button
+                type="submit"
+                className="font-bold btn btn-primary text-xl w-full flex-1"
+              >
+                Change
+              </button>
+            </div>
           </div>
         </form>
       </div>

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import Search from "../components/Search";
 import CardRecipe from "../components/CardRicipe";
 import SkeletonCard from "../components/SkeletonCard";
@@ -6,8 +6,15 @@ import { SearchContext } from "../context/SearchProvider";
 import { Link } from "react-router-dom";
 
 export default function RecipeExploration() {
-  const { recipes, query, selectedDiet, selectedHealth, nextPage } =
-    useContext(SearchContext);
+  const {
+    recipes,
+    query,
+    selectedDiet,
+    selectedHealth,
+    nextPage,
+    nextRecipes,
+  } = useContext(SearchContext);
+
   return (
     <>
       <div className="min-h-screen bg-base-200">
@@ -29,6 +36,12 @@ export default function RecipeExploration() {
                   <CardRecipe key={r.recipe.uri} recipe={r.recipe} />
                 ))}
               </div>
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                {nextRecipes.map((r) => (
+                  <CardRecipe key={r.recipe.uri} recipe={r.recipe} />
+                ))}
+              </div>
+
               <div className="join flex justify-center lg:justify-evenly py-10">
                 <button className="join-item btn btn-secondary w-36">
                   More

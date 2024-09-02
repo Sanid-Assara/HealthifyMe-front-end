@@ -105,9 +105,6 @@ export default function Settings() {
           Settings
         </h1>
 
-        <div className="container m-auto px-10 lg:px-0 py-12">
-          <Themes />
-        </div>
         <form
           onSubmit={handleEdit}
           className="flex flex-col flex-1 bg-base-100  px-8 pt-8 pb-14  shadow appearance-none rounded-xl leading-tight"
@@ -268,6 +265,12 @@ export default function Settings() {
             </Link>
           </div>
         </form>
+        <div className="container m-auto px-10 lg:px-0 py-12">
+          <p className="text-center font-bold text-3xl">
+            Select your color theme
+          </p>
+          <Themes />
+        </div>
       </div>
     </>
   );

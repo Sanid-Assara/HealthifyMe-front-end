@@ -50,8 +50,8 @@ const SearchProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [selectedDiet, setSelectedDiet] = useState(dietOptions[0].value);
   const [selectedHealth, setSelectedHealth] = useState(healthOptions[0].value);
-  const [nextPage, setNextPage] = useState(true);
-  const [PrevPage, setPrevPage] = useState(false);
+  const [nextPage, setNextPage] = useState("");
+  const [nextRecipes, setnextRecipes] = useState([]);
 
   const baseUrl =
     `https://api.edamam.com/api/recipes/v2?type=public&app_id=` +
@@ -87,11 +87,18 @@ const SearchProvider = ({ children }) => {
       .then((res) => {
         setRecipes(res.data.hits);
         setNextPage(res.data._links.next.href);
+        console.log(nextPage);
       })
       .catch((err) => console.log(err))
       .finally(() => {
         setLoading(false);
       });
+  };
+
+  const moreRecipes = () => {
+    axios.get(`${nextPage}`).then((res) => {
+      setnextRecipes(res.data.hits);
+    });
   };
 
   useEffect(() => {
@@ -103,6 +110,10 @@ const SearchProvider = ({ children }) => {
       );
     } else {
       apiCall(`${baseUrl}&q=${query}`);
+    }
+    if (nextPage) {
+      moreRecipes(`${nextPage}`);
+      console.log(nextRecipes);
     }
   }, [query]);
 
@@ -124,6 +135,7 @@ const SearchProvider = ({ children }) => {
         handleDiet,
         handleHealth,
         nextPage,
+        nextRecipes,
       }}
     >
       {children}

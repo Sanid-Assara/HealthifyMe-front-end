@@ -18,7 +18,7 @@ import RecipeExploration from "./pages/RecipeExploration";
 import Settings from "./pages/Settings";
 import Signup from "./pages/Signup";
 import Success from "./pages/Success";
-import Profile from "./pages/Profile";
+import MyRecipes from "./pages/MyRecipes";
 import WorkoutExploration from "./pages/WorkoutExploration";
 import NutriAnalysis from "./pages/NutritionAnalysis";
 import AddFood from "./pages/AddFood";
@@ -38,7 +38,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/success" element={<Success />} />
         <Route path="/" element={<ProtectedLayout />}>
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/my-recipes" element={<MyRecipes />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/recipes/add" element={<AddRecipe />} />
           <Route path="/foods/add" element={<AddFood />} />

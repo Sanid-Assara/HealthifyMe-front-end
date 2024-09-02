@@ -291,6 +291,7 @@ export default function AddRecipe() {
                     name="calories"
                     value={newRecipe.nutritionalInfo.calories}
                     onChange={handleChange}
+                    min={0}
                     placeholder="Enter calories"
                     className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
                   />
@@ -308,6 +309,7 @@ export default function AddRecipe() {
                     id="protein"
                     name="protein"
                     value={newRecipe.nutritionalInfo.protein}
+                    min={0}
                     onChange={handleChange}
                     placeholder="Enter protein"
                     className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
@@ -330,6 +332,7 @@ export default function AddRecipe() {
                     name="carbs"
                     value={newRecipe.nutritionalInfo.carbs}
                     onChange={handleChange}
+                    min={0}
                     placeholder="Enter carbs"
                     className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
                   />
@@ -348,6 +351,7 @@ export default function AddRecipe() {
                     name="fat"
                     value={newRecipe.nutritionalInfo.fat}
                     onChange={handleChange}
+                    min={0}
                     placeholder="Enter fat"
                     className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
                   />
@@ -428,6 +432,7 @@ export default function AddRecipe() {
                             value={ingredient.quantity}
                             onChange={(e) => handleIngredientChange(index, e)}
                             className="select-secondary mt-2 block w-full rounded-md bg-black/5 py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2"
+                            min={0}
                           />
                         </div>
 

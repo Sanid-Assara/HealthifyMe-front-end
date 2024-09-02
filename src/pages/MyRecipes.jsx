@@ -4,7 +4,7 @@ import axios from "axios";
 import CreatedRecipes from "../components/CreatedRecipes";
 import AddedFoods from "../components/AddedFoods";
 
-export default function Profile() {
+export default function MyRecipes() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
@@ -38,11 +38,6 @@ export default function Profile() {
     <>
       <div className="flex flex-col items-center justify-center bg-gray-100">
         <div className="flex justify-start items-start gap-4 my-8">
-          <Link to="/nutri-analysis">
-            <button className="btn btn-accent w-56 text-base-100">
-              Nutrition Analysis
-            </button>
-          </Link>
           <Link to="/recipes/add">
             <button className="btn btn-secondary w-36">Create Recipe</button>
           </Link>

@@ -15,12 +15,11 @@ export default function Login() {
     let tempErrors = {};
     let isValid = true;
 
-    // Email validation
     if (!form.email) {
       tempErrors.email = "Email is required!";
       isValid = false;
     }
-    // Password validation
+
     if (!form.password) {
       tempErrors.password = "Password is required!";
       isValid = false;
@@ -40,12 +39,11 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validate form
     if (!validateForm()) return;
+
     try {
       setLoading(true);
 
-      // API call to login
       const response = await axios.post(
         "https://healthifyme-api.onrender.com/API/users/login",
         {
@@ -53,21 +51,15 @@ export default function Login() {
           password: form.password,
         },
         {
-          withCredentials: true, // To ensure cookies (like JWT) are stored
+          withCredentials: true,
         }
       );
 
-      console.log(response.data);
-
-      // Assuming response contains a message and token
       if (response.data.token) {
-        // Store the token in localStorage or cookies (depends on your requirement)
         localStorage.setItem("token", response.data.token);
 
-        // Dispatch the custom event
         window.dispatchEvent(new Event("authChanged"));
 
-        // Redirect user after successful login
         navigate("/profile");
       } else {
         setErrors({ form: "Login failed, please try again." });

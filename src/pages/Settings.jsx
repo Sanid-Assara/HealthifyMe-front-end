@@ -99,7 +99,7 @@ export default function Settings() {
       });
   };
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-base-200">
       <div className=" container m-auto px-10 lg:px-0">
         <h1 className="text-4xl font-bold text-primary text-center pt-16">
           Settings
@@ -110,7 +110,7 @@ export default function Settings() {
             <form onSubmit={handleEdit} className="flex flex-col gap-8">
               {/*Section 1*/}
               <div className="flex gap-8">
-                <div className="flex flex-col flex-1 bg-white px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
+                <div className="flex flex-col flex-1 bg-base-100 px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
                   <h1 className="text-3xl font-bold mb-4 text-center p-8 text-gray-600 ">
                     Change Your Profile Picture
                   </h1>
@@ -143,7 +143,7 @@ export default function Settings() {
                   </div>
                 </div>
 
-                <div className="flex flex-col flex-1 bg-white px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
+                <div className="flex flex-col flex-1 bg-base-100 px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
                   <h1 className="text-3xl font-bold mb-4 text-center p-8 text-gray-600 ">
                     Change Your Name
                   </h1>
@@ -188,7 +188,7 @@ export default function Settings() {
 
               {/*Section 2*/}
               <div className="flex gap-8">
-                <div className="flex flex-col flex-1 bg-white px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
+                <div className="flex flex-col flex-1 bg-base-100 px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
                   <h1 className="text-3xl font-bold mb-4 text-center p-8 text-gray-600 ">
                     Change Your Email
                   </h1>
@@ -253,7 +253,7 @@ export default function Settings() {
                       />
 
                       {error && (
-                        <p className="text-red-500 text-sm mt-2">{error}</p>
+                        <p className="text-error text-sm mt-2">{error}</p>
                       )}
 
                       <div className="flex justify-center gap-6 mt-4">
@@ -272,10 +272,13 @@ export default function Settings() {
           </div>
 
           {/*Themes Section*/}
-          <div className="flex flex-col flex-1 w-full bg-white px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
-            <h2 className="text-3xl font-bold mb-4 text-center p-8  text-primary">
+          <div className="flex flex-col flex-1 w-full bg-base-100 px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
+            <h2 className="text-3xl font-bold mb-4 text-center pt-8  text-primary">
               Themes
             </h2>
+            <p className="text-center text-lg text-neutral">
+              Select your color Theme
+            </p>
             <Themes />
           </div>
         </div>

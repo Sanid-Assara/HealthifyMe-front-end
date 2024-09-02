@@ -73,7 +73,7 @@ export default function UserAccess() {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow text-neutral"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow text-neutral-content"
             >
               <li>
                 <NavLink to="/profile">Profile</NavLink>

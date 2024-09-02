@@ -23,6 +23,7 @@ import WorkoutExploration from "./pages/WorkoutExploration";
 import NutriAnalysis from "./pages/NutritionAnalysis";
 import AddFood from "./pages/AddFood";
 import RecipeDetailEdamam from "./pages/RecipeDetailEdamam";
+import Themes from "./components/Themes";
 
 function App() {
   const router = createBrowserRouter(

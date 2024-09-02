@@ -50,17 +50,14 @@ const SearchProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [selectedDiet, setSelectedDiet] = useState(dietOptions[0].value);
   const [selectedHealth, setSelectedHealth] = useState(healthOptions[0].value);
-  const [nextPage, setNextPage] = useState(true);
-  const [PrevPage, setPrevPage] = useState(false);
+  const [nextPage, setNextPage] = useState("");
+  const [nextRecipes, setnextRecipes] = useState([]);
 
   const baseUrl =
     `https://api.edamam.com/api/recipes/v2?type=public&app_id=` +
     import.meta.env.VITE_APP_ID +
     "&app_key=" +
     import.meta.env.VITE_APP_KEY;
-
-  // https://api.edamam.com/api/recipes/v2?type=public&q=fish&app_id=73c6a329&app_key=d4bab8f8937b171382e737fcbab42fa0&diet=high-protein&health=egg-free
-  // https://api.edamam.com/api/recipes/v2?q=fish&app_key=d4bab8f8937b171382e737fcbab42fa0&_cont=CHcVQBtNNQphDmgVQntAEX4BYUtxBwcARWRGAGUWYlVyBAcCUXlSBWASN1B0VgIAS2QTUjATMgYnA1YPFzATBDFCalIgVwcVLnlSVSBMPkd5BgNK&health=egg-free&diet=high-protein&type=public&app_id=73c6a329
 
   const updateSearch = (e) => {
     setSearch(e.target.value);
@@ -81,7 +78,6 @@ const SearchProvider = ({ children }) => {
   };
 
   const apiCall = (url) => {
-    console.log(url);
     axios
       .get(url)
       .then((res) => {
@@ -94,6 +90,12 @@ const SearchProvider = ({ children }) => {
       });
   };
 
+  const moreRecipes = () => {
+    axios.get(`${nextPage}`).then((res) => {
+      setnextRecipes(res.data.hits);
+    });
+  };
+
   useEffect(() => {
     if (selectedDiet) {
       apiCall(`${baseUrl}&q=${query}&diet=${selectedDiet}`);
@@ -103,6 +105,9 @@ const SearchProvider = ({ children }) => {
       );
     } else {
       apiCall(`${baseUrl}&q=${query}`);
+    }
+    if (nextPage) {
+      moreRecipes(`${nextPage}`);
     }
   }, [query]);
 
@@ -123,6 +128,7 @@ const SearchProvider = ({ children }) => {
         handleDiet,
         handleHealth,
         nextPage,
+        nextRecipes,
       }}
     >
       {children}

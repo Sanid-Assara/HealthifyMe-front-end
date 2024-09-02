@@ -226,7 +226,7 @@ export default function AddRecipe() {
                     value={newRecipe.name}
                     onChange={handleChange}
                     placeholder="Enter the recipe name"
-                    className="block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                    className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
                   />
                 </div>
 
@@ -246,7 +246,7 @@ export default function AddRecipe() {
                       value={newRecipe.imageUrl}
                       onChange={handleChange}
                       placeholder="Add image url"
-                      className="block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                      className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
                     />
                     <button className="btn btn-secondary text-primary font-bold ">
                       Upload
@@ -269,7 +269,7 @@ export default function AddRecipe() {
                   value={newRecipe.description}
                   onChange={handleChange}
                   placeholder="Enter description"
-                  className="block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                  className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
                 />
               </div>
             </div>
@@ -292,7 +292,7 @@ export default function AddRecipe() {
                     value={newRecipe.nutritionalInfo.calories}
                     onChange={handleChange}
                     placeholder="Enter calories"
-                    className="block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                    className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
                   />
                 </div>
                 {/* Protein Section */}
@@ -310,7 +310,7 @@ export default function AddRecipe() {
                     value={newRecipe.nutritionalInfo.protein}
                     onChange={handleChange}
                     placeholder="Enter protein"
-                    className="block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                    className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
                   />
                 </div>
               </div>
@@ -331,7 +331,7 @@ export default function AddRecipe() {
                     value={newRecipe.nutritionalInfo.carbs}
                     onChange={handleChange}
                     placeholder="Enter carbs"
-                    className="block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                    className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
                   />
                 </div>
                 {/* Fat Section */}
@@ -349,7 +349,7 @@ export default function AddRecipe() {
                     value={newRecipe.nutritionalInfo.fat}
                     onChange={handleChange}
                     placeholder="Enter fat"
-                    className="block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                    className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
                   />
                 </div>
               </div>
@@ -391,7 +391,7 @@ export default function AddRecipe() {
                             setShowIngredientDropdown(dropdowns);
                           }}
                           readOnly
-                          className="dropdown-arrow cursor-pointer block w-full rounded-md bg-black/5 py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 pr-8"
+                          className="select select-secondary dropdown-arrow cursor-pointer block w-full rounded-md bg-black/5 py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 pr-8"
                         />
                         <div
                           ref={(ref) =>
@@ -427,7 +427,7 @@ export default function AddRecipe() {
                             placeholder="Quantity"
                             value={ingredient.quantity}
                             onChange={(e) => handleIngredientChange(index, e)}
-                            className="mt-2 block w-full rounded-md bg-black/5 py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2"
+                            className="select-secondary mt-2 block w-full rounded-md bg-black/5 py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2"
                           />
                         </div>
 
@@ -444,7 +444,7 @@ export default function AddRecipe() {
                               setShowUnitDropdown(dropdowns);
                             }}
                             readOnly
-                            className="dropdown-arrow cursor-pointer block w-full rounded-md bg-black/5 py-3 pl-10 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 "
+                            className="select select-secondary dropdown-arrow cursor-pointer block w-full rounded-md bg-black/5 py-3 pl-10 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 "
                           />
                           <div
                             ref={(ref) =>
@@ -506,7 +506,7 @@ export default function AddRecipe() {
                       <div className="flex justify-start mt-4 gap-4">
                         <div className="w-full">
                           <input
-                            className="w-full rounded-md bg-black/5 py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2"
+                            className="select-secondary w-full rounded-md bg-black/5 py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2"
                             type="text"
                             id={`step-${index}`}
                             placeholder={`Enter Step ${index + 1}`}

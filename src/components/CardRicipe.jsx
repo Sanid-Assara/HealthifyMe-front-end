@@ -5,7 +5,7 @@ export default function CardRecipe({ recipe }) {
   return (
     <>
       <div
-        className="mb-4 bg-base-100 shadow-md relative rounded-lg"
+        className=" mb-4 bg-base-100 shadow-md relative rounded-lg "
         key={recipe.uri}
       >
         <div className="flex justify-center relative overflow-hidden group cursor-pointer rounded-lg">

@@ -36,17 +36,21 @@ export default function MyRecipes() {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center bg-gray-100">
-        <div className="flex justify-start items-start gap-4 my-8">
-          <Link to="/recipes/add">
-            <button className="btn btn-secondary w-36">Create Recipe</button>
-          </Link>
-          <Link to="/foods/add">
-            <button className="btn btn-secondary w-36">Add Food</button>
-          </Link>
+      <div className="min-h-screen bg-gray-100">
+        <div className="container m-auto px-10 ">
+          <h1 className="text-4xl font-bold text-primary text-center py-16">
+            My Recipes
+          </h1>
+          <div className="flex flex-col flex-1 bg-white px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
+            <CreatedRecipes />
+          </div>
+          <h1 className="text-4xl font-bold text-primary text-center py-16">
+            My Ingredients
+          </h1>
+          <div className="flex flex-col flex-1 bg-white px-8 pt-8 pb-4 mb-12 shadow appearance-none border rounded leading-tight py-12">
+            <AddedFoods />
+          </div>
         </div>
-        <CreatedRecipes />
-        <AddedFoods />
       </div>
     </>
   );

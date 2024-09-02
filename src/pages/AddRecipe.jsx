@@ -563,7 +563,7 @@ export default function AddRecipe() {
                 >
                   Create Recipe
                 </button>
-                <Link to="/profile">
+                <Link to="/my-recipes">
                   <button className="btn text-white font-bold btn-error  w-36">
                     Cancel
                   </button>

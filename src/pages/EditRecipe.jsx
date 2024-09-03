@@ -466,6 +466,12 @@ export default function RecipeEdit() {
                               {item.name}
                             </li>
                           ))}
+                          <Link
+                            to="/ingredients/add"
+                            className="bg-secondary text-primary hover:text-secondary  hover:bg-primary text-xl rounded-lg   m-1  font-bold  flex items-center justify-center  border-2 border-primary    cursor-pointer list-none  text-center"
+                          >
+                            <li>+</li>
+                          </Link>
                         </div>
                       </div>
                       {/* Quantity and Units */}

@@ -34,19 +34,20 @@ export default function Navbar() {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-64 p-2 shadow text-neutral"
               >
                 <NavLink to="/">
-                  <li className="text-lg font-bold">Home</li>
+                  <li className="text-xl font-bold">Home</li>
                 </NavLink>
                 <NavLink to="/recipes/explore">
-                  <li className="text-lg font-bold">Recipes</li>
+                  <li className="text-xl font-bold">Recipes</li>
                 </NavLink>
                 <NavLink to="/workout/explore">
-                  <li className="text-lg font-bold">Workouts</li>
+                  <li className="text-xl font-bold">Workouts</li>
                 </NavLink>
                 <NavLink to="/community">
-                  <li className="text-lg font-bold">Community</li>
+                  <li className="text-xl font-bold">Community</li>
                 </NavLink>
               </ul>
             </div>
+
             <NavLink to="/" className="flex items-center justify-center">
               <img src={logo} alt="Logo HealthifyMe" width="60px" />
               <p className="text-3xl font-light pl-4 hidden lg:flex">
@@ -54,20 +55,57 @@ export default function Navbar() {
               </p>
             </NavLink>
           </div>
+
           <div className="navbar-center hidden lg:flex">
-            <ul className="menu gap-8 menu-horizontal px-1">
-              <NavLink to="/">
-                <li className="text-lg font-bold">Home</li>
-              </NavLink>
-              <NavLink to="/recipes/explore">
-                <li className="text-lg font-bold">Recipes</li>
-              </NavLink>
-              <NavLink to="/workout/explore">
-                <li className="text-lg font-bold">Workouts</li>
-              </NavLink>
-              <NavLink to="/community">
-                <li className="text-lg font-bold">Community</li>
-              </NavLink>
+            <ul className="flex items-center justify-center gap-8  px-1">
+              <li>
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-xl font-bold text-accent"
+                      : "text-xl font-bold"
+                  }
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/recipes/explore"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-xl font-bold text-accent"
+                      : "text-xl font-bold"
+                  }
+                >
+                  Recipes
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/workout/explore"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-xl font-bold text-accent"
+                      : "text-xl font-bold"
+                  }
+                >
+                  Workouts
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/community"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-xl font-bold text-accent"
+                      : "text-xl font-bold"
+                  }
+                >
+                  Community
+                </NavLink>
+              </li>
             </ul>
           </div>
 

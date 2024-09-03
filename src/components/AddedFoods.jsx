@@ -63,15 +63,15 @@ export default function AddedFoods() {
         </div>
       ) : (
         <div className="container mx-auto">
-          <div className="container mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-8 mt-4 mb-4 h-96">
-              <Link
-                className="text-primary bg-secondary font-bold text-9xl mb-4  shadow-md relative rounded-lg border-4 border-primary text-center content-center cursor-pointer hover:text-secondary hover:bg-primary"
-                to="/ingredients/add"
-              >
-                <div>+</div>
-              </Link>
-            </div>
+          <div className="flex justify-start flex-wrap gap-4  mt-4 mb-4">
+            <Link
+              to="/ingredients/add"
+              className="flex bg-secondary hover:bg-primary shadow-md  rounded-lg  h-fit px-16 pb-1 border-2 border-primary   cursor-pointer  font-bold text-4xl text-primary   hover:text-white"
+            >
+              <div>
+                <p>+</p>
+              </div>
+            </Link>
           </div>
         </div>
       )}

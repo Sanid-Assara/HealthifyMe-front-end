@@ -12,7 +12,7 @@ export default function DeleteRecipe() {
     axios
       .delete(`https://healthifyme-api.onrender.com/API/recipes/${id}`)
       .then(() => {
-        navigate("/profile");
+        navigate("/my-recipes");
       })
       .catch((err) => {
         console.log(err);
@@ -22,7 +22,7 @@ export default function DeleteRecipe() {
     <div>
       <button
         onClick={() => setIsModalOpen(true)}
-        className="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+        className="bg-error hover:bg-white text-white hover:text-error border-2 border-error hover:border-2  hover:border-error text-xl rounded-lg font-bold flex items-center justify-center cursor-pointer list-none  text-center w-36 py-3"
       >
         Delete
       </button>

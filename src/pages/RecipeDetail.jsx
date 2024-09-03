@@ -45,7 +45,7 @@ export default function RecipeDetail() {
           <div className="flex flex-col flex-1 gap-4  px-8 pt-8 pb-4  py-12">
             {/*Section 1*/}
             <div className="flex  flex-1 gap-10 bg-white px-8 pt-8 pb-8 mb-4 shadow appearance-none border rounded leading-tight py-12">
-              <div className="flex justify-center relative overflow-hidden group cursor-pointer rounded-lg max-w-lg aspect-[1/1]">
+              <div className="flex justify-center relative overflow-hidden group  rounded-lg max-w-lg aspect-[1/1]">
                 <img
                   src={imageUrl}
                   alt={description || "Recipe Image"}
@@ -162,11 +162,18 @@ export default function RecipeDetail() {
                 </div>
               </div>
 
-              <div className="flex justify-around p-4 flex-1">
-                <Link to={`/recipes/edit/${id}`}>
-                  <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
-                    Edit
-                  </button>
+              <div className="flex gap-4 justify-end items-end flex-1 self-end mb-2">
+                <Link
+                  className="bg-primary hover:bg-secondary text-secondary hover:text-primary border-2 border-primary hover:border-2  hover:border-primary text-xl rounded-lg font-bold flex items-center justify-center cursor-pointer list-none  text-center w-36 py-3"
+                  to={`/recipes/edit/${id}`}
+                >
+                  <button>Edit</button>
+                </Link>
+                <Link
+                  className=" bg-accent hover:bg-white text-white hover:text-accent border-2 border-accent hover:border-2  hover:border-accent text-xl rounded-lg font-bold flex items-center justify-center cursor-pointer list-none  text-center w-36 py-3"
+                  to={`/my-recipes`}
+                >
+                  <button>Go Back</button>
                 </Link>
                 <DeleteRecipe />
               </div>

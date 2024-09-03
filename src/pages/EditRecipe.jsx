@@ -66,6 +66,9 @@ export default function RecipeEdit() {
           name: item.name,
         }));
         setIngredientsList(idsAndNames);
+
+        console.log("idsAndNames: ", idsAndNames);
+        console.log("ingredientsList: ", ingredientsList);
       })
       .catch((err) => {
         console.error(err);
@@ -128,7 +131,16 @@ export default function RecipeEdit() {
   const handleIngredientChange = (index, event) => {
     const { name, value } = event.target;
     const ingredients = [...recipeEdit.ingredients];
-    ingredients[index][name] = value;
+
+    if (name === "ingredientItem") {
+      ingredients[index].ingredientItem = {
+        ...ingredients[index].ingredientItem,
+        name: value,
+      };
+    } else {
+      ingredients[index][name] = value;
+    }
+
     setRecipeEdit({ ...recipeEdit, ingredients });
   };
 
@@ -157,17 +169,19 @@ export default function RecipeEdit() {
     const ingredients = [...recipeEdit.ingredients];
     ingredients.splice(index, 1);
     setRecipeEdit({ ...recipeEdit, ingredients });
+
     const ingredientDropdowns = [...showIngredientDropdown];
     ingredientDropdowns.splice(index, 1);
-    setShowIngredientDropdown(ingredientDropdowns); // Remove the corresponding ingredient dropdown state
+    setShowIngredientDropdown(ingredientDropdowns);
+
     const unitDropdowns = [...showUnitDropdown];
     unitDropdowns.splice(index, 1);
-    setShowUnitDropdown(unitDropdowns); // Remove the corresponding unit dropdown state
+    setShowUnitDropdown(unitDropdowns);
   };
 
   const handleIngredientSelect = (index, ingredient) => {
     const ingredients = [...recipeEdit.ingredients];
-    ingredients[index].ingredientItem = ingredient.id;
+    ingredients[index].ingredientItem = ingredient;
     setRecipeEdit({ ...recipeEdit, ingredients });
 
     const dropdowns = [...showIngredientDropdown];
@@ -201,9 +215,21 @@ export default function RecipeEdit() {
 
   const handleEdit = (e) => {
     e.preventDefault();
+    const editedRecipe = {
+      ...recipeEdit,
+      ingredients: recipeEdit.ingredients.map((ingredient) => ({
+        ...ingredient,
+        ingredientItem:
+          ingredient.ingredientItem.id || ingredient.ingredientItem, // Handle cases where it's already an ID
+      })),
+    };
     axios
-      .put(`https://healthifyme-api.onrender.com/API/recipes/${id}`, recipeEdit)
+      .put(
+        `https://healthifyme-api.onrender.com/API/recipes/${id}`,
+        editedRecipe
+      )
       .then((res) => {
+        console.log(recipeEdit);
         navigate(`/recipes/details/${id}`);
         console.log("Recipe updated successfully", res.data);
       })
@@ -412,11 +438,7 @@ export default function RecipeEdit() {
                           id={`ingredient-${index}`}
                           name="ingredientItem"
                           placeholder="Choose Ingredient"
-                          value={
-                            ingredientsList.find(
-                              (item) => item.id === ingredient.ingredientItem
-                            )?.name || ""
-                          }
+                          value={ingredient.ingredientItem.name || ""}
                           onFocus={() => {
                             const dropdowns = [...showIngredientDropdown];
                             dropdowns[index] = true;

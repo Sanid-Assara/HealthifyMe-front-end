@@ -12,7 +12,7 @@ export default function DeleteRecipe() {
     axios
       .delete(`https://healthifyme-api.onrender.com/API/recipes/${id}`)
       .then(() => {
-        navigate("/profile");
+        navigate("/my-recipes");
       })
       .catch((err) => {
         console.log(err);

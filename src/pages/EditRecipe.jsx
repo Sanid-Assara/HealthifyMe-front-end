@@ -591,13 +591,13 @@ export default function RecipeEdit() {
               <div className="flex justify-end gap-6 mt-8 mb-4">
                 <button
                   type="submit"
-                  className="btn btn-primary font-bold w-36"
+                  className="bg-primary hover:bg-secondary text-secondary hover:text-primary border-2 border-primary hover:border-2  hover:border-primary text-xl rounded-lg font-bold flex items-center justify-center cursor-pointer list-none  text-center w-36 py-3"
                 >
-                  Save Changes
+                  Save
                 </button>
                 <Link
                   to={`/recipes/details/${id}`}
-                  className="btn text-white font-bold btn-error  w-36"
+                  className="bg-error hover:bg-white text-white hover:text-error border-2 border-error hover:border-2  hover:border-error text-xl rounded-lg font-bold flex items-center justify-center cursor-pointer list-none  text-center w-36 py-3"
                 >
                   Cancel
                 </Link>

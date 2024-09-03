@@ -18,10 +18,21 @@ export default function AddIngredient() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewIngredient((prevIngredient) => ({
-      ...prevIngredient,
-      [name]: value,
-    }));
+
+    if (["protein", "carbs", "fat"].includes(name)) {
+      setNewIngredient((prevIngredient) => ({
+        ...prevIngredient,
+        macronutrients: {
+          ...prevIngredient.macronutrients,
+          [name]: Number(value),
+        },
+      }));
+    } else {
+      setNewIngredient((prevIngredient) => ({
+        ...prevIngredient,
+        [name]: value,
+      }));
+    }
   };
 
   const handleCreate = (e) => {
@@ -174,7 +185,7 @@ export default function AddIngredient() {
               Create
             </button>
             <Link
-              to="/my-innewIngredients"
+              to="/my-recipes"
               className="bg-error hover:bg-white text-white hover:text-error border-2 border-error hover:border-2  hover:border-error text-xl rounded-lg font-bold flex items-center justify-center cursor-pointer list-none  text-center w-36 py-3"
             >
               <button>Cancel</button>

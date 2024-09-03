@@ -22,7 +22,9 @@ import MyRecipes from "./pages/MyRecipes";
 import WorkoutExploration from "./pages/WorkoutExploration";
 import NutriAnalysis from "./pages/NutritionAnalysis";
 import AddIngredient from "./pages/AddIngredient";
+import IngredientDetail from "./pages/IngredientDetail";
 import RecipeDetailEdamam from "./pages/RecipeDetailEdamam";
+
 import Themes from "./components/Themes";
 
 function App() {
@@ -44,6 +46,10 @@ function App() {
           <Route path="/ingredients/add" element={<AddIngredient />} />
           <Route path="/recipes/edit/:id" element={<EditRecipe />} />
           <Route path="/recipes/details/:id" element={<RecipeDetail />} />
+          <Route
+            path="/ingredients/details/:id"
+            element={<IngredientDetail />}
+          />
         </Route>
 
         <Route path="/nutri-analysis" element={<NutriAnalysis />} />

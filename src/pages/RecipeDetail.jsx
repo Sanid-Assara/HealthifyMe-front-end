@@ -43,6 +43,7 @@ export default function RecipeDetail() {
 
   return (
     <>
+
       {isLoading ? (
         <RecipeSkeleton />
       ) : (
@@ -65,6 +66,7 @@ export default function RecipeDetail() {
                   />
                 </div>
                 {/* <div className="p-4 pb-8">
+
                 <div className="capitalize absolute top-2 right-2 flex gap-2">
                   <div className="badge badge-secondary">
                     {recipe.dietaryTags[0] ?? "Other"}
@@ -75,9 +77,19 @@ export default function RecipeDetail() {
                 </div>
               </div> */}
 
-                <div className="  flex flex-col justify-between gap-10 w-full min-h-full flex-1 ">
-                  <p className="text-2xl text-primary bg-secondary rounded-lg p-8 h-full ">
-                    {recipe.description}
+
+              <div className="  flex flex-col justify-between gap-10 w-full min-h-full flex-1 ">
+                <p className="text-2xl text-primary bg-secondary rounded-lg p-8 h-full ">
+                  {recipe.description}
+                </p>
+
+                <div className="flex justify-between  ">
+                  <p className="font-bold text-primary text-xl bg-secondary rounded-lg p-4">
+                    {ingredients.length} Ingredients
+                  </p>
+                  <p className="font-bold text-accent text-xl bg-secondary rounded-lg p-4">
+                    {Math.round(nutritionalInfo.calories ?? 0)} kilocalorie
+
                   </p>
 
                   <div className="flex justify-between  ">

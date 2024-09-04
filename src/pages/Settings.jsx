@@ -63,7 +63,7 @@ export default function Settings() {
         const event = new Event("authChanged");
         window.dispatchEvent(event);
 
-        navigate(`/profile`);
+        navigate(`/my-recipes`);
         console.log("Resource updated successfully", res.data);
       })
       .catch((err) => {
@@ -99,7 +99,7 @@ export default function Settings() {
       });
   };
   return (
-    <div className="min-h-screen bg-base-200">
+    <div className="min-h-screen bg-base-200 px-10">
       <div className=" container m-auto px-10 lg:px-0">
         <h1 className="text-4xl font-bold text-primary text-center pt-16">
           Settings

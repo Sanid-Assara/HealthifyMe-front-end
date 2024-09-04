@@ -76,7 +76,7 @@ export default function RecipeDetail() {
                     {ingredients.length} Ingredients
                   </p>
                   <p className="font-bold text-accent text-xl bg-secondary rounded-lg p-4">
-                    {Math.round(nutritionalInfo.calories ?? 0)} calories
+                    {Math.round(nutritionalInfo.calories ?? 0)} kilocalorie
                   </p>
                 </div>
               </div>

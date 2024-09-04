@@ -42,11 +42,11 @@ export default function RecipeExploration() {
                 ))}
               </div>
 
-              <div className="join flex justify-center lg:justify-evenly py-10">
+              {/* <div className="join flex justify-center lg:justify-evenly py-10">
                 <button className="join-item btn btn-secondary w-36">
                   More
                 </button>
-              </div>
+              </div> */}
             </>
           ) : (
             <>

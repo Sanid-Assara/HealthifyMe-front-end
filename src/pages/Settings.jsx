@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Themes from "../components/Themes";
+import { useForm } from "react-hook-form";
 
 export default function Settings() {
   const [userEdit, setUserEdit] = useState({
@@ -14,7 +15,33 @@ export default function Settings() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [id, setId] = useState(null);
+  const [image, setImage] = useState();
+
   const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => console.log(data.image[0]);
+
+  // const onSubmit = async (data) => {
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("image", data.image[0]);
+
+  //     const response = await axios.post(
+  //       "https://healthifyme-api.onrender.com/API/upload",
+  //       formData
+  //     );
+  //     console.log(response.data);
+  //     setImage(response.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
     axios
@@ -133,6 +160,7 @@ export default function Settings() {
                       Upload
                     </button>
                   </div>
+
                   <div className="flex justify-center gap-6 mt-4">
                     <button
                       type="submit"
@@ -281,6 +309,33 @@ export default function Settings() {
             </p>
             <Themes />
           </div>
+          {/* test images */}
+
+          {/* <div className="flex w-full bg-base-100 px-8 pt-8 pb-4 shadow border rounded leading-tight py-12">
+            <div className="flex gap-x-2 mt-6 justify-between">
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <p className="font-bold pb-2">
+                  Or choose a file from your computer
+                </p>
+                <input
+                  type="file"
+                  id="image"
+                  {...register("image")}
+                  name="image"
+                  className="file-input file-input-bordered file-input-secondary w-96 mr-6"
+                />
+                <button
+                  className="btn btn-secondary text-primary font-bold hover:text-secondary hover:btn-primary border-2 border-primary"
+                  type="submit"
+                >
+                  Upload
+                </button>
+              </form>
+            </div>
+            <div>{image && <img src={image.destination} alt="image" />}</div>
+          </div> */}
+
+          {/* end test image */}
         </div>
       </div>
     </div>

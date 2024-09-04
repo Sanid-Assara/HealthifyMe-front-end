@@ -60,138 +60,155 @@ export default function AddIngredient() {
 
   return (
     <>
-      <div className=" flex justify-center  m-auto min-h-screen py-10 max-w-lg  items-center">
-        <form
-          onSubmit={handleCreate}
-          className="flex flex-col flex-1 bg-white  px-8 pt-8 pb-4  shadow appearance-none border rounded  leading-tight"
-        >
-          <div className="mb-4">
-            <label
-              className="block text-primary text-xl font-bold mb-2"
-              htmlFor="name"
+      <div className="min-h-screen bg-gray-100">
+        <div className="container m-auto px-10 lg:px-0">
+          <h1 className="text-4xl font-bold text-primary text-center pt-16">
+            Create a New Ingredient
+          </h1>
+          <div className=" flex items-center justify-center gap-6 py-12">
+            <form
+              onSubmit={handleCreate}
+              className="flex  flex-1 gap-4  px-8 pt-8 pb-4  py-12"
             >
-              Ingredient Name
-            </label>
-            <input
-              required
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Brand Ingredient Name"
-              onChange={handleChange}
-              className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-primary text-xl font-bold mb-2"
-              htmlFor="brand"
-            >
-              Brand Name
-            </label>
-            <input
-              required
-              type="text"
-              id="brand"
-              name="brand"
-              placeholder="Enter Brand Name"
-              onChange={handleChange}
-              className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
-            />
-          </div>
+              {/* Section 1*/}
+              <div className="flex flex-col flex-1 bg-white px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
+                {/* Calories Section */}
+                <div className="mb-4">
+                  <label
+                    className="block text-primary text-xl font-bold mb-2"
+                    htmlFor="calories"
+                  >
+                    Calories
+                  </label>
+                  <input
+                    required
+                    type="number"
+                    id="calories"
+                    name="calories"
+                    min={0}
+                    placeholder="Enter Calories"
+                    onChange={handleChange}
+                    className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                  />
+                </div>
 
-          {/* Calories Section */}
-          <div className="mb-4">
-            <label
-              className="block text-primary text-xl font-bold mb-2"
-              htmlFor="calories"
-            >
-              Calories
-            </label>
-            <input
-              required
-              type="number"
-              id="calories"
-              name="calories"
-              min={0}
-              placeholder="Enter Calories"
-              onChange={handleChange}
-              className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
-            />
-          </div>
+                {/* Protein Section */}
+                <div className="mb-4 flex-1">
+                  <label
+                    className="block text-primary text-xl font-bold mb-2"
+                    htmlFor="protein"
+                  >
+                    Protein (g)
+                  </label>
+                  <input
+                    type="number"
+                    id="protein"
+                    name="protein"
+                    min={0}
+                    onChange={handleChange}
+                    placeholder="Enter protein"
+                    className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                  />
+                </div>
 
-          {/* Protein Section */}
-          <div className="mb-4 flex-1">
-            <label
-              className="block text-primary text-xl font-bold mb-2"
-              htmlFor="protein"
-            >
-              Protein (g)
-            </label>
-            <input
-              type="number"
-              id="protein"
-              name="protein"
-              min={0}
-              onChange={handleChange}
-              placeholder="Enter protein"
-              className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
-            />
-          </div>
+                {/* Carbs Section */}
+                <div className="mb-4 flex-1">
+                  <label
+                    className="block text-primary text-xl font-bold mb-2"
+                    htmlFor="carbs"
+                  >
+                    Carbs (g)
+                  </label>
+                  <input
+                    type="number"
+                    id="carbs"
+                    name="carbs"
+                    onChange={handleChange}
+                    min={0}
+                    placeholder="Enter carbs"
+                    className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                  />
+                </div>
 
-          {/* Carbs Section */}
-          <div className="mb-4 flex-1">
-            <label
-              className="block text-primary text-xl font-bold mb-2"
-              htmlFor="carbs"
-            >
-              Carbs (g)
-            </label>
-            <input
-              type="number"
-              id="carbs"
-              name="carbs"
-              onChange={handleChange}
-              min={0}
-              placeholder="Enter carbs"
-              className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
-            />
-          </div>
+                {/* Fat Section */}
+                <div className="mb-4 flex-1">
+                  <label
+                    className="block text-primary text-xl font-bold mb-2"
+                    htmlFor="fat"
+                  >
+                    Fat (g)
+                  </label>
+                  <input
+                    type="number"
+                    id="fat"
+                    name="fat"
+                    onChange={handleChange}
+                    min={0}
+                    placeholder="Enter fat"
+                    className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                  />
+                </div>
+              </div>
 
-          {/* Fat Section */}
-          <div className="mb-4 flex-1">
-            <label
-              className="block text-primary text-xl font-bold mb-2"
-              htmlFor="fat"
-            >
-              Fat (g)
-            </label>
-            <input
-              type="number"
-              id="fat"
-              name="fat"
-              onChange={handleChange}
-              min={0}
-              placeholder="Enter fat"
-              className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
-            />
-          </div>
+              {/* Section 2*/}
+              <div className="flex flex-col flex-1 justify-between bg-white px-8 pt-8 pb-4 shadow appearance-none border rounded leading-tight py-12">
+                <div className="flex flex-col">
+                  <div className="mb-4">
+                    <label
+                      className="block text-primary text-xl font-bold mb-2"
+                      htmlFor="name"
+                    >
+                      Ingredient Name
+                    </label>
+                    <input
+                      required
+                      type="text"
+                      id="name"
+                      name="name"
+                      placeholder="Brand Ingredient Name"
+                      onChange={handleChange}
+                      className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      className="block text-primary text-xl font-bold mb-2"
+                      htmlFor="brand"
+                    >
+                      Brand Name
+                    </label>
+                    <input
+                      required
+                      type="text"
+                      id="brand"
+                      name="brand"
+                      placeholder="Enter Brand Name"
+                      onChange={handleChange}
+                      className="select-secondary block w-full rounded-md  bg-black/5  py-3 px-2 text-dark shadow-sm ring-3 focus:outline-none focus:border-primary focus:text-primary border-2 p-2"
+                    />
+                  </div>
+                </div>
 
-          <div className="flex gap-6">
-            <button
-              type="submit"
-              className="bg-primary hover:bg-secondary text-secondary hover:text-primary border-2 border-primary hover:border-2  hover:border-primary text-xl rounded-lg font-bold flex items-center justify-center cursor-pointer list-none  text-center w-36 py-3"
-            >
-              Create
-            </button>
-            <Link
-              to="/my-recipes"
-              className="bg-error hover:bg-white text-white hover:text-error border-2 border-error hover:border-2  hover:border-error text-xl rounded-lg font-bold flex items-center justify-center cursor-pointer list-none  text-center w-36 py-3"
-            >
-              <button>Cancel</button>
-            </Link>
+                {/* Buttons Section */}
+                <div className="flex gap-6 self-end mb-4">
+                  <button
+                    type="submit"
+                    className="bg-primary hover:bg-secondary text-secondary hover:text-primary border-2 border-primary hover:border-2  hover:border-primary text-xl rounded-lg font-bold flex items-center justify-center cursor-pointer list-none  text-center w-36 py-3"
+                  >
+                    Create
+                  </button>
+                  <Link
+                    to="/my-recipes"
+                    className="bg-error hover:bg-white text-white hover:text-error border-2 border-error hover:border-2  hover:border-error text-xl rounded-lg font-bold flex items-center justify-center cursor-pointer list-none  text-center w-36 py-3"
+                  >
+                    <button>Cancel</button>
+                  </Link>
+                </div>
+              </div>
+            </form>
           </div>
-        </form>
+          <div className="flex items-center justify-center gap-6 py-12"></div>
+        </div>
       </div>
     </>
   );

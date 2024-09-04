@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 import AddRecipe from "./pages/AddRecipe";
 import Community from "./pages/Community";
 import EditRecipe from "./pages/EditRecipe";
+import EditIngredient from "./pages/EditIngredient";
 import Login from "./pages/Login";
 import RecipeDetail from "./pages/RecipeDetail";
 import RecipeExploration from "./pages/RecipeExploration";
@@ -45,6 +46,8 @@ function App() {
           <Route path="/recipes/add" element={<AddRecipe />} />
           <Route path="/ingredients/add" element={<AddIngredient />} />
           <Route path="/recipes/edit/:id" element={<EditRecipe />} />
+          <Route path="/ingredients/edit/:id" element={<EditIngredient />} />
+
           <Route path="/recipes/details/:id" element={<RecipeDetail />} />
           <Route
             path="/ingredients/details/:id"

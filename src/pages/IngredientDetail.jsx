@@ -34,7 +34,7 @@ export default function IngredientDetail() {
 
   return (
     <>
-      <div className="flex flex-col gap-y-10 items-center py-10">
+      <div className="flex flex-col gap-y-10 items-center py-10 px-4">
         <h1 className="text-3xl text-center text-accent font-bold capitalize">
           {ingredient.name}
         </h1>

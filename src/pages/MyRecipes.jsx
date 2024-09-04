@@ -36,7 +36,7 @@ export default function MyRecipes() {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-100">
+      <div className="min-h-screen bg-gray-100 px-4">
         <div className="container m-auto px-10 ">
           <h1 className="text-4xl font-bold text-primary text-center py-16">
             My Recipes

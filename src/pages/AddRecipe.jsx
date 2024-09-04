@@ -197,7 +197,7 @@ export default function AddRecipe() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 px-4">
       <div className="container m-auto px-10 lg:px-0">
         <h1 className="text-4xl font-bold text-primary text-center pt-16">
           Create a New Recipe
@@ -565,12 +565,12 @@ export default function AddRecipe() {
               <div className="flex justify-end gap-6 mt-8 mb-4">
                 <button
                   type="submit"
-                  className="btn btn-primary font-bold w-36"
+                  className="bg-primary hover:bg-secondary text-secondary hover:text-primary border-2 border-primary hover:border-2  hover:border-primary text-xl rounded-lg font-bold flex items-center justify-center cursor-pointer list-none  text-center w-36 py-3"
                 >
-                  Create Recipe
+                  Create
                 </button>
                 <Link to="/my-recipes">
-                  <button className="btn text-white font-bold btn-error  w-36">
+                  <button className="bg-error hover:bg-white text-white hover:text-error border-2 border-error hover:border-2  hover:border-error text-xl rounded-lg font-bold flex items-center justify-center cursor-pointer list-none  text-center w-36 py-3">
                     Cancel
                   </button>
                 </Link>

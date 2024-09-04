@@ -4,20 +4,24 @@ function ConfirmModal({ isOpen, onClose, onConfirm }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-5 rounded-lg shadow-lg">
-        <h2 className="text-lg font-bold mb-4">Confirm Deletion</h2>
-        <p className="mb-4">Are you sure you want to delete this Recipe?</p>
-        <div className="flex justify-end">
+    <div className="fixed inset-0 bg-primary bg-opacity-50 flex justify-center items-center">
+      <div className="bg-white py-6 px-10 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold mb-4 text-gray-800">
+          Confirm Deletion
+        </h2>
+        <p className="mb-4 text-xl text-primary font-bold">
+          Are you sure you want to delete this Recipe?
+        </p>
+        <div className="flex gap-4 justify-end">
           <button
             onClick={onClose}
-            className="bg-gray-300 text-black font-bold py-2 px-4 rounded mr-2 hover:bg-gray-400"
+            className="bg-primary hover:bg-secondary text-secondary hover:text-primary border-2 border-primary hover:border-2  hover:border-primary text-lg rounded-lg font-bold flex items-center justify-center cursor-pointer list-none  text-center w-24 py-2"
           >
             Cancel
           </button>
           <button
             onClick={onConfirm}
-            className="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600"
+            className="bg-error hover:bg-white text-white hover:text-error border-2 border-error hover:border-2  hover:border-error text-lg rounded-lg font-bold flex items-center justify-center cursor-pointer list-none  text-center w-24 py-2"
           >
             Delete
           </button>

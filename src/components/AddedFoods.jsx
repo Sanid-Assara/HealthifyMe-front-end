@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { TextSkeleton } from "./CustomSkeleton";
 export default function AddedFoods() {
   const [ingredients, setIngredients] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getIngredientsByUser = async () => {
@@ -21,12 +23,13 @@ export default function AddedFoods() {
         const ingredientsRes = await axios.get(
           "https://healthifyme-api.onrender.com/API/ingredients/"
         );
-
-        const filteredIngredients = ingredientsRes.data.filter(
-          (ingredient) => ingredient.addedBy._id === userID
-        );
-
-        setIngredients(filteredIngredients);
+        if (ingredientsRes.status === 200) {
+          const filteredIngredients = ingredientsRes.data.filter(
+            (ingredient) => ingredient.addedBy._id === userID
+          );
+          setIngredients(filteredIngredients);
+          setIsLoading(false);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -36,7 +39,17 @@ export default function AddedFoods() {
   }, []);
   return (
     <>
-      {ingredients.length > 0 ? (
+      {isLoading ? (
+        <div className="container mx-auto">
+          <div className="flex justify-start flex-wrap gap-4  mt-4 mb-4">
+            {Array(8)
+              .fill("")
+              .map((_, i) => (
+                <TextSkeleton width={"w-32"} height={"h-12"} />
+              ))}
+          </div>
+        </div>
+      ) : ingredients.length > 0 ? (
         <div className="container mx-auto">
           <div className="flex justify-start flex-wrap gap-4  mt-4 mb-4">
             {ingredients.map((ingredient) => (

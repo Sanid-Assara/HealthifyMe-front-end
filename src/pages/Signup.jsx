@@ -212,7 +212,7 @@ export default function Signup() {
               className={`flex w-full justify-center rounded-md bg-primary hover:bg-primary/70 px-3 py-1.5 text-sm font-semibold leading-6 text-white ${
                 loading ? "opacity-50 cursor-not-allowed" : ""
               }`}
-              disabled={loading || !form.email || !form.password}
+              disabled={loading}
             >
               {loading ? "Signing up..." : "Create Account"}
             </button>

@@ -4,7 +4,7 @@ function ConfirmModal({ isOpen, onClose, onConfirm }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+    <div className="fixed inset-0 bg-primary bg-opacity-50 flex justify-center items-center">
       <div className="bg-white py-6 px-10 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4 text-gray-800">
           Confirm Deletion
